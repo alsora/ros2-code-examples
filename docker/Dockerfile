@@ -6,8 +6,10 @@ MAINTAINER Alberto Soragna alberto dot soragna at gmail dot com
 ENV HOME /root
 WORKDIR $HOME
 
+# create ros source and workspace directories
 RUN mkdir src & mkdir -p ros2_ws/src 
 
+# general utilities
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -25,7 +27,6 @@ RUN locale-gen en_US.UTF-8
 RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 ENV LANG en_US.UTF-8
     
-
 # ROS setup requirements
 RUN apt-get install -y \
   build-essential \
