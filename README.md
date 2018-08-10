@@ -2,7 +2,7 @@
 
 The following tutorials and examples are updated for **ROS 2 Bouncy Bolson** (2 July 2018).
 
-- [Why moving to ROS 2 ?](http://design.ros2.org/articles/why_ros2.html)
+- [Why moving to ROS 2](http://design.ros2.org/articles/why_ros2.html)
 - [Installing ROS 2](https://github.com/ros2/ros2/wiki/Installation) 
 - [Building a new package in ROS 2](https://github.com/ros2/ros2/wiki/Migration-Guide)
 - [Converting a ROS package to ROS 2](https://github.com/ros2/ros2/wiki/Migration-Guide)
