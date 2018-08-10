@@ -33,3 +33,22 @@ Run nodes inside the Docker container
 [How to run nodes in separate Docker containers](https://github.com/ros2/ros2/wiki/Run-2-nodes-in-two-separate-docker-containers)
 
 
+### Build and run your source code
+
+Create a symbolic link of the source package(s) inside the ros2 workspace
+	
+    # ln -s /root/src/examples /root/ros2_ws/src
+
+Build the sources
+
+    
+    # colcon build
+
+Install the packages to make them visible to ros2 run
+
+    # . install/setup.bash
+
+Run your stuff!
+
+    # ros2 run <PACKAGE NAME> <NODE NAME>
+
