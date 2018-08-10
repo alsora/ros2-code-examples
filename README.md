@@ -21,6 +21,10 @@ Build a Docker image and deploy a container
 Inside the Docker container, to see a list of available commands
 
     # ros2 --help
+
+Check if Rviz GUI is properly displayed
+
+    # ros2 run rviz2
     
 Run nodes inside the Docker container 
 
