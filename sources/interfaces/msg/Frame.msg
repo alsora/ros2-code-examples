@@ -1,0 +1,9 @@
+int32 height
+int32 width
+int32 pixel_format
+int64 capture_start_time
+int64 capture_finish_time
+float64 gain
+int64 exposure
+uint8[] data
+uint32 size

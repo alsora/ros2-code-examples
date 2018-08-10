@@ -1,0 +1,12 @@
+int64 res_w
+int64 res_h
+string pixel_format
+bool auto_gain
+float64 gain
+bool auto_exposure
+int64 exposure
+int64 brightness
+bool flip
+bool flop
+---
+Frame frame
