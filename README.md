@@ -24,7 +24,7 @@ Inside the Docker container, to see a list of available commands
 
 Check if Rviz GUI is properly displayed
 
-    # ros2 run rviz2
+    # ros2 run rviz2 rviz2
     
 Run nodes inside the Docker container 
 
