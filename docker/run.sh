@@ -11,6 +11,7 @@ touch $XAUTH
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 
 docker run -it --rm \
+	     --net=host \
 	     -v $XSOCK:$XSOCK:rw \
 	     -v $XAUTH:$XAUTH:rw \
 	     -e XAUTHORITY=${XAUTH} \
