@@ -1,5 +1,5 @@
 
-FROM osrf/ros2:bouncy-full
+FROM osrf/ros2:bouncy-desktop
 MAINTAINER Alberto Soragna alberto dot soragna at gmail dot com
 
 # working directory
@@ -11,9 +11,7 @@ RUN mkdir src & mkdir -p ros2_ws/src
 
 # general utilities
 RUN apt-get update && apt-get install -y \
-    git \
     curl \
-    wget \
     vim \
     nano \
     locales \
@@ -31,14 +29,32 @@ ENV LANG en_US.UTF-8
 RUN apt-get install -y \
   build-essential \
   cmake \
+  git \
   python3-colcon-common-extensions \
+  python3-pip \
   python-rosdep \
-  python3-vcstool
+  python3-vcstool \
+  wget
+  
+RUN python3 -m pip install -U \
+  argcomplete \
+  flake8 \
+  flake8-blind-except \
+  flake8-builtins \
+  flake8-class-newline \
+  flake8-comprehensions \
+  flake8-deprecated \
+  flake8-docstrings \
+  flake8-import-order \
+  flake8-quotes \
+  pytest-repeat \
+  pytest-rerunfailures
 
 # install Fast-RTPS dependencies
 RUN apt-get install --no-install-recommends -y \
   libasio-dev \
-  libtinyxml2-dev
+  libtinyxml2-dev \  
+  libopensplice67
 
 # dependencies for RViz
 RUN apt-get install -y libfreetype6-dev libfreeimage-dev libzzip-dev libxrandr-dev libxaw7-dev freeglut3-dev libgl1-mesa-dev libcurl4-openssl-dev libqt5core5a libqt5gui5 libqt5opengl5 libqt5widgets5 libxaw7-dev libgles2-mesa-dev libglu1-mesa-dev qtbase5-dev
@@ -47,7 +63,6 @@ RUN apt-get install -y libfreetype6-dev libfreeimage-dev libzzip-dev libxrandr-d
 RUN cd src && \
     git clone https://github.com/ros2/demos.git && \
     git clone https://github.com/ros2/examples && \
-    git clone https://github.com/ros2/example_interfaces.git && \
     cd ..
 
 
