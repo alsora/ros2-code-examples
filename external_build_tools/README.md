@@ -6,3 +6,33 @@ Here you find examples for building an hello-ros executable using standard build
 
 
 Additional examples can be found in this ROS1 repository ([link](https://github.com/gerkey/ros1_external_use)).
+
+
+
+
+
+
+## CMake
+
+Build 
+
+    $ mkdir build
+    $ cd build
+    $ cmake ..
+    $ make
+    
+Run
+
+    $ ./hello_ros
+    
+
+## SCons
+
+Build
+
+    $ scons
+    
+Run
+
+    $ ./hello_ros
+    
