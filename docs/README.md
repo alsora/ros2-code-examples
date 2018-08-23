@@ -21,7 +21,7 @@ Collection of links to useful documentation, FAQ and tutorials
 
 ## Docker
 
-- [Official ROS2 Docker images]
+- [Official ROS2 Docker images](https://github.com/osrf/docker_images/tree/master/ros2)
 - [ROS in Docker](https://jarisafi.wordpress.com/2018/01/17/how-i-use-docker-for-robotics-development/)
 - [How to run nodes in separate Docker containers](https://github.com/ros2/ros2/wiki/Run-2-nodes-in-two-separate-docker-containers)
 - [Using GUI in Docker](http://wiki.ros.org/docker/Tutorials/GUI)
