@@ -6,11 +6,14 @@ cxxFlags = ['-std=c++14']
 
 include_dirs = [    '/home/asoragna/ros2_sdk/ros2_ws/install/rclcpp/include', '/home/asoragna/ros2_sdk/ros2_ws/install/rcl/include','/home/asoragna/ros2_sdk/ros2_ws/install/rcl_interfaces/include','/home/asoragna/ros2_sdk/ros2_ws/install/rcutils/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosidl_typesupport_interface/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosidl_generator_c/include','/home/asoragna/ros2_sdk/ros2_ws/install/rmw/include','/home/asoragna/ros2_sdk/ros2_ws/install/builtin_interfaces/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosidl_typesupport_c/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosidl_typesupport_cpp/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosidl_generator_cpp/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosidl_typesupport_introspection_c/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosidl_typesupport_introspection_cpp/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosgraph_msgs/include','/home/asoragna/ros2_sdk/ros2_ws/install/rcl_yaml_param_parser/include']
 
+lib_files = ['/home/asoragna/ros2_sdk/ros2_ws/install/rclcpp/lib/','/home/asoragna/ros2_sdk/ros2_ws/install/rcutils/lib/']
+
 
 env = Environment()
 
 env.Append(CXXFLAGS = cxxFlags)
 env.Append(CPPPATH = include_dirs)
-
+env.Append(LIBPATH= lib_files)
+env.Append(LIBS= ['rclcpp', 'rcutils'])
 env.Program("hello_ros", ["hello_ros.cpp"])
 
