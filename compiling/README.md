@@ -110,6 +110,10 @@ $ export CROSS_COMPILE=aarch64-linux-gnu-
 Remove Python support and ignore optional packages
 
 ```
+$ sed -i -r \
+  's/<build(.+?py.+?)/<\!\-\-build\1\-\->/' \
+  src/ros2/rosidl_defaults/rosidl_default_generators/package.xml
+
 $ touch \
   src/ros-perception/laser_geometry/COLCON_IGNORE \
   src/ros/resource_retriever/COLCON_IGNORE \
@@ -138,13 +142,16 @@ $ touch \
 Build 
 ```
 colcon build \
-  --symlink-install \
+  --merge-install \
   --executor sequential \
   --cmake-force-configure \
   --cmake-args \
     --no-warn-unused-cli \
     -DCMAKE_TOOLCHAIN_FILE=`pwd`/aarch64_toolchainfile.cmake \
     -DTHIRDPARTY=ON \
+    -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
     -DBUILD_TESTING:BOOL=OFF
 ```
+
+
 
