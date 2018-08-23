@@ -9,4 +9,4 @@ int64 brightness
 bool flip
 bool flop
 ---
-Frame frame
+my_interfaces/Frame frame

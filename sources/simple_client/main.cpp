@@ -3,13 +3,13 @@
 #include <iostream>
 #include <cinttypes>
 #include <memory>
-#include "irobot_interfaces/srv/retrieve_frame.hpp"
-#include "irobot_interfaces/msg/frame.hpp"
+#include "my_interfaces/srv/retrieve_frame.hpp"
+#include "my_interfaces/msg/frame.hpp"
 #include "sensor_msgs/msg/image.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-using RetrieveFrameSrv = irobot_interfaces::srv::RetrieveFrame;
-using Frame = irobot_interfaces::msg::Frame;
+using RetrieveFrameSrv = my_interfaces::srv::RetrieveFrame;
+using Frame = my_interfaces::msg::Frame;
 using Image = sensor_msgs::msg::Image;
 using namespace std::chrono_literals;
 
@@ -20,12 +20,13 @@ Image frame2image(Frame f);
 int main(int argc, char *argv[])
 {
   rclcpp::init(argc, argv);
-  auto node = rclcpp::Node::make_shared("simple_client");
-  auto client = node->create_client<RetrieveFrameSrv>("retrieve_frame");
+  rclcpp::Node::SharedPtr node = rclcpp::Node::make_shared("simple_client");
+  rclcpp::Client<RetrieveFrameSrv>::SharedPtr client = node->create_client<RetrieveFrameSrv>("retrieve_frame");
 
   rmw_qos_profile_t custom_qos_profile = rmw_qos_profile_default;
   custom_qos_profile.depth = 7;
-  auto response_msg_publisher = node->create_publisher<Image>("image", custom_qos_profile);
+
+  rclcpp::Publisher<Image>::SharedPtr response_msg_publisher = node->create_publisher<Image>("image", custom_qos_profile);
 
   std::chrono::milliseconds milis(200);
 
@@ -41,12 +42,12 @@ int main(int argc, char *argv[])
     RCLCPP_INFO(node->get_logger(), "waiting for service to appear...")
   }
 
-  auto request = std::make_shared<RetrieveFrameSrv::Request>();
+  std::shared_ptr<RetrieveFrameSrv::Request> request = std::make_shared<RetrieveFrameSrv::Request>();
 
   while (rclcpp::ok())
   {
 
-    auto result_future = client->async_send_request(request);
+    rclcpp::Client<RetrieveFrameSrv>::SharedFuture result_future = client->async_send_request(request);
     if (rclcpp::spin_until_future_complete(node, result_future) !=
         rclcpp::executor::FutureReturnCode::SUCCESS)
     {
