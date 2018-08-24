@@ -67,9 +67,11 @@ $ vcs-import src < ros2.repos
 $ vcs-import src < ros2-for-arm.repos
 ```
 
-The steps up to this point are required both if you want to compile ROS2 on your system as well as if you want to cross-compile it for a target ARM system
+The steps up to this point are required both if you want to compile ROS2 on your system as well as if you want to cross-compile it for a target ARM system.
 
-### Compile ROS2
+The next steps on the other hand are platform dependent. 
+
+### Compile ROS2 for your host system
 
 Install dependencies using rosdep
 
@@ -139,7 +141,7 @@ $ touch \
 
 ```
 
-Build 
+Build specifying the toolchain of the target system
 ```
 colcon build \
   --merge-install \
@@ -153,5 +155,13 @@ colcon build \
     -DBUILD_TESTING:BOOL=OFF
 ```
 
+Move the cross-compiled sdk to the target system
 
+You need the address of the board. To get it open a terminal in the board and run
+
+    # hostname
+    
+Copy the installed libraries
+
+    $ rsync -Lvr --rsh=ssh install/lib root@<BOARD_ADDRESS>:/usr/lib
 
