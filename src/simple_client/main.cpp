@@ -55,8 +55,10 @@ int main(int argc, char *argv[])
       return 1;
     }
 
+    std::shared_ptr<RetrieveFrameSrv::Response> response = result_future.get();
+
     RCLCPP_INFO(node->get_logger(), "got response")
-    Image img = frame2image(result_future.get()->frame);
+    Image img = frame2image(response->frame);
     response_msg_publisher->publish(img);
 
     rclcpp::spin_some(node);
