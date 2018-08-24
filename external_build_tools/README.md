@@ -14,6 +14,9 @@ Additional examples can be found in this ROS1 repository ([link](https://github.
 
 ## CMake
 
+Building with CMake is almost straight-forward as the native tool ament-cmake, which is used for building the ros sdk, automatically generate CMake config files.
+
+
 Build 
 
     $ mkdir build
@@ -27,6 +30,25 @@ Run
     
 
 ## SCons
+
+Building with SCons requires the knowledge of the dependent packages include and library directories paths.
+They can be queried using the commandline CMake find-package command
+
+To see a list of installed packages
+
+    $ ros2 pkg list
+    
+For example, for the base package rclcpp.
+    
+To get the include paths 
+
+    $ cmake --find-package -DNAME=rclcpp -DCOMPILER_ID=GNU -DLANGUAGE=CXX -DMODE=COMPILE
+    
+To get the library paths
+   
+    $ cmake --find-package -DNAME=rclcpp -DCOMPILER_ID=GNU -DLANGUAGE=CXX -DMODE=LINK
+
+
 
 Build
 
