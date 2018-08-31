@@ -10,6 +10,7 @@ Collection of links to useful documentation, FAQ and tutorials
 - [ROS2 middleware](https://design.ros2.org/articles/ros_middleware_interface.html)
 - [Official ROS2 tutorials](https://github.com/ros2/ros2/wiki/Tutorials)
 - [ROS2 code documentation](http://docs.ros2.org/beta2/index.html#)
+- [rclcpp documentation + core](https://github.com/ros2/ros_core_documentation/blob/master/source/rclcpp_cpp_client_library_overview.rst)
 
 
 ## Build and install
