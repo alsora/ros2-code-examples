@@ -49,7 +49,7 @@ int main(int argc, char ** argv)
 FrameMsg retrieveFrame(const std::shared_ptr<RetrieveFrame::Request> request)
 {
 
-  FrameMsg fMsg;
+  FrameMsg f;
 
   // Generate fake frame
   f.width = request->res_w;
@@ -60,5 +60,5 @@ FrameMsg retrieveFrame(const std::shared_ptr<RetrieveFrame::Request> request)
   }
 
 
-  return fMsg;
+  return f;
 }

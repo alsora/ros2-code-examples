@@ -1,19 +1,78 @@
 
 # SConstruct
 
+import os
 
 cxxFlags = ['-std=c++14']
 
-include_dirs = [    '/home/asoragna/ros2_sdk/ros2_ws/install/rclcpp/include', '/home/asoragna/ros2_sdk/ros2_ws/install/rcl/include','/home/asoragna/ros2_sdk/ros2_ws/install/rcl_interfaces/include','/home/asoragna/ros2_sdk/ros2_ws/install/rcutils/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosidl_typesupport_interface/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosidl_generator_c/include','/home/asoragna/ros2_sdk/ros2_ws/install/rmw/include','/home/asoragna/ros2_sdk/ros2_ws/install/builtin_interfaces/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosidl_typesupport_c/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosidl_typesupport_cpp/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosidl_generator_cpp/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosidl_typesupport_introspection_c/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosidl_typesupport_introspection_cpp/include','/home/asoragna/ros2_sdk/ros2_ws/install/rosgraph_msgs/include','/home/asoragna/ros2_sdk/ros2_ws/install/rcl_yaml_param_parser/include']
+ros2_ws_path = '/home/alsora/workspaces/ros2_sdk'
 
-lib_files = ['/home/asoragna/ros2_sdk/ros2_ws/install/rclcpp/lib/','/home/asoragna/ros2_sdk/ros2_ws/install/rcutils/lib/']
+dependencies = [
+    'rclcpp',
+    'rcl',
+    'rcl_interfaces',
+    'rcutils',
+    'rosidl_typesupport_interface',
+    'rosidl_generator_c',
+    'rmw',
+    'rmw_implementation',
+    'builtin_interfaces',
+    'rosidl_typesupport_c',
+    'rosidl_typesupport_cpp',
+    'rosidl_generator_cpp',
+    'rosidl_typesupport_introspection_c',
+    'rosidl_typesupport_introspection_cpp',
+    'rosgraph_msgs',
+    'rcl_yaml_param_parser',
+    'std_msgs',
+]
 
+
+target_libs = [
+    'rclcpp',
+    'rcutils',
+    'rcl',
+    'builtin_interfaces__rosidl_typesupport_c',
+    'builtin_interfaces__rosidl_typesupport_cpp',
+    'builtin_interfaces__rosidl_typesupport_introspection_c',
+    'builtin_interfaces__rosidl_typesupport_cpp',
+    'builtin_interfaces__rosidl_typesupport_introspection_c',
+    'builtin_interfaces__rosidl_generator_c',
+    'builtin_interfaces__rosidl_typesupport_introspection_cpp',
+    'rosidl_typesupport_cpp',
+    'rosidl_typesupport_c',
+    'rosidl_typesupport_introspection_cpp',
+    'rosidl_typesupport_introspection_c',
+    'rosidl_generator_c',
+    'std_msgs__rosidl_typesupport_cpp',
+    'std_msgs__rosidl_typesupport_c',
+    'std_msgs__rosidl_typesupport_introspection_cpp',
+    'std_msgs__rosidl_generator_c',
+    'std_msgs__rosidl_typesupport_introspection_c',
+
+]
+
+
+ros2_sdk_path = os.path.join(ros2_ws_path, 'install')
+include_dirs =[os.path.join(ros2_sdk_path, dep_path, 'include') for dep_path in dependencies]
+lib_dirs =[os.path.join(os.path.join(ros2_sdk_path, dep_path), 'lib') for dep_path in dependencies]
+
+
+#print include_dirs
+#print lib_dirs
 
 env = Environment()
-
 env.Append(CXXFLAGS = cxxFlags)
 env.Append(CPPPATH = include_dirs)
-env.Append(LIBPATH= lib_files)
-env.Append(LIBS= ['rclcpp', 'rcutils'])
+env.Append(LIBPATH= lib_dirs)
+env.Append(LIBS= target_libs)
 env.Program("hello_ros", ["hello_ros.cpp"])
+
+
+conf = Configure(env)
+for lib_base_name in target_libs:
+    conf.CheckLib(lib_base_name)
+env = conf.Finish()
+
+
 

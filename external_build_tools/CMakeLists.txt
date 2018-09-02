@@ -8,13 +8,16 @@ endif()
 
 
 find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
 
 #MESSAGE( STATUS "INCLUDE is: " ${rclcpp_INCLUDE_DIRS} )
 #MESSAGE( STATUS "LIB is: " ${rclcpp_LIBRARIES} )
 
-include_directories(${rclcpp_INCLUDE_DIRS})
+MESSAGE( STATUS "LIB is: " ${std_msgs_LIBRARIES} )
+
+include_directories(${rclcpp_INCLUDE_DIRS} ${std_msgs_INCLUDE_DIRS})
 add_executable(hello_ros hello_ros.cpp)
-target_link_libraries(hello_ros ${rclcpp_LIBRARIES})
+target_link_libraries(hello_ros ${rclcpp_LIBRARIES} )
 
 install(TARGETS hello_ros
   DESTINATION bin)
