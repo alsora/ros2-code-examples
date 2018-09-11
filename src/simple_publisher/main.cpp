@@ -17,9 +17,11 @@ int main(int argc, char ** argv)
   g_node = rclcpp::Node::make_shared("simple_publisher");
 
 
-  //rmw_qos_profile_t custom_qos_profile;
+  //rmw_qos_profile_t custom_qos_profile = rmw_qos_profile_default;
   //custom_qos_profile.depth = 1;
+  //custom_qos_profile.reliability = rmw_qos_reliability_policy_t::RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT;
   //custom_qos_profile.history = rmw_qos_history_policy_t::RMW_QOS_POLICY_HISTORY_KEEP_LAST;
+  //custom_qos_profile.durability = rmw_qos_durability_policy_t::RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL;
 
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher = g_node->create_publisher<std_msgs::msg::String>("my_topic", rmw_qos_profile_default);
 
