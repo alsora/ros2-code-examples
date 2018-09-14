@@ -57,10 +57,20 @@ RUN apt-get install --no-install-recommends -y \
   libopensplice67
 
 # dependencies for RViz
-RUN apt-get install -y libfreetype6-dev libfreeimage-dev libzzip-dev libxrandr-dev libxaw7-dev freeglut3-dev libgl1-mesa-dev libcurl4-openssl-dev libqt5core5a libqt5gui5 libqt5opengl5 libqt5widgets5 libxaw7-dev libgles2-mesa-dev libglu1-mesa-dev qtbase5-dev
-
-
-
-
-
-
+RUN apt-get install -y \
+  libfreetype6-dev \
+  libfreeimage-dev \
+  libzzip-dev \
+  libxrandr-dev \
+  libxaw7-dev \
+  freeglut3-dev \
+  libgl1-mesa-dev \
+  libcurl4-openssl-dev \
+  libqt5core5a \
+  libqt5gui5 \
+  libqt5opengl5 \
+  libqt5widgets5 \
+  libxaw7-dev \
+  libgles2-mesa-dev \
+  libglu1-mesa-dev \
+  qtbase5-dev

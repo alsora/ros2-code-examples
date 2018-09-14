@@ -1,7 +1,7 @@
-# ROS2 Docker image
+# ros2_dev Docker image
 
 
-Build a Docker image and deploy a container
+Build the Docker image and deploy a container
 
     $ bash build.sh
     $ bash run.sh

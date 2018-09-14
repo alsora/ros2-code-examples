@@ -30,3 +30,16 @@
 *.exe
 *.out
 *.app
+
+.vscode
+
+
+/build_workspace/*
+!/build_workspace/README.md
+
+
+/external_build_tools/*
+!/external_build_tools/README.md
+!/external_build_tools/hello_ros.cpp
+!/external_build_tools/CMakeLists.txt
+!/external_build_tools/SConstruct
