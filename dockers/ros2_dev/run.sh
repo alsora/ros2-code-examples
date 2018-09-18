@@ -4,11 +4,17 @@
 # @2018 
 
 
+XSOCK=/tmp/.X11-unix
+
 docker run -it --rm \
-	  --net=host \
-	  --privileged \
-	  --volume=/tmp/.X11-unix:/tmp/.X11-unix \
-	  --device=/dev/dri:/dev/dri \
-	  --env="DISPLAY" \
-	  ros2_dev \
-	  bash
+ --runtime=nvidia \
+ -e DISPLAY=$DISPLAY \
+ -v $XSOCK:$XSOCK \
+ -v $HOME/.Xauthority:/root/.Xauthority \
+ --privileged \
+ --net=host \
+ ros2_dev bash
+
+
+
+
