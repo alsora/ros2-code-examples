@@ -1,3 +1,5 @@
+# @author Alberto Soragna (alberto dot soragna at gmail dot com)
+# @2018 
 
 FROM osrf/ros2:bouncy-desktop
 MAINTAINER Alberto Soragna alberto dot soragna at gmail dot com
@@ -6,35 +8,38 @@ MAINTAINER Alberto Soragna alberto dot soragna at gmail dot com
 ENV HOME /root
 WORKDIR $HOME
 
-# create ros source and workspace directories
-RUN mkdir src & mkdir -p ros2_ws/src 
+# nvidia-container-runtime
+ENV NVIDIA_VISIBLE_DEVICES \
+    ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES \
+    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
 # general utilities
 RUN apt-get update && apt-get install -y \
     curl \
+    wget \
+    git \
     vim \
     nano \
-    locales \
     python3-pip
 
 # pip
 RUN pip3 install --upgrade pip
 
 # Locale options
+RUN apt-get install -y \
+    locales
 RUN locale-gen en_US.UTF-8
 RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 ENV LANG en_US.UTF-8
-    
+
 # ROS setup requirements
 RUN apt-get install -y \
   build-essential \
   cmake \
-  git \
   python3-colcon-common-extensions \
-  python3-pip \
   python-rosdep \
-  python3-vcstool \
-  wget
+  python3-vcstool
   
 RUN python3 -m pip install -U \
   argcomplete \
