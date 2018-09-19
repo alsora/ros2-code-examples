@@ -28,7 +28,7 @@ Collection of links to useful documentation, FAQ and tutorials
 - [How to run nodes in separate Docker containers](https://github.com/ros2/ros2/wiki/Run-2-nodes-in-two-separate-docker-containers)
 - [Using GUI in Docker](http://wiki.ros.org/docker/Tutorials/GUI)
 - [Solving Rviz GUI issues](https://answers.ros.org/question/301056/ros2-rviz-in-docker-container/)
-
+- [Docker hardware acceleration](http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration)
 
 ## Misc
 
