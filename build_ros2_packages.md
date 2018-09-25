@@ -12,15 +12,15 @@ A ROS2 workspace, in order to be built using the native **Colcon** build system 
 └── src
 
 ```
-The first step is the creation of the `src` directory.
+The first step is the creation of such workspace.
 
-    $ mkdir src
+    $ mkdir -p  my_workspace/src
 
 Place your source code inside the `src` directory.
 
 For example, to create a symbolic link for the sources provided in this repository
 
-    $ cd src
+    $ cd my_workspace/src
     $ ln -s ../src/interfaces .
     $ cd ..
 
@@ -48,9 +48,9 @@ After you have built some sources, your workspace will look like this
  - The `log` directory contains various logging information about each colcon invocation.
 
 
-To use the executables and libraries you need to e.g. add the install/bin directory to your path.
+To use the executables and libraries with the command line interface you need to source the install directory.
 
-    . install/local_setup.bash
+    $ . install/local_setup.bash
 
 ## Tips
 

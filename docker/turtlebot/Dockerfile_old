@@ -1,0 +1,127 @@
+
+FROM osrf/ros2:bouncy-desktop
+MAINTAINER Alberto Soragna alberto dot soragna at gmail dot com
+
+# working directory
+ENV HOME /root
+WORKDIR $HOME
+
+# nvidia-container-runtime
+ENV NVIDIA_VISIBLE_DEVICES \
+    ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES \
+    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+
+# general utilities
+RUN apt-get update && apt-get install -y \
+    curl \
+    vim \
+    nano \
+    locales \
+    python3-pip
+
+# pip
+RUN pip3 install --upgrade pip
+
+# Locale options
+RUN locale-gen en_US.UTF-8
+RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+ENV LANG en_US.UTF-8
+    
+# ROS setup requirements
+RUN apt-get install -y \
+  build-essential \
+  cmake \
+  git \
+  python3-colcon-common-extensions \
+  python-rosdep \
+  python3-vcstool \
+  wget
+  
+RUN python3 -m pip install -U \
+  argcomplete \
+  flake8 \
+  flake8-blind-except \
+  flake8-builtins \
+  flake8-class-newline \
+  flake8-comprehensions \
+  flake8-deprecated \
+  flake8-docstrings \
+  flake8-import-order \
+  flake8-quotes \
+  pytest-repeat \
+  pytest-rerunfailures
+
+# install Fast-RTPS dependencies
+RUN apt-get install --no-install-recommends -y \
+  libasio-dev \
+  libtinyxml2-dev \  
+  libopensplice67
+
+# dependencies for RViz
+RUN apt-get install -y libfreetype6-dev libfreeimage-dev libzzip-dev libxrandr-dev libxaw7-dev freeglut3-dev libgl1-mesa-dev libcurl4-openssl-dev libqt5core5a libqt5gui5 libqt5opengl5 libqt5widgets5 libxaw7-dev libgles2-mesa-dev libglu1-mesa-dev qtbase5-dev
+
+
+######## TURTLEBOT 3 SETUP
+
+# get some dependencies
+RUN apt-get install -y \
+  g++ \
+  cmake \
+  google-mock \
+  libboost-all-dev \
+  libcairo2-dev \
+  libeigen3-dev \
+  libgflags-dev \
+  libgoogle-glog-dev \
+  lua5.2 \
+  liblua5.2-dev \
+  libsuitesparse-dev \
+  ninja-build \
+  python-sphinx \
+  libatlas-base-dev \
+  libyaml-cpp-dev \
+  libpcl-conversions-dev \
+  libpcl-dev
+
+# get other dependencies source
+RUN git clone https://ceres-solver.googlesource.com/ceres-solver
+RUN git clone https://github.com/google/protobuf.git
+
+# build ceres dependency
+RUN mkdir $HOME/ceres-solver/build
+WORKDIR $HOME/ceres-solver/build
+RUN cmake ..
+RUN make -j4
+RUN make install
+
+# build protobuf dependency
+WORKDIR $HOME/protobuf
+RUN git checkout tags/v3.4.1
+RUN mkdir build
+WORKDIR $HOME/protobuf/build
+RUN cmake -G Ninja \
+  -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+  -DCMAKE_BUILD_TYPE=Release \
+  -Dprotobuf_BUILD_TESTS=OFF \
+  ../cmake
+RUN ninja && ninja install
+
+# get ros2 turtlebot sources
+RUN mkdir -p $HOME/turtlebot3_ws/src
+WORKDIR $HOME/turtlebot3_ws/src
+RUN git clone -b ros2 https://github.com/ROBOTIS-GIT/turtlebot3.git
+RUN git clone -b ros2 https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+RUN git clone -b ros2 https://github.com/ros2/cartographer.git
+RUN git clone -b ros2 https://github.com/ros2/cartographer_ros.git
+RUN git clone https://github.com/ros2/pcl_conversions.git
+
+
+#checkout turtlebot_cartographer config to fix error due to missing parameters
+WORKDIR $HOME/turtlebot3_ws/src/turtlebot3/turtlebot3_cartographer
+RUN git checkout 264fbb7 -- config/turtlebot3_lds_2d.lua config/turtlebot3_lds_2d.lua
+
+# build turtlebot sources
+WORKDIR $HOME/turtlebot3_ws
+RUN /bin/bash -c 'source /opt/ros/bouncy/setup.sh; \
+colcon build'
