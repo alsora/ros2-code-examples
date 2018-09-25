@@ -6,9 +6,6 @@ MAINTAINER Alberto Soragna alberto dot soragna at gmail dot com
 ENV HOME /root
 WORKDIR $HOME
 
-# create ros source and workspace directories
-RUN mkdir src & mkdir -p ros2_ws/src 
-
 # general utilities
 RUN apt-get update && apt-get install -y \
     curl \
@@ -62,48 +59,6 @@ RUN apt-get install -y libfreetype6-dev libfreeimage-dev libzzip-dev libxrandr-d
 
 ######## TURTLEBOT 3 SETUP
 
-# get some dependencies
-RUN apt-get install -y \
-  g++ \
-  cmake \
-  google-mock \
-  libboost-all-dev \
-  libcairo2-dev \
-  libeigen3-dev \
-  libgflags-dev \
-  libgoogle-glog-dev \
-  lua5.2 \
-  liblua5.2-dev \
-  libsuitesparse-dev \
-  ninja-build \
-  python-sphinx \
-  libatlas-base-dev \
-  libyaml-cpp-dev \
-  libpcl-conversions-dev \
-  libpcl-dev
-
-# get other dependencies source
-RUN git clone https://ceres-solver.googlesource.com/ceres-solver
-RUN git clone https://github.com/google/protobuf.git
-
-# build ceres dependency
-RUN mkdir $HOME/ceres-solver/build
-WORKDIR $HOME/ceres-solver/build
-RUN cmake ..
-RUN make -j4
-RUN make install
-
-# build protobuf dependency
-WORKDIR $HOME/protobuf
-RUN git checkout tags/v3.4.1
-RUN mkdir build
-WORKDIR $HOME/protobuf/build
-RUN cmake -G Ninja \
-  -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-  -DCMAKE_BUILD_TYPE=Release \
-  -Dprotobuf_BUILD_TESTS=OFF \
-  ../cmake
-RUN ninja && ninja install
 
 # get ros2 turtlebot sources
 RUN mkdir -p $HOME/turtlebot_ws/src
@@ -114,15 +69,31 @@ RUN git clone -b release-latest https://github.com/ros2/cartographer.git
 RUN git clone -b release-latest https://github.com/ros2/cartographer_ros.git
 RUN git clone https://github.com/ros2/pcl_conversions.git
 
-# checkout cartographer repo to ros2 tag
-WORKDIR $HOME/turtlebot_ws/src/cartographer
-RUN git checkout ros2
+# install cartographer dependencies
+RUN apt-get install --no-install-recommends -y \
+  libboost-iostreams-dev \
+  libboost-regex-dev \
+  libboost-system-dev \
+  libboost-thread-dev \
+  libceres-dev \
+  libgoogle-glog-dev \
+  liblua5.2-dev \
+  libpcl-dev \
+  libprotobuf-dev \
+  libsdl1.2-dev \
+  libsdl-image1.2-dev \
+  libsuitesparse-dev \
+  libudev-dev \
+  libusb-1.0-0-dev \
+  libyaml-cpp-dev \
+  protobuf-compiler \
+  python-sphinx \
+  libcairo2-dev
 
-# checkout cartographer_ros repo to old commit to avoid error
-WORKDIR $HOME/turtlebot_ws/src/cartographer_ros
-RUN git checkout 3780bb3f296fef72bf6e696d9364546f6e28c9f9
+# ugly bug fix https://github.com/ROBOTIS-GIT/turtlebot3/issues/308
+RUN (echo 33 m 22; echo wq) | ex cartographer/cartographer-config.cmake.in
 
 # build turtlebot sources
 WORKDIR $HOME/turtlebot_ws
 RUN /bin/bash -c 'source /opt/ros/bouncy/setup.sh; \
-colcon build'
+  colcon build'
