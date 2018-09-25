@@ -92,21 +92,13 @@ colcon build --symlink-install
 
 In the following will be presented the steps for cross-compiling for an aarch64 system.
 
-Get a *toolchain.cmake file for your target system.
+Get a compiler and a *toolchainfile.cmake file for your target system.
 
-
-```
-$ wget https://raw.githubusercontent.com/ros2-for-arm/ros2/master/aarch64_toolchainfile.cmake
-```
-
-NOTE: This file **must** be saved in your ros workspace
-
-Install a compiler for your target system and export toolchain paths
 
 ```
 $ sudo apt install g++-aarch64-linux-gnu gcc-aarch64-linux-gnu
-$ export PATH="<path to toolchain>:$PATH"
-$ export CROSS_COMPILE=aarch64-linux-gnu-
+$ export CROSS_COMPILE=aarch64-linux-gnu-\
+$ wget https://raw.githubusercontent.com/ros2-for-arm/ros2/master/aarch64_toolchainfile.cmake
 ```
 
 Remove Python support and ignore optional packages
