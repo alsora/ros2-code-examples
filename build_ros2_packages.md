@@ -10,7 +10,6 @@ A ROS2 workspace, in order to be built using the native **Colcon** build system 
 ```
 .
 └── src
-
 ```
 The first step is the creation of such workspace.
 
@@ -21,7 +20,7 @@ Place your source code inside the `src` directory.
 For example, to create a symbolic link for the sources provided in this repository
 
     $ cd my_workspace/src
-    $ ln -s ../src/interfaces .
+    $ ln -s ../../src/interfaces .
     $ cd ..
 
 ## Build and install your code
@@ -38,7 +37,6 @@ After you have built some sources, your workspace will look like this
 ├── install
 ├── log
 └── src
-
 ```
 
  - The `build` directory will be where intermediate files are stored. For each package a subfolder will be created in which e.g. CMake is being invoked.
@@ -50,7 +48,7 @@ After you have built some sources, your workspace will look like this
 
 To use the executables and libraries with the command line interface you need to source the install directory.
 
-    $ . install/local_setup.bash
+    $ source install/setup.sh
 
 ## Tips
 
