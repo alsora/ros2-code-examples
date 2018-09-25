@@ -6,6 +6,9 @@ MAINTAINER Alberto Soragna alberto dot soragna at gmail dot com
 ENV HOME /root
 WORKDIR $HOME
 
+ENV TZ=America/Los_Angeles
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # general utilities
 RUN apt-get update && apt-get install -y \
     curl \
@@ -91,9 +94,11 @@ RUN apt-get install --no-install-recommends -y \
   libcairo2-dev
 
 # ugly bug fix https://github.com/ROBOTIS-GIT/turtlebot3/issues/308
+# moves line 33 up to line 22 in file 
 RUN (echo 33 m 22; echo wq) | ex cartographer/cartographer-config.cmake.in
 
 # build turtlebot sources
 WORKDIR $HOME/turtlebot_ws
 RUN /bin/bash -c 'source /opt/ros/bouncy/setup.sh; \
   colcon build'
+
