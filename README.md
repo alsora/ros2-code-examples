@@ -1,4 +1,4 @@
-# ros2-examples
+\# ros2-examples
 
 The following tutorials and examples are updated for **ROS 2 Bouncy Bolson** (Released on 2 July 2018).
 
@@ -7,7 +7,8 @@ The following tutorials and examples are updated for **ROS 2 Bouncy Bolson** (Re
  - The `src` directory contains source code which uses the most common ROS2 API.
  - The `dockers` directory contains Dockerfiles for creating different ROS2 developer environment.
  - The `external_build_tools` directory contains instructions for building ROS2 packages using external build tools such as CMake and Scons.
- - `installing_ros2` contains instructions for compiling or cross-compiling ROS2 from sources.
+ - `installing_ros2` contains instructions for compiling ROS2 from sources.
+ - `cross_compiling_ros2` contains instructions for cross-compiling ROS2 for ARM architectures.
  - `build_ros2_package` contains instructions for creating a ROS2 workspace and compiling packages. 
  - `resources` contains useful online documentation on ROS2.
 
