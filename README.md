@@ -1,4 +1,4 @@
-\# ros2-examples
+# ros2-examples
 
 The following tutorials and examples are updated for **ROS 2 Bouncy Bolson** (Released on 2 July 2018).
 
