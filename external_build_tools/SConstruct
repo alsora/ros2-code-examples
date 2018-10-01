@@ -7,6 +7,10 @@ cxxFlags = ['-std=c++14']
 
 ros2_ws_path = '/home/alsora/workspaces/ros2_sdk'
 
+print '************ --- ************'
+print 'ROS2 SDK Path:', ros2_ws_path
+print '************ --- ************'
+
 dependencies = [
     'rclcpp',
     'rcl',
@@ -17,13 +21,8 @@ dependencies = [
     'rmw',
     'rmw_implementation',
     'builtin_interfaces',
-    'rosidl_typesupport_c',
     'rosidl_typesupport_cpp',
     'rosidl_generator_cpp',
-    'rosidl_typesupport_introspection_c',
-    'rosidl_typesupport_introspection_cpp',
-    'rosgraph_msgs',
-    'rcl_yaml_param_parser',
     'std_msgs',
 ]
 
@@ -32,24 +31,9 @@ target_libs = [
     'rclcpp',
     'rcutils',
     'rcl',
-    'builtin_interfaces__rosidl_typesupport_c',
     'builtin_interfaces__rosidl_typesupport_cpp',
-    'builtin_interfaces__rosidl_typesupport_introspection_c',
-    'builtin_interfaces__rosidl_typesupport_cpp',
-    'builtin_interfaces__rosidl_typesupport_introspection_c',
-    'builtin_interfaces__rosidl_generator_c',
-    'builtin_interfaces__rosidl_typesupport_introspection_cpp',
     'rosidl_typesupport_cpp',
-    'rosidl_typesupport_c',
-    'rosidl_typesupport_introspection_cpp',
-    'rosidl_typesupport_introspection_c',
-    'rosidl_generator_c',
     'std_msgs__rosidl_typesupport_cpp',
-    'std_msgs__rosidl_typesupport_c',
-    'std_msgs__rosidl_typesupport_introspection_cpp',
-    'std_msgs__rosidl_generator_c',
-    'std_msgs__rosidl_typesupport_introspection_c',
-
 ]
 
 

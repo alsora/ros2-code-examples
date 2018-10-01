@@ -24,7 +24,7 @@ RUN pip3 install --upgrade pip
 RUN locale-gen en_US.UTF-8
 RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 ENV LANG en_US.UTF-8
-    
+
 # ROS setup requirements
 RUN apt-get install -y \
   build-essential \
@@ -35,7 +35,7 @@ RUN apt-get install -y \
   python-rosdep \
   python3-vcstool \
   wget
-  
+
 RUN python3 -m pip install -U \
   argcomplete \
   flake8 \
@@ -53,11 +53,27 @@ RUN python3 -m pip install -U \
 # install Fast-RTPS dependencies
 RUN apt-get install --no-install-recommends -y \
   libasio-dev \
-  libtinyxml2-dev \  
+  libtinyxml2-dev \
   libopensplice67
 
 # dependencies for RViz
-RUN apt-get install -y libfreetype6-dev libfreeimage-dev libzzip-dev libxrandr-dev libxaw7-dev freeglut3-dev libgl1-mesa-dev libcurl4-openssl-dev libqt5core5a libqt5gui5 libqt5opengl5 libqt5widgets5 libxaw7-dev libgles2-mesa-dev libglu1-mesa-dev qtbase5-dev
+RUN apt-get install -y \
+  libfreetype6-dev \
+  libfreeimage-dev \
+  libzzip-dev \
+  libxrandr-dev \
+  libxaw7-dev \
+  freeglut3-dev \
+  libgl1-mesa-dev \
+  libcurl4-openssl-dev \
+  libqt5core5a \
+  libqt5gui5 \
+  libqt5opengl5 \
+  libqt5widgets5 \
+  libxaw7-dev \
+  libgles2-mesa-dev \
+  libglu1-mesa-dev \
+  qtbase5-dev
 
 
 ######## TURTLEBOT 3 SETUP
@@ -94,7 +110,7 @@ RUN apt-get install --no-install-recommends -y \
   libcairo2-dev
 
 # ugly bug fix https://github.com/ROBOTIS-GIT/turtlebot3/issues/308
-# moves line 33 up to line 22 in file 
+# moves line 33 up to line 22 in file
 RUN (echo 33 m 22; echo wq) | ex cartographer/cartographer-config.cmake.in
 
 # build turtlebot sources
@@ -102,3 +118,7 @@ WORKDIR $HOME/turtlebot_ws
 RUN /bin/bash -c 'source /opt/ros/bouncy/setup.sh; \
   colcon build'
 
+RUN echo ' \n\
+echo "Sourcing ROS2 and Turtlebot packages..." \n\
+source /opt/ros/bouncy/setup.sh \n\
+source $HOME/turtlebot_ws/install/setup.sh ' >> $HOME/.bashrc

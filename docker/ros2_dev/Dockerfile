@@ -72,3 +72,11 @@ RUN apt-get install -y \
   libgles2-mesa-dev \
   libglu1-mesa-dev \
   qtbase5-dev
+
+# source everything
+RUN echo ' \n\
+echo "Sourcing ROS2 packages..." \n\
+source /opt/ros/bouncy/setup.sh ' >> $HOME/.bashrc
+
+
+WORKDIR $HOME
