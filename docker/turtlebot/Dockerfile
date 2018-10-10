@@ -121,4 +121,4 @@ RUN /bin/bash -c 'source /opt/ros/bouncy/setup.sh; \
 RUN echo ' \n\
 echo "Sourcing ROS2 and Turtlebot packages..." \n\
 source /opt/ros/bouncy/setup.sh \n\
-source $HOME/turtlebot_ws/install/setup.sh ' >> $HOME/.bashrc
+source $HOME/turtlebot_ws/install/local_setup.sh ' >> $HOME/.bashrc

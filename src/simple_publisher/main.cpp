@@ -12,12 +12,10 @@
 
 rclcpp::Node::SharedPtr g_node = nullptr;
 
-
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   g_node = rclcpp::Node::make_shared("simple_publisher");
-
 
   rmw_qos_profile_t custom_qos_profile = rmw_qos_profile_default;
   custom_qos_profile.depth = 1;
