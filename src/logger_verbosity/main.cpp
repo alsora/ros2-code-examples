@@ -15,7 +15,7 @@ int main(int argc, char ** argv)
   rclcpp::init(argc, argv);
   g_node = rclcpp::Node::make_shared("simple_node");
 
-  std::cout<<"Printing some messages with default verbosity level (INFO)"<<std::endl;
+  std::cout<<"Printing some messages with default verbosity level INFO"<<std::endl;
 
   // print some log messages
   RCLCPP_DEBUG(g_node->get_logger(), "This is a RCLCPP_DEBUG message");
@@ -36,6 +36,13 @@ int main(int argc, char ** argv)
   RCLCPP_INFO(g_node->get_logger(), "This is a RCLCPP_INFO message");
   RCLCPP_WARN(g_node->get_logger(), "This is a RCLCPP_WARN message");
   RCLCPP_ERROR(g_node->get_logger(), "This is a RCLCPP_ERROR message");
+
+
+  // create a logger not related to any node
+  rclcpp::Logger logger = rclcpp::get_logger("my_logger");
+
+  RCLCPP_WARN(logger, "This is a RCLCPP_WARN message");
+
 
 
   rclcpp::shutdown();
