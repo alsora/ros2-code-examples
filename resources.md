@@ -13,7 +13,7 @@ Collection of links to useful documentation, FAQ and tutorials
 
 ## Code documentation
 
-- [ROS2 code documentation](http://docs.ros2.org/beta2/index.html#)
+- [ROS2 code documentation](http://docs.ros2.org/bouncy/index.html#)
 - [rclcpp library overview](https://github.com/ros2/ros_core_documentation/blob/master/source/rclcpp_cpp_client_library_overview.rst)
 
 
