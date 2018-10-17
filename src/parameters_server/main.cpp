@@ -53,10 +53,14 @@ int main(int argc, char *argv[])
   {
     ss << "\nParameter name: " << parameter.get_name();
     ss << "\nParameter value (" << parameter.get_type_name() << "): " << parameter.value_to_string();
+    if (parameter.get_type() == rclcpp::ParameterType::PARAMETER_NOT_SET){
+      ss << "\nThis parameter does not exist!!";
+    }
+    ss << "\n---------";
   }
   RCLCPP_INFO(node->get_logger(), ss.str().c_str());
 
-  // get one parameter
+  // get one parameter (you MUST provide a default value in case the parameter is not present on the server)
   double param = parameters_client->get_parameter("wheels.weight", 10.0);
   RCLCPP_INFO(node->get_logger(), "received parameter %f", param);
 
