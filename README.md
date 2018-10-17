@@ -34,26 +34,18 @@ Run a ROS2 node
 
 ## Running the examples
 
-Follow the instructions in [build_ros2_package](https://github.com/alsora/ros2-tutorial/blob/master/build_ros2_packages.md) to create a workspace and compile the build the source code.
+Follow the instructions in [build_ros2_package](https://github.com/alsora/ros2-tutorial/blob/master/build_ros2_packages.md) to create a workspace and build the source code.
 
 ### Publisher/Subscriber test
 
     $ ros2 run simple_publisher publisher_main & ros2 run simple_subscriber subscriber_main
 
-Expected output:
-
 ### Service/Client test
     
     $ ros2 run simple_service service_main & ros2 run simple_client client_main
 
-Optional: Run also Rviz to visualize the data
-
-Expected output:
- 
+Optional: Run also Rviz to visualize the data 
 
 ### Time Synchronization message filters test
 
     $ ros2 run simple_publisher publisher_main & ros2 run simple_time_sync time_sync_main
-
-Expected output:
-
