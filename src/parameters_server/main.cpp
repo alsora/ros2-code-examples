@@ -15,8 +15,9 @@ int main(int argc, char *argv[])
   rclcpp::init(argc, argv);
   rclcpp::Node::SharedPtr node = rclcpp::Node::make_shared("parameters_node");
 
+  // create the parameters client
   rclcpp::SyncParametersClient::SharedPtr parameters_client = std::make_shared<rclcpp::SyncParametersClient>(node);
-
+  // initialize the parameters client
   while (!parameters_client->wait_for_service(1s))
   {
     if (!rclcpp::ok())
@@ -27,6 +28,7 @@ int main(int argc, char *argv[])
     RCLCPP_INFO(node->get_logger(), "service not available, waiting again...");
   }
 
+  // set some parameters
   std::vector<rcl_interfaces::msg::SetParametersResult> set_parameters_results = parameters_client->set_parameters({
     rclcpp::Parameter("wheels.radius", 1),
     rclcpp::Parameter("wheels.weight", 0.5),
@@ -40,20 +42,24 @@ int main(int argc, char *argv[])
     }
   }
 
-  std::stringstream ss;
-  // Get a few of the parameters just set.
-
+  // get some parameters
   std::vector< rclcpp::Parameter > get_parameters_results = parameters_client->get_parameters({
     "use_odometry",
     "wheels",
-    "wheels.weight"});
+    "wheels.radius"});
 
+  std::stringstream ss;
   for (rclcpp::Parameter &parameter : get_parameters_results)
   {
     ss << "\nParameter name: " << parameter.get_name();
     ss << "\nParameter value (" << parameter.get_type_name() << "): " << parameter.value_to_string();
   }
   RCLCPP_INFO(node->get_logger(), ss.str().c_str());
+
+  // get one parameter
+  double param = parameters_client->get_parameter("wheels.weight", 10.0);
+  RCLCPP_INFO(node->get_logger(), "received parameter %f", param);
+
 
   rclcpp::shutdown();
   return 0;
