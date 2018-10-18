@@ -13,7 +13,7 @@ using namespace std::chrono_literals;
 int main(int argc, char *argv[])
 {
   rclcpp::init(argc, argv);
-  rclcpp::Node::SharedPtr node = rclcpp::Node::make_shared("parameters_node");
+  rclcpp::Node::SharedPtr node = rclcpp::Node::make_shared("reader_node");
 
   // create the parameters client
   rclcpp::SyncParametersClient::SharedPtr parameters_client = std::make_shared<rclcpp::SyncParametersClient>(node, "parameters_node");
@@ -28,19 +28,14 @@ int main(int argc, char *argv[])
     RCLCPP_INFO(node->get_logger(), "service not available, waiting again...");
   }
 
-  // set some parameters
-  std::vector<rcl_interfaces::msg::SetParametersResult> set_parameters_results = parameters_client->set_parameters({
-    rclcpp::Parameter("wheels.radius", 1),
-    rclcpp::Parameter("wheels.weight", 0.5),
-    rclcpp::Parameter("use_odometry", true)});
+    rclcpp::spin_some(node);
 
-  for (rcl_interfaces::msg::SetParametersResult &result : set_parameters_results)
-  {
-    if (!result.successful)
-    {
-      RCLCPP_ERROR(node->get_logger(), "Failed to set parameter: %s", result.reason.c_str());
+
+    auto parameters_and_prefixes = parameters_client->list_parameters({}, 0);
+    std::cout<<"List all available parameters"<<std::endl;
+    for (auto & name : parameters_and_prefixes.names) {
+        std::cout<<"P: "<< name << std::endl;
     }
-  }
 
   // get some parameters
   std::vector< rclcpp::Parameter > get_parameters_results = parameters_client->get_parameters({
@@ -64,8 +59,6 @@ int main(int argc, char *argv[])
   double param = parameters_client->get_parameter("wheels.weight", 10.0);
   RCLCPP_INFO(node->get_logger(), "received parameter %f", param);
 
-
-  rclcpp::spin(node);
 
   rclcpp::shutdown();
   return 0;

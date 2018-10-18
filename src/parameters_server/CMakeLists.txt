@@ -16,7 +16,10 @@ find_package(rclcpp REQUIRED)
 add_executable(parameters_main main.cpp)
 ament_target_dependencies(parameters_main rclcpp)
 
-install(TARGETS parameters_main
+add_executable(reader_main reader.cpp)
+ament_target_dependencies(reader_main rclcpp)
+
+install(TARGETS parameters_main reader_main
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
