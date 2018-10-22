@@ -15,16 +15,13 @@ class MyNode : public rclcpp::Node
 public:
   MyNode() : Node("my_node")
   {
-    
     _sub = this->create_subscription<std_msgs::msg::String>("my_topic", std::bind(&MyNode::my_callback, this, std::placeholders::_1));
   }
-
 
   void process_something(std::string str)
   {
     std::cout<<"process_something: "<< str<<std::endl;
   }
-
 
 private:
 
@@ -33,18 +30,9 @@ private:
     std::cout<<"my_callback: "<< msg->data<<std::endl;
   }
 
-
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr _sub;
 
-
 };
-
-
-void spin_node(rclcpp::Node::SharedPtr node)
-{
-  rclcpp::spin(node);
-}
-
 
 
 int main(int argc, char *argv[])
@@ -56,8 +44,8 @@ int main(int argc, char *argv[])
   auto node_pub = rclcpp::Node::make_shared("simple_publisher");
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr string_publisher = node_pub->create_publisher<std_msgs::msg::String>("my_topic");
 
-
-  std::thread t1(spin_node, node);
+  // I need the static_cast because rclcpp::spin is an overloaded function so I have to disambiguate it and return a pointer
+  std::thread t1(static_cast<void (*)(rclcpp::Node::SharedPtr)>(rclcpp::spin), node);
 
   std::cout<<"Started spinning node in another thread!!"<<std::endl;
 
