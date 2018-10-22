@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     RCLCPP_INFO(node->get_logger(), "service not available, waiting again...");
   }
 
-    rclcpp::spin_some(node);
+    //rclcpp::spin_some(node);
 
 
     auto parameters_and_prefixes = parameters_client->list_parameters({}, 0);

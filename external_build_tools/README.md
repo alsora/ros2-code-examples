@@ -8,10 +8,6 @@ Here you find examples for building an hello-ros executable using standard build
 Additional examples can be found in this ROS1 repository ([link](https://github.com/gerkey/ros1_external_use)).
 
 
-
-
-
-
 ## CMake
 
 Building with CMake is almost straight-forward as the native tool ament-cmake, which is used for building the ros sdk, automatically generate CMake config files.
@@ -47,6 +43,8 @@ To get the include paths
 To get the library paths
    
     $ cmake --find-package -DNAME=rclcpp -DCOMPILER_ID=GNU -DLANGUAGE=CXX -DMODE=LINK
+
+
 
 
 
