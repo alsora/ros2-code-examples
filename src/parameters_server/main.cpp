@@ -65,7 +65,29 @@ int main(int argc, char *argv[])
   RCLCPP_INFO(node->get_logger(), "received parameter %f", param);
 
 
-  rclcpp::spin(node);
+  int k = 0;
+
+  rclcpp::WallRate loop_rate(200);
+  while (rclcpp::ok()){
+
+    k++;
+
+    if (k == 10){
+
+      std::vector<rcl_interfaces::msg::SetParametersResult> set_parameters_results = parameters_client->set_parameters({
+        rclcpp::Parameter("wheels.radius", 2),
+        rclcpp::Parameter("wheels.weight", 0.5),
+        rclcpp::Parameter("new_parameter", 9999)});
+
+    }
+
+
+    rclcpp::spin_some(node);
+  
+    loop_rate.sleep();
+  }
+
+
 
   rclcpp::shutdown();
   return 0;
