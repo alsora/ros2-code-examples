@@ -54,7 +54,7 @@ Optional: Run also Rviz to visualize the data
 
 #### ROS2 Logger utils
 
-    $ ros2 run logger_verbosity logger_main
+    $ ros2 run simple_logger logger_main
 
 #### Parameter servers
 
