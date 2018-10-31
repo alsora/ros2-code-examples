@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>logger_verbosity</name>
-  <version>0.5.1</version>
+  <name>simple_logger</name>
+  <version>0.0.1</version>
   <description>Examples for using and configuring loggers.</description>
   <maintainer email="alberto.soragna@gmail.com">Alberto Soragna</maintainer>
   <license>MIT</license>

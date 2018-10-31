@@ -17,10 +17,13 @@ find_package(my_interfaces REQUIRED)
 find_package(message_filters REQUIRED)
 
 add_executable(time_sync_main main.cpp)
+add_executable(method method.cpp)
+
 
 ament_target_dependencies(time_sync_main rclcpp std_msgs my_interfaces message_filters)
+ament_target_dependencies(method rclcpp std_msgs my_interfaces message_filters)
 
-install(TARGETS time_sync_main
+install(TARGETS time_sync_main method
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

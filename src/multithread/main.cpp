@@ -16,6 +16,9 @@ public:
   MyNode() : Node("my_node")
   {
     _sub = this->create_subscription<std_msgs::msg::String>("my_topic", std::bind(&MyNode::my_callback, this, std::placeholders::_1));
+  
+    rclcpp::SyncParametersClient::SharedPtr parameters_client_ = std::make_shared<rclcpp::SyncParametersClient>(this);
+
   }
 
   void process_something(std::string str)
@@ -46,6 +49,8 @@ int main(int argc, char *argv[])
 
   // I need the static_cast because rclcpp::spin is an overloaded function so I have to disambiguate it and return a pointer
   std::thread t1(static_cast<void (*)(rclcpp::Node::SharedPtr)>(rclcpp::spin), node);
+
+  t1.detach();
 
   std::cout<<"Started spinning node in another thread!!"<<std::endl;
 

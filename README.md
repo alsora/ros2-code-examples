@@ -1,4 +1,4 @@
-# ros2-examples
+# ros2-code-examples
 
 The following tutorials and examples are updated for **ROS 2 Bouncy Bolson** (Released on 2 July 2018).
 
@@ -54,7 +54,7 @@ Optional: Run also Rviz to visualize the data
 
 #### ROS2 Logger utils
 
-    $ ros2 run logger_verbosity logger_main
+    $ ros2 run simple_logger logger_main
 
 #### Parameter servers
 
