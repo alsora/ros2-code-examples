@@ -31,6 +31,7 @@ int main(int argc, char *argv[])
   // set some parameters
   std::vector<rcl_interfaces::msg::SetParametersResult> set_parameters_results = parameters_client->set_parameters({
     rclcpp::Parameter("wheels.radius", 1),
+    rclcpp::Parameter("wheels.radius.dummy", 2),
     rclcpp::Parameter("wheels.weight", 0.5),
     rclcpp::Parameter("use_odometry", true)});
 
@@ -65,8 +66,25 @@ int main(int argc, char *argv[])
   RCLCPP_INFO(node->get_logger(), "received parameter %f", param);
 
 
-  int k = 0;
 
+  // list parameter hierarchy
+  rcl_interfaces::msg::ListParametersResult parameters_and_prefixes = parameters_client->list_parameters({"wheels"}, 10);
+
+  // clear the stringstream
+  ss.str(std::string());
+
+  ss << "\nParameter names:";
+  for (auto & name : parameters_and_prefixes.names) {
+    ss << "\n " << name;
+  }
+  ss << "\nParameter prefixes:";
+  for (auto & prefix : parameters_and_prefixes.prefixes) {
+    ss << "\n " << prefix;
+  }
+  RCLCPP_INFO(node->get_logger(), ss.str().c_str());
+
+
+  int k = 0;
   rclcpp::WallRate loop_rate(200);
   while (rclcpp::ok()){
 

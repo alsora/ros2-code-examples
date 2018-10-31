@@ -19,7 +19,10 @@ ament_target_dependencies(parameters_main rclcpp)
 add_executable(reader_main reader.cpp)
 ament_target_dependencies(reader_main rclcpp)
 
-install(TARGETS parameters_main reader_main
+add_executable(callbacks callbacks.cpp)
+ament_target_dependencies(callbacks rclcpp)
+
+install(TARGETS parameters_main reader_main callbacks
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
