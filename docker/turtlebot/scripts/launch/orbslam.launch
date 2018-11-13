@@ -1,0 +1,9 @@
+<launch>
+
+<node name="republish" type="republish" pkg="image_transport" output="screen" args="compressed in:=/raspicam_node/image out:=/camera/image_raw" />
+
+<node name="orbslam_monocular" type="Mono" pkg="ORB_SLAM2" output="screen" args="orbslam/ORB_SLAM2/Vocabulary/ORBvoc.txt orbslam/ORB_SLAM2/Examples/Monocular/TUM1.yaml" />
+
+
+</launch>
+

@@ -1,4 +1,0 @@
-int64 res_w
-int64 res_h
----
-sensor_msgs/Image image

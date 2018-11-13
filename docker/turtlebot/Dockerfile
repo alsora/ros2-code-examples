@@ -84,8 +84,8 @@ RUN mkdir -p $HOME/turtlebot_ws/src
 WORKDIR $HOME/turtlebot_ws/src
 RUN git clone -b ros2 https://github.com/ROBOTIS-GIT/turtlebot3.git
 RUN git clone -b ros2 https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
-RUN git clone -b release-latest https://github.com/ros2/cartographer.git
-RUN git clone -b release-latest https://github.com/ros2/cartographer_ros.git
+RUN git clone -b ros2 https://github.com/ros2/cartographer.git
+RUN git clone -b 2.1.1 https://github.com/ros2/cartographer_ros.git
 RUN git clone https://github.com/ros2/pcl_conversions.git
 
 # install cartographer dependencies
@@ -111,7 +111,7 @@ RUN apt-get install --no-install-recommends -y \
 
 # ugly bug fix https://github.com/ROBOTIS-GIT/turtlebot3/issues/308
 # moves line 33 up to line 22 in file
-RUN (echo 33 m 22; echo wq) | ex cartographer/cartographer-config.cmake.in
+#RUN (echo 33 m 22; echo wq) | ex cartographer/cartographer-config.cmake.in
 
 # build turtlebot sources
 WORKDIR $HOME/turtlebot_ws
