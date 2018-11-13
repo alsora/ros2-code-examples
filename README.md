@@ -23,21 +23,24 @@ For more detailed build instructions look [here](build_ros2_packages.md)
 
 ## Running the examples
 
-Run the following command each in a separate terminal
+For each of the following tests, run the each command in a separate terminal window (remember that ROS2 SDK has to be sourced in every terminal!)
 
 #### Publisher/Subscriber test
 
     $ ros2 run simple_publisher publisher_main
+
     $ ros2 run simple_subscriber subscriber_main
 
 #### Service/Client test
 
     $ ros2 run simple_service service_main
+
     $ ros2 run simple_client client_main
 
 #### Time Synchronization message filters test
 
     $ ros2 run simple_time_sync publisher
+
     $ ros2 run simple_time_sync time_sync_main
 
 #### Logger utils
@@ -47,6 +50,7 @@ Run the following command each in a separate terminal
 #### Parameter servers
 
     $ ros2 run simple_parameters parameters_main
+
     $ ros2 run simple_parameters reader_main
 
 #### Multiple nodes pub/sub
