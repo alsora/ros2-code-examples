@@ -2,6 +2,10 @@
 
 The following tutorials and examples are updated for **ROS 2 Bouncy Bolson** (Released on 2 July 2018).
 
+## Requirements
+
+ - [ROS2 Bouncy](https://index.ros.org/doc/ros2/Installation/)
+
 
 ## Building the examples
 
@@ -13,6 +17,8 @@ Source your ROS2 SDK, then create a workspace and build these packages
     $ cd ..    
     $ colcon build
     $ source install/local_setup.sh
+
+For more detailed build instructions look [here](build_ros2_packages.md)
 
 
 ## Running the examples
