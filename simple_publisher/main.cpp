@@ -7,8 +7,6 @@
 #include "rclcpp/rclcpp.hpp"
 
 #include "std_msgs/msg/string.hpp"
-#include "my_interfaces/msg/stamped_string.hpp"
-#include "my_interfaces/msg/stamped_boolean.hpp"
 
 rclcpp::Node::SharedPtr g_node = nullptr;
 
@@ -24,8 +22,6 @@ int main(int argc, char ** argv)
   custom_qos_profile.durability = rmw_qos_durability_policy_t::RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL;
 
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr string_publisher = g_node->create_publisher<std_msgs::msg::String>("my_topic", custom_qos_profile);
-  rclcpp::Publisher<my_interfaces::msg::StampedString>::SharedPtr stamped_string_publisher = g_node->create_publisher<my_interfaces::msg::StampedString>("stamped_string_topic", custom_qos_profile);
-  rclcpp::Publisher<my_interfaces::msg::StampedBoolean>::SharedPtr stamped_boolean_publisher = g_node->create_publisher<my_interfaces::msg::StampedBoolean>("stamped_boolean_topic", custom_qos_profile);
 
   int msg_count = 0;
 
@@ -41,34 +37,6 @@ int main(int argc, char ** argv)
     string_publisher->publish(message1);
 
     RCLCPP_INFO(g_node->get_logger(), "Published: '%s'", message1.data.c_str());
-
-
-    rclcpp::Time t = g_node->now();
-
-    my_interfaces::msg::StampedString message2 = my_interfaces::msg::StampedString();
-    message2.header.stamp = t;
-    message2.data = "Hello, world! " + std::to_string(msg_count);
-    stamped_string_publisher->publish(message2);
-
-
-    if (msg_count % 3 == 0){
-
-      rclcpp::Time t2;
-
-      if (msg_count % 6 == 0){
-        t2 = t;
-      }
-      else{
-        t2 = g_node->now();
-      }
-
-      my_interfaces::msg::StampedBoolean message3 = my_interfaces::msg::StampedBoolean();
-      message3.header.stamp = t2;
-      message3.data = true;
-      stamped_boolean_publisher->publish(message3);
-
-    }
-
 
     loop_rate.sleep();
 

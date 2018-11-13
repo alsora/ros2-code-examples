@@ -1,4 +1,4 @@
-[submodule "src/message_filters"]
+[submodule "message_filters"]
 	path = message_filters
 	url = https://github.com/ros2/message_filters
 	branch = master

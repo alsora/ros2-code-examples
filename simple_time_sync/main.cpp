@@ -24,14 +24,14 @@ rclcpp::Node::SharedPtr g_node = nullptr;
 void exact_sync_callback(const StampedStringMsg::SharedPtr string_msg, const StampedBooleanMsg::SharedPtr bool_msg)
 {
 
-  std::cout<<"Received EXACT msg: "<< string_msg->data<< " " << bool_msg->data<<std::endl;
+  std::cout<<"Received EXACT msg: "<< string_msg->data<< " and msg " << bool_msg->data<<std::endl;
 
 }
 
 void approximate_sync_callback(const StampedStringMsg::SharedPtr string_msg, const StampedBooleanMsg::SharedPtr bool_msg)
 {
 
-  std::cout<<"Received APPROXIMATE msg: "<< string_msg->data<< " " << bool_msg->data<<std::endl;
+  std::cout<<"Received APPROXIMATE msg: "<< string_msg->data<< " and msg " << bool_msg->data<<std::endl;
 
 }
 

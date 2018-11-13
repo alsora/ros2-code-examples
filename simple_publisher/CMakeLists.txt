@@ -13,7 +13,6 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(my_interfaces REQUIRED)
 
 add_executable(publisher_main main.cpp)
 

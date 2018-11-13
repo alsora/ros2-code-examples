@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
 
   std::shared_ptr<GetImageSrv::Request> request = std::make_shared<GetImageSrv::Request>();
 
+  rclcpp::WallRate loop_rate(10);
   while (rclcpp::ok())
   {
 
@@ -45,9 +46,6 @@ int main(int argc, char *argv[])
     std::shared_ptr<GetImageSrv::Response> response = result_future.get();
 
     RCLCPP_INFO(node->get_logger(), "got response")
-    ImageMsg img  = response->image;
-
-    response_msg_publisher->publish(img);
 
     rclcpp::spin_some(node);
 

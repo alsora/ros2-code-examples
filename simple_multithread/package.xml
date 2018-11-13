@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="2">
-  <name>multithread</name>
+  <name>simple_multithread</name>
   <version>0.0.1</version>
-  <description>Examples of minimal service client</description>
+  <description>Tests for measuring ROS2 services latency</description>
   <maintainer email="alberto.soragna@gmail.com">Alberto Soragna</maintainer>
-  <license>MIT</license>
   <author>Alberto Soragna</author>
+  <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
