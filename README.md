@@ -29,10 +29,6 @@ Run the following command each in a separate terminal
     $ ros2 run simple_service service_main
     $ ros2 run simple_client client_main
 
-Optional: Run also Rviz to visualize the data 
-
-    $ rviz2
-
 #### Time Synchronization message filters test
 
     $ ros2 run simple_time_sync publisher
