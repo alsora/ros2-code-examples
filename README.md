@@ -19,17 +19,19 @@ Run a ROS2 node
     $ ros2 run <package_name> <executable_name>
 
 
-## Running the examples
+## Building the examples
 
-Source your ROS2 SDK, then build these packages
+Source your ROS2 SDK, then create a workspace and build these packages
 
     $ mkdir -p ws/src
     $ cd ws/src
-    $ ln -s ../../src/* .
+    $ git clone https://github.com/alsora/ros2-code-examples
     $ cd ..    
     $ colcon build
     $ source install/local_setup.sh
 
+
+## Running the examples
 
 Run the following command each in a separate terminal
 
@@ -60,20 +62,5 @@ Optional: Run also Rviz to visualize the data
 
     $ ros2 run simple_parameters parameters_main
     $ ros2 run simple_parameters reader_main
-
-
-
-
-
-
-## Repository content
-
- - The `src` directory contains source code which uses the most common ROS2 API.
- - The `dockers` directory contains Dockerfiles for creating different ROS2 developer environment.
- - The `external_build_tools` directory contains instructions for building ROS2 packages using CMake or Scons.
- - `installing_ros2` contains instructions for compiling ROS2 from sources.
- - `cross_compiling_ros2` contains instructions for cross-compiling ROS2 for ARM architectures.
- - `build_ros2_package` contains instructions for creating a ROS2 workspace and compiling packages. 
- - `resources` contains useful online documentation on ROS2.
 
 
