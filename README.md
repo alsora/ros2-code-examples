@@ -13,7 +13,7 @@ Source your ROS2 SDK, then create a workspace and build these packages
 
     $ mkdir -p ws/src
     $ cd ws/src
-    $ git clone https://github.com/alsora/ros2-code-examples
+    $ git clone https://github.com/alsora/ros2-code-examples --recurse-submodules
     $ cd ..    
     $ colcon build
     $ source install/local_setup.sh
