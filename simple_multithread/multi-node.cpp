@@ -28,8 +28,6 @@ std::string id_to_topic_name(int id)
 }
 
 
-
-
 MultiNode::MultiNode(int  id) 
   : Node(id_to_node_name(id))
 {
@@ -83,9 +81,12 @@ void MultiNode::add_subscriber(int id)
 
   auto it = _subscribers.find(id); 
   if (it == _subscribers.end()){
+    
+    std::function<void(const std_msgs::msg::Header::SharedPtr msg)> fcn = std::bind(&MultiNode::topic_callback, this, std::placeholders::_1, id);
+
     rclcpp::Subscription<std_msgs::msg::Header>::SharedPtr subscriber = this->create_subscription<std_msgs::msg::Header>(
       topic_name, 
-      std::bind(&MultiNode::topic_callback, this, std::placeholders::_1));
+      fcn );
 
       _subscribers[id] = subscriber;
   }
@@ -144,13 +145,15 @@ void MultiNode::service_handler(const std::shared_ptr<rmw_request_id_t> request_
 
 }
 
-void MultiNode::topic_callback(const std_msgs::msg::Header::SharedPtr msg)
+void MultiNode::topic_callback(const std_msgs::msg::Header::SharedPtr msg, int id)
 {
+  rclcpp::Duration rcl_duration = this->now() - rclcpp::Time(msg->stamp);
+  int64_t delta_microseconds = RCL_NS_TO_US(static_cast<int64_t>(rcl_duration.nanoseconds()));
+ 
+  auto chrono_duration = duration_microseconds(delta_microseconds);
 
-  this->stats.all_msgs_counter++;
-
-  // do something with this delta
-  auto delta_time = this->now() - rclcpp::Time(msg->stamp);
+  this->stats.subscriptions_durations_map[id].first += chrono_duration;
+  this->stats.subscriptions_durations_map[id].second ++;
 
 }
 

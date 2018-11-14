@@ -118,35 +118,21 @@ int main(int argc, char ** argv)
     rclcpp::shutdown();
 
     std::cout<<"rclcpp::shutdown"<<std::endl;
-    /*
-    for (auto thread : threads){
-        char *b;;
-        pthread_join(thread, (void**)&b);
-    }
-    */
-
-    std::cout<<"N_CLIENTS: "<<n_clients<<std::endl;
 
     for (int i = 0; i < n_clients; i ++){
         
         std::string name = vec[i]->get_name();
 
-        std::cout<<name<<" --> "<<std::endl;
-
-
         auto durations_map = vec[i]->stats.requests_durations_map;
 
-        std::cout<<name<<" --> "<<std::endl;
         for (auto const& map_item : durations_map){
-            std::cout<<"ITEM --> "<<std::endl;
 
             int client_id = map_item.first;
-            std::cout<<client_id<<" --> "<<std::endl;
 
             auto duration = map_item.second.first;
             int num_requests = map_item.second.second;
 
-            std::cout<<"client "<< client_id << " --> "<< duration/num_requests << "  #"<< num_requests<<std::endl;
+            std::cout<<name << ": client "<< client_id << " --> "<< duration/num_requests << "  #"<< num_requests<<std::endl;
         }
 
     }

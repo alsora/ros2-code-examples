@@ -14,6 +14,7 @@ typedef std::chrono::duration<int64_t, std::ratio<1, 1000000> >::rep duration_mi
 struct Stats{
 
     std::map<int, std::pair<duration_microseconds, int> > requests_durations_map;
+    std::map<int, std::pair<duration_microseconds, int> > subscriptions_durations_map;
 
     int all_msgs_counter;
 
@@ -43,7 +44,7 @@ private:
         const std::shared_ptr<std_srvs::srv::Empty::Request> request,
         const std::shared_ptr<std_srvs::srv::Empty::Response> response);
 
-    void topic_callback(const std_msgs::msg::Header::SharedPtr msg);
+    void topic_callback(const std_msgs::msg::Header::SharedPtr msg, int id);
 
     int _id;
     std::string _name;
