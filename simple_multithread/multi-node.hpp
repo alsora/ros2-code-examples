@@ -13,8 +13,8 @@ typedef std::chrono::duration<int64_t, std::ratio<1, 1000000> >::rep duration_mi
 
 struct Stats{
 
-    std::map<int, std::pair<duration_microseconds, int> > requests_durations_map;
-    std::map<int, std::pair<duration_microseconds, int> > subscriptions_durations_map;
+    std::map<int, std::pair<duration_microseconds, int> > client_requests_latency;
+    std::map<int, std::pair<duration_microseconds, int> > subscription_delta_times;
 
     int all_msgs_counter;
 

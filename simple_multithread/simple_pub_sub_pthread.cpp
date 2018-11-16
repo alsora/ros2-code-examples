@@ -120,33 +120,23 @@ int main(int argc, char ** argv)
     std::cout<<"rclcpp::shutdown"<<std::endl;
 
 
-    std::map<std::string, int> g_counters;
     for (int i = 0; i < n_subscribers; i ++){
-
+        
         std::string name = vec[i]->get_name();
-        g_counters[name] = vec[i]->stats.all_msgs_counter;
+
+        auto durations_map = vec[i]->stats.subscription_delta_times;
+
+        for (auto const& map_item : durations_map){
+
+            int topic_id = map_item.first;
+
+            auto duration = map_item.second.first;
+            int num_msgs = map_item.second.second;
+
+            std::cout<<name << ": topic "<< topic_id << " --> "<< duration/num_msgs << "  #"<< num_msgs<<std::endl;
+        }
+
     }
-    
-
-    // Declaring the type of Predicate that accepts 2 pairs and return a bool
-	typedef std::function<bool(std::pair<std::string, int>, std::pair<std::string, int>)> Comparator;
- 
-	// Defining a lambda function to compare two pairs. It will compare two pairs using second field
-	Comparator compFunctor =
-			[](std::pair<std::string, int> elem1 ,std::pair<std::string, int> elem2)
-			{
-				return elem1.second > elem2.second;
-			};
-
-
-	// Declaring a set that will store the pairs using above comparision logic
-	std::vector<std::pair<std::string, int>> orderedSet(
-			g_counters.begin(), g_counters.end());
-
-    std::sort(orderedSet.begin(), orderedSet.end(), compFunctor);
-    
-    for (std::pair<std::string, int> element : orderedSet)
-		std::cout << element.first << " --> " << element.second << std::endl;
 
     
     std::cout<<"End test"<<std::endl;

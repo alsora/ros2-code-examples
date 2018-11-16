@@ -152,8 +152,8 @@ void MultiNode::topic_callback(const std_msgs::msg::Header::SharedPtr msg, int i
  
   auto chrono_duration = duration_microseconds(delta_microseconds);
 
-  this->stats.subscriptions_durations_map[id].first += chrono_duration;
-  this->stats.subscriptions_durations_map[id].second ++;
+  this->stats.subscription_delta_times[id].first += chrono_duration;
+  this->stats.subscription_delta_times[id].second ++;
 
 }
 
@@ -190,7 +190,7 @@ void MultiNode::simple_client_task()
   // initialize request_duration_map
   for (auto const& map_item : _clients){
     int client_id = map_item.first;
-    this->stats.requests_durations_map[client_id] = std::make_pair(0, 0);
+    this->stats.client_requests_latency[client_id] = std::make_pair(0, 0);
   }
 
 
@@ -229,8 +229,8 @@ void MultiNode::simple_client_task()
       std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
       auto request_duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
 
-      this->stats.requests_durations_map[client_id].first += request_duration;
-      this->stats.requests_durations_map[client_id].second ++;
+      this->stats.client_requests_latency[client_id].first += request_duration;
+      this->stats.client_requests_latency[client_id].second ++;
 
     }
 

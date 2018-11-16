@@ -32,6 +32,9 @@ For each of the following tests, run the each command in a separate terminal win
 ```
     $ ros2 run simple_subscriber subscriber_main
 ```
+One process publishes messages and the other subscribes to that topic.
+
+
 #### Service/Client test
 ```
     $ ros2 run simple_service service_main
@@ -39,6 +42,9 @@ For each of the following tests, run the each command in a separate terminal win
 ```
     $ ros2 run simple_client client_main
 ```
+
+One process provides a service and the other requests it. 
+
 #### Time Synchronization message filters test
 ```
     $ ros2 run simple_time_sync publisher
@@ -46,10 +52,16 @@ For each of the following tests, run the each command in a separate terminal win
 ```
     $ ros2 run simple_time_sync time_sync_main
 ```
+One process publishes messages on multiple topics. Sometimes it publishes only on one topic, sometimes on all with the same timestamp and sometimes on all but with slightly different timestamps.
+The other process create an approximate and an exact time subscribers.
+
 #### Logger utils
 ```
     $ ros2 run simple_logger logger_main
 ```
+
+Log some data. Change the logger verbosity level at run time. Log some other data.
+
 #### Parameter servers
 ```
     $ ros2 run simple_parameters parameters_main
@@ -57,10 +69,17 @@ For each of the following tests, run the each command in a separate terminal win
 ```
     $ ros2 run simple_parameters reader_main
 ```
+
+One process sets its own parameters. The other reads them.
+
+
 #### Multiple nodes pub/sub
 ```
-    $ ros2 run simple_multithread simple_pub_sub_std
+    $ ros2 run simple_multithread simple_pub_sub_std 10 2 5
 ```
+Several nodes are created within the same process.
+This command will create 10 nodes with subscribers, 2 nodes with publishers and will let them spin for 5 seconds before printing some statistics.
+
 ## ROS2 CLI (command line interface)
 
 Note that these commands comes from a Python package. So if you have disabled them (i.e. when cross-compiling) they will not be available.

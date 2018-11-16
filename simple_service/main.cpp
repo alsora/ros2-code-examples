@@ -54,7 +54,7 @@ ImageMsg create_image(const std::shared_ptr<GetImageSrv::Request> request)
   img.width = request->res_w;
   img.height = request->res_h;
   img.data.resize(img.width * img.height);
-  for (int i = 0; i < img.width * img.height; i++){
+  for (size_t i = 0; i < img.width * img.height; i++){
     img.data[i] = ( std::rand() % ( 255 + 1 ) );
   }
 

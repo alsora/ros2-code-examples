@@ -123,7 +123,7 @@ int main(int argc, char ** argv)
         
         std::string name = vec[i]->get_name();
 
-        auto durations_map = vec[i]->stats.requests_durations_map;
+        auto durations_map = vec[i]->stats.client_requests_latency;
 
         for (auto const& map_item : durations_map){
 
