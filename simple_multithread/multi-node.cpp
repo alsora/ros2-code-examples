@@ -133,6 +133,16 @@ void MultiNode::add_client(int id)
 
 }
 
+void MultiNode::add_timer(std::chrono::milliseconds time, std::function< void() > callback)
+{
+
+  rclcpp::TimerBase::SharedPtr timer = this->create_wall_timer(time, callback);
+
+  _timers.push_back(timer);
+
+}
+
+
 
 
 void MultiNode::service_handler(const std::shared_ptr<rmw_request_id_t> request_header,

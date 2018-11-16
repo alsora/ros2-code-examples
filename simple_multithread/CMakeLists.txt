@@ -25,6 +25,9 @@ ament_target_dependencies(simple_pub_sub_std rclcpp std_msgs std_srvs)
 add_executable(simple_pub_sub_pthread simple_pub_sub_pthread.cpp multi-node.cpp)
 ament_target_dependencies(simple_pub_sub_pthread rclcpp std_msgs std_srvs)
 
+add_executable(simple_pub_sub_executor simple_pub_sub_executor.cpp multi-node.cpp)
+ament_target_dependencies(simple_pub_sub_executor rclcpp std_msgs std_srvs)
+
 add_executable(simple_client_service_pthread simple_client_service_pthread.cpp multi-node.cpp)
 ament_target_dependencies(simple_client_service_pthread rclcpp std_msgs std_srvs)
 
@@ -33,8 +36,9 @@ ament_target_dependencies(simple_client_service_std rclcpp std_msgs std_srvs)
 
 install(TARGETS
   spin
-  simple_pub_sub_std 
-  simple_pub_sub_pthread 
+  simple_pub_sub_std
+  simple_pub_sub_pthread
+  simple_pub_sub_executor
   simple_client_service_std
   simple_client_service_pthread
   DESTINATION lib/${PROJECT_NAME}

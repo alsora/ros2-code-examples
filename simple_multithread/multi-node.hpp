@@ -32,13 +32,12 @@ public:
     void add_service(int id);
     void add_client(int id);
 
+    void add_timer(std::chrono::milliseconds time, std::function< void() > callback);
+
     void simple_publisher_task();
     void simple_client_task();
 
-
     Stats stats;
-
-private:
 
     void service_handler(const std::shared_ptr<rmw_request_id_t> request_header,
         const std::shared_ptr<std_srvs::srv::Empty::Request> request,
@@ -54,6 +53,8 @@ private:
 
     std::map<int, rclcpp::Client<std_srvs::srv::Empty>::SharedPtr> _clients;
     std::map<int, rclcpp::Service<std_srvs::srv::Empty>::SharedPtr> _services;
+
+    std::vector<rclcpp::TimerBase::SharedPtr> _timers;
 
 
 };
