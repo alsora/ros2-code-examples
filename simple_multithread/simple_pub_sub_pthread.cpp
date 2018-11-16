@@ -133,7 +133,11 @@ int main(int argc, char ** argv)
             auto duration = map_item.second.first;
             int num_msgs = map_item.second.second;
 
-            std::cout<<name << ": topic "<< topic_id << " --> "<< duration/num_msgs << "  #"<< num_msgs<<std::endl;
+            float mean = 0;
+            if (num_msgs != 0)
+                mean = (float)duration/(float)num_msgs;
+
+            std::cout<<name << ": topic "<< topic_id << " --> "<< mean << "  #"<< num_msgs<<std::endl;
         }
 
     }

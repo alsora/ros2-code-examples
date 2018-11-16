@@ -85,6 +85,7 @@ int main(int argc, char ** argv)
 
     std::cout<<"Subscribers created!"<<std::endl;
     
+    auto publish_interval = 250ms;
     for (int i = 0; i < n_publishers; i++){
 
         int node_id = i + n_subscribers;
@@ -93,13 +94,15 @@ int main(int argc, char ** argv)
         int publisher_id = node_id;
         node->add_publisher(publisher_id);
         
-        node->add_timer(250ms, std::bind(&publish_callback, node));
+        node->add_timer(publish_interval, std::bind(&publish_callback, node));
 
         vec.push_back(node);
 
         executor->add_node(node);
 
     }
+
+    std::cout<<"Publishers created!"<<std::endl;
     
     // temporary, until api spin for seconds comes out (15 december 2018 with crystal release)
     std::thread thread1(executor_spin, executor);
@@ -123,7 +126,11 @@ int main(int argc, char ** argv)
             auto duration = map_item.second.first;
             int num_msgs = map_item.second.second;
 
-            std::cout<<name << ": topic "<< topic_id << " --> "<< duration/num_msgs << "  #"<< num_msgs<<std::endl;
+            float mean = 0;
+            if (num_msgs != 0)
+                mean = (float)duration/(float)num_msgs;
+
+            std::cout<<name << ": topic "<< topic_id << " --> "<< mean << "  #"<< num_msgs<<std::endl;
         }
 
     }

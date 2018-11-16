@@ -88,7 +88,9 @@ void MultiNode::add_subscriber(int id)
       topic_name, 
       fcn );
 
-      _subscribers[id] = subscriber;
+    _subscribers[id] = subscriber;
+
+    this->stats.subscription_delta_times[id] = std::make_pair(0, 0);
   }
 
 }
@@ -128,7 +130,10 @@ void MultiNode::add_client(int id)
 
     rclcpp::Client<std_srvs::srv::Empty>::SharedPtr client = this->create_client<std_srvs::srv::Empty>(
       service_name);
+
     _clients[id] = client;
+
+    this->stats.client_requests_latency[id] = std::make_pair(0, 0);
   }
 
 }
@@ -196,13 +201,6 @@ void MultiNode::simple_publisher_task()
 
 void MultiNode::simple_client_task()
 {
-
-  // initialize request_duration_map
-  for (auto const& map_item : _clients){
-    int client_id = map_item.first;
-    this->stats.client_requests_latency[client_id] = std::make_pair(0, 0);
-  }
-
 
   for (auto const& map_item : _clients){
     rclcpp::Client<std_srvs::srv::Empty>::SharedPtr client = map_item.second;

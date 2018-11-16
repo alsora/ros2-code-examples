@@ -71,6 +71,8 @@ int main(int argc, char ** argv)
         std::thread thread1(&MultiNode::simple_publisher_task, node);
         thread1.detach();
     }
+
+    std::cout<<"Publishers created!"<<std::endl;
     
     std::this_thread::sleep_for(std::chrono::seconds(test_duration));
 
@@ -91,7 +93,11 @@ int main(int argc, char ** argv)
             auto duration = map_item.second.first;
             int num_msgs = map_item.second.second;
 
-            std::cout<<name << ": topic "<< topic_id << " --> "<< duration/num_msgs << "  #"<< num_msgs<<std::endl;
+            float mean = 0;
+            if (num_msgs != 0)
+                mean = (float)duration/(float)num_msgs;
+
+            std::cout<<name << ": topic "<< topic_id << " --> "<< mean << "  #"<< num_msgs<<std::endl;
         }
 
     }

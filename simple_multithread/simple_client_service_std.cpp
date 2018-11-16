@@ -97,7 +97,11 @@ int main(int argc, char ** argv)
             auto duration = map_item.second.first;
             int num_requests = map_item.second.second;
 
-            std::cout<<name << ": client "<< client_id << " --> "<< duration/num_requests << "  #"<< num_requests<<std::endl;
+            float mean = 0;
+            if (num_requests != 0)
+                mean = (float)duration/(float)num_requests;
+
+            std::cout<<name << ": client "<< client_id << " --> "<< mean << "  #"<< num_requests<<std::endl;
         }
 
     }
