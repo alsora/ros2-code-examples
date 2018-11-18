@@ -36,6 +36,9 @@ int main(int argc, char ** argv)
   g_node = rclcpp::Node::make_shared("simple_service");
 
   auto server = g_node->create_service<GetImageSrv>("get_image", handle_service);
+
+  RCLCPP_INFO(g_node->get_logger(),"Server started");
+
   rclcpp::spin(g_node);
   rclcpp::shutdown();
   g_node = nullptr;

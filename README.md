@@ -46,7 +46,8 @@ One process publishes messages and the other subscribes to that topic.
     $ ros2 run simple_client client_main
 ```
 
-One process provides a service and the other requests it. 
+One process provides a service and the other requests it.
+The executable `asynchronous_main` contains an alternative implementation for the ROS2 client.
 
 #### Time Synchronization message filters test
 ```
