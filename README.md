@@ -2,10 +2,13 @@
 
 The following tutorials and examples are updated for **ROS 2 Bouncy Bolson** (Released on 2 July 2018).
 
+This repository also contains some `Dockerfile` for running different ROS2-based environments.
+You can find them [here](docker)
+
 ## Requirements
 
  - [ROS2 Bouncy](https://index.ros.org/doc/ros2/Installation/)
-
+ 
 
 ## Building the examples
 
