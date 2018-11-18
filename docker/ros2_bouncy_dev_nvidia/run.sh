@@ -12,4 +12,4 @@ docker run -it --rm \
  -v $HOME/.Xauthority:/root/.Xauthority \
  --privileged \
  --net=host \
- ros2_dev_nvidia "$@"
+ ros2_bouncy_dev_nvidia "$@"

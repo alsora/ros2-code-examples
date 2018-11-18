@@ -11,6 +11,6 @@ docker run -it --rm \
 	  -e DISPLAY=$DISPLAY \
 	  -v $XSOCK:$XSOCK \
 	  -v $HOME/.Xauthority:/root/.Xauthority \
-          --volume=/home/alsora/source/alsora/ros2-examples:/root/ros2-examples \
-	  ros2_dev \
+          --volume=$PWD/../../:/root/ros2-code-examples \
+	  ros2_bouncy_dev \
 	  bash

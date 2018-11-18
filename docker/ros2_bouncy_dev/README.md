@@ -1,4 +1,4 @@
-# ros2_dev Docker image
+# ros2_bouncy_dev Docker image
 
 
 Build the Docker image and deploy a container

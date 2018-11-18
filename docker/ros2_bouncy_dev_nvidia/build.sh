@@ -3,4 +3,4 @@
 # @author Alberto Soragna (alberto dot soragna at gmail dot com)
 # @2018 
 
-docker build -t ros2_tensorflow_gpu . 
+docker build -t ros2_bouncy_dev_nvidia . 
