@@ -3,7 +3,7 @@
 The following tutorials and examples are updated for **ROS 2 Bouncy Bolson** (Released on 2 July 2018).
 
 This repository also contains some `Dockerfile` for running different ROS2-based environments.
-You can find them [here](docker)
+You can find them [here](docker).
 
 ## Requirements
 
@@ -17,7 +17,7 @@ Source your ROS2 SDK, then create a workspace and build these packages
     $ mkdir -p ws/src
     $ cd ws/src
     $ git clone https://github.com/alsora/ros2-code-examples --recurse-submodules
-    $ cd ..    
+    $ cd ..
     $ colcon build
     $ source install/local_setup.sh
 
