@@ -13,7 +13,7 @@ SimpleSubscriberNode::SimpleSubscriberNode(std::string name) : Node(name)
     custom_qos_profile.durability = rmw_qos_durability_policy_t::RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL;
 
     _subscriber = this->create_subscription<std_msgs::msg::String>("my_topic",
-        std::bind(&SimpleSubscriberNode::my_callback, this, std::placeholders::_1),
+        std::bind(&SimpleSubscriberNode::simple_callback, this, std::placeholders::_1),
         custom_qos_profile);
 
     RCLCPP_INFO(this->get_logger(), "Subscriber created!!");
@@ -21,7 +21,7 @@ SimpleSubscriberNode::SimpleSubscriberNode(std::string name) : Node(name)
 }
 
 
-void SimpleSubscriberNode::my_callback(const std_msgs::msg::String::SharedPtr msg)
+void SimpleSubscriberNode::simple_callback(const std_msgs::msg::String::SharedPtr msg)
 {
 
     RCLCPP_INFO(this->get_logger(), "Received msg: '%s'", msg->data.c_str());

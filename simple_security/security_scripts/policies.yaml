@@ -1,0 +1,9 @@
+nodes:
+  simple_subscriber:
+    topics:
+      my_topic:
+        allow: s # can subscribe to my_topic
+  simple_publisher:
+    topics:
+      my_topic:
+        allow: p # can publish on my_topic

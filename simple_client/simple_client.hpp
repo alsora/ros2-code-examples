@@ -1,6 +1,6 @@
 
 #include "rclcpp/rclcpp.hpp"
-#include "my_interfaces/srv/get_image.hpp"
+#include "simple_interfaces/srv/get_image.hpp"
 
 
 
@@ -15,6 +15,6 @@ public:
 
 private:
 
-    rclcpp::Client<my_interfaces::srv::GetImage>::SharedPtr _client;
+    rclcpp::Client<simple_interfaces::srv::GetImage>::SharedPtr _client;
 
 };

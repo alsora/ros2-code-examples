@@ -6,8 +6,8 @@
 #include <iostream>
 #include "rclcpp/rclcpp.hpp"
 
-#include "my_interfaces/msg/stamped_string.hpp"
-#include "my_interfaces/msg/stamped_boolean.hpp"
+#include "simple_interfaces/msg/stamped_string.hpp"
+#include "simple_interfaces/msg/stamped_boolean.hpp"
 
 using namespace std::chrono_literals;
 
@@ -25,8 +25,8 @@ public:
     custom_qos_profile.history = rmw_qos_history_policy_t::RMW_QOS_POLICY_HISTORY_KEEP_LAST;
     custom_qos_profile.durability = rmw_qos_durability_policy_t::RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL;
 
-    _stamped_string_publisher = this->create_publisher<my_interfaces::msg::StampedString>("stamped_string_topic", custom_qos_profile);
-    _stamped_boolean_publisher = this->create_publisher<my_interfaces::msg::StampedBoolean>("stamped_boolean_topic", custom_qos_profile);
+    _stamped_string_publisher = this->create_publisher<simple_interfaces::msg::StampedString>("stamped_string_topic", custom_qos_profile);
+    _stamped_boolean_publisher = this->create_publisher<simple_interfaces::msg::StampedBoolean>("stamped_boolean_topic", custom_qos_profile);
 
     _pub_string_timer = this->create_wall_timer(500ms, std::bind(&MyNode::publish_string, this));
     _pub_approximate_timer = this->create_wall_timer(1500ms, std::bind(&MyNode::publish_approximate, this));
@@ -42,10 +42,10 @@ private:
   {
     if ((msg_count+1) % 3 == 0){
       return;
-    } 
+    }
 
     msg_count++;
-    my_interfaces::msg::StampedString message = my_interfaces::msg::StampedString();
+    simple_interfaces::msg::StampedString message = simple_interfaces::msg::StampedString();
     message.header.stamp = this->now();
     message.data = "Hello, world " + std::to_string(msg_count);
     _stamped_string_publisher->publish(message);
@@ -55,16 +55,16 @@ private:
   {
     if ((msg_count+1) % 6 == 0){
       return;
-    } 
+    }
 
     msg_count++;
 
-    my_interfaces::msg::StampedString message = my_interfaces::msg::StampedString();
+    simple_interfaces::msg::StampedString message = simple_interfaces::msg::StampedString();
     message.header.stamp = this->now();
     message.data = "Hello, world " + std::to_string(msg_count);
     _stamped_string_publisher->publish(message);
 
-    my_interfaces::msg::StampedBoolean message2 = my_interfaces::msg::StampedBoolean();
+    simple_interfaces::msg::StampedBoolean message2 = simple_interfaces::msg::StampedBoolean();
     message2.header.stamp = this->now();
     message2.data = (msg_count % 2);
     _stamped_boolean_publisher->publish(message2);
@@ -78,22 +78,22 @@ private:
     msg_count++;
     rclcpp::Time t = this->now();
 
-    my_interfaces::msg::StampedString message = my_interfaces::msg::StampedString();
+    simple_interfaces::msg::StampedString message = simple_interfaces::msg::StampedString();
     message.header.stamp = t;
     message.data = "Hello, world " + std::to_string(msg_count);
     _stamped_string_publisher->publish(message);
 
-    my_interfaces::msg::StampedBoolean message2 = my_interfaces::msg::StampedBoolean();
+    simple_interfaces::msg::StampedBoolean message2 = simple_interfaces::msg::StampedBoolean();
     message2.header.stamp = t;
     message2.data = (msg_count % 2);
-    _stamped_boolean_publisher->publish(message2);    
+    _stamped_boolean_publisher->publish(message2);
 
     RCLCPP_INFO(this->get_logger(), "Published string and bool exact msg");
 
   }
 
-  rclcpp::Publisher<my_interfaces::msg::StampedString>::SharedPtr _stamped_string_publisher;
-  rclcpp::Publisher<my_interfaces::msg::StampedBoolean>::SharedPtr _stamped_boolean_publisher;
+  rclcpp::Publisher<simple_interfaces::msg::StampedString>::SharedPtr _stamped_string_publisher;
+  rclcpp::Publisher<simple_interfaces::msg::StampedBoolean>::SharedPtr _stamped_boolean_publisher;
 
   rclcpp::TimerBase::SharedPtr _pub_string_timer;
   rclcpp::TimerBase::SharedPtr _pub_approximate_timer;

@@ -1,5 +1,5 @@
 #include "rclcpp/rclcpp.hpp"
-#include "my_interfaces/srv/get_image.hpp"
+#include "simple_interfaces/srv/get_image.hpp"
 
 
 class SimpleServiceNode : public rclcpp::Node
@@ -13,9 +13,9 @@ private:
 
     void handle_service(
         const std::shared_ptr<rmw_request_id_t> request_header,
-        const std::shared_ptr<my_interfaces::srv::GetImage::Request> request,
-        const std::shared_ptr<my_interfaces::srv::GetImage::Response> response);
+        const std::shared_ptr<simple_interfaces::srv::GetImage::Request> request,
+        const std::shared_ptr<simple_interfaces::srv::GetImage::Response> response);
 
-    rclcpp::Service<my_interfaces::srv::GetImage>::SharedPtr _service;
+    rclcpp::Service<simple_interfaces::srv::GetImage>::SharedPtr _service;
 
 };

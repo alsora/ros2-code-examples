@@ -3,7 +3,7 @@
 #include "simple_service.hpp"
 
 
-using GetImageSrv = my_interfaces::srv::GetImage;
+using GetImageSrv = simple_interfaces::srv::GetImage;
 using ImageMsg = sensor_msgs::msg::Image;
 
 using std::placeholders::_1;

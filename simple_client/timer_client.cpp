@@ -3,7 +3,7 @@
 #include "timer_client.hpp"
 
 
-using GetImageSrv = my_interfaces::srv::GetImage;
+using GetImageSrv = simple_interfaces::srv::GetImage;
 using namespace std::chrono_literals;
 
 

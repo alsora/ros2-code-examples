@@ -12,12 +12,11 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(std_srvs REQUIRED)
+find_package(simple_publisher REQUIRED)
 
 
 add_executable(main main.cpp)
-ament_target_dependencies(main rclcpp std_msgs std_srvs)
+ament_target_dependencies(main rclcpp simple_publisher)
 
 install(TARGETS
   main

@@ -80,6 +80,11 @@ The other process create an approximate and an exact time subscribers.
 One process sets its own parameters. The other reads them.
 
 
+
+#### Secure ROS2
+
+[**README.md**](simple_security)
+
 ## ROS2 CLI (command line interface)
 
 Note that these commands comes from a Python package. So if you have disabled them (i.e. when cross-compiling) they will not be available.

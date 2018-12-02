@@ -1,6 +1,6 @@
 
 #include "rclcpp/rclcpp.hpp"
-#include "my_interfaces/srv/get_image.hpp"
+#include "simple_interfaces/srv/get_image.hpp"
 
 
 
@@ -15,9 +15,9 @@ private:
 
     void make_request();
 
-    void response_received_callback(rclcpp::Client<my_interfaces::srv::GetImage>::SharedFuture result_future);
+    void response_received_callback(rclcpp::Client<simple_interfaces::srv::GetImage>::SharedFuture result_future);
 
-    rclcpp::Client<my_interfaces::srv::GetImage>::SharedPtr _client;
+    rclcpp::Client<simple_interfaces::srv::GetImage>::SharedPtr _client;
     rclcpp::TimerBase::SharedPtr _request_timer;
 
     std::chrono::high_resolution_clock::time_point _request_sent_time;

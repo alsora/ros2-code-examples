@@ -5,8 +5,8 @@
 #include "rclcpp/time.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-#include "my_interfaces/msg/stamped_string.hpp"
-#include "my_interfaces/msg/stamped_boolean.hpp"
+#include "simple_interfaces/msg/stamped_string.hpp"
+#include "simple_interfaces/msg/stamped_boolean.hpp"
 
 #include <message_filters/subscriber.h>
 #include <message_filters/time_synchronizer.h>
@@ -14,8 +14,8 @@
 #include "message_filters/sync_policies/exact_time.h"
 #include "message_filters/synchronizer.h"
 
-using StampedStringMsg = my_interfaces::msg::StampedString;
-using StampedBooleanMsg = my_interfaces::msg::StampedBoolean;
+using StampedStringMsg = simple_interfaces::msg::StampedString;
+using StampedBooleanMsg = simple_interfaces::msg::StampedBoolean;
 
 rclcpp::Node::SharedPtr g_node = nullptr;
 
@@ -55,9 +55,9 @@ int main(int argc, char ** argv)
 
 
   /**
-   * create an exact time filter. 
+   * create an exact time filter.
    * this can be done in two different ways
-   */ 
+   */
 
   // method 1: exact time policy simplified API
   //message_filters::TimeSynchronizer<StampedStringMsg, StampedBooleanMsg> syncExact(string_sub, bool_sub, 10);
@@ -70,12 +70,12 @@ int main(int argc, char ** argv)
   syncExact.registerCallback(exact_sync_callback);
 
   /**
-   * create an approximate time filter. 
-   */ 
+   * create an approximate time filter.
+   */
 
   typedef message_filters::sync_policies::ApproximateTime<StampedStringMsg, StampedBooleanMsg> approximate_policy;
   message_filters::Synchronizer<approximate_policy>syncApproximate(approximate_policy(10), string_sub, bool_sub);
-  
+
   // register the approximate time callback
   syncApproximate.registerCallback(approximate_sync_callback);
 

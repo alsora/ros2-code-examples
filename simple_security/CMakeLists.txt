@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(simple_client)
+project(simple_security)
 
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
@@ -14,13 +14,14 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(simple_interfaces REQUIRED)
 
-add_executable(client_main client_main.cpp simple_client.cpp)
-ament_target_dependencies(client_main rclcpp simple_interfaces)
 
-add_executable(timer_main timer_main.cpp timer_client.cpp)
-ament_target_dependencies(timer_main rclcpp simple_interfaces)
+add_executable(publishers_main publishers_main.cpp)
+ament_target_dependencies(publishers_main rclcpp simple_interfaces)
 
-install(TARGETS client_main timer_main
+add_executable(subscribers_main subscribers_main.cpp)
+ament_target_dependencies(subscribers_main rclcpp simple_interfaces)
+
+install(TARGETS publishers_main subscribers_main
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

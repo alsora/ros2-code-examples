@@ -11,7 +11,7 @@ public:
 
 private:
 
-    void my_callback(const std_msgs::msg::String::SharedPtr msg);
+    void simple_callback(const std_msgs::msg::String::SharedPtr msg);
 
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr _subscriber;
 };

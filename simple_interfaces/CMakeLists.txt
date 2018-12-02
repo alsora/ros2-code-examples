@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(my_interfaces)
+project(simple_interfaces)
 
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)

@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="2">
-  <name>simple_client</name>
+  <name>simple_security</name>
   <version>0.0.1</version>
-  <description>Examples of minimal service client</description>
+  <description>Examples of simple secured ros2 communication</description>
   <maintainer email="alberto.soragna@gmail.com">Alberto Soragna</maintainer>
   <license>MIT</license>
   <author>Alberto Soragna</author>

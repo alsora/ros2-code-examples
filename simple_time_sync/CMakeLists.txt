@@ -13,14 +13,14 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(my_interfaces REQUIRED)
+find_package(simple_interfaces REQUIRED)
 find_package(message_filters REQUIRED)
 
 add_executable(time_sync_main main.cpp)
-ament_target_dependencies(time_sync_main rclcpp std_msgs my_interfaces message_filters)
+ament_target_dependencies(time_sync_main rclcpp std_msgs simple_interfaces message_filters)
 
 add_executable(publisher publisher.cpp)
-ament_target_dependencies(publisher rclcpp my_interfaces)
+ament_target_dependencies(publisher rclcpp simple_interfaces)
 
 
 install(TARGETS time_sync_main publisher
