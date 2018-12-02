@@ -14,8 +14,7 @@ find_package(ament_cmake REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 
-add_executable(subscriber_main main.cpp)
-
+add_executable(subscriber_main subscriber_main.cpp simple_subscriber.cpp)
 ament_target_dependencies(subscriber_main rclcpp std_msgs)
 
 install(TARGETS subscriber_main

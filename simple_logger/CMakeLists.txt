@@ -13,7 +13,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 
-add_executable(logger_main main.cpp)
+add_executable(logger_main logger_main.cpp)
 
 ament_target_dependencies(logger_main rclcpp)
 

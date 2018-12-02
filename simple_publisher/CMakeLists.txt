@@ -14,9 +14,9 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
-add_executable(publisher_main main.cpp)
 
-ament_target_dependencies(publisher_main rclcpp std_msgs my_interfaces)
+add_executable(publisher_main publisher_main.cpp simple_publisher.cpp)
+ament_target_dependencies(publisher_main rclcpp std_msgs)
 
 install(TARGETS publisher_main
   DESTINATION lib/${PROJECT_NAME})

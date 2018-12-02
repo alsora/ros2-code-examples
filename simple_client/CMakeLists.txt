@@ -13,15 +13,14 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(my_interfaces REQUIRED)
-find_package(sensor_msgs REQUIRED)
 
-add_executable(client_main client_main.cpp)
-ament_target_dependencies(client_main rclcpp my_interfaces sensor_msgs)
+add_executable(client_main client_main.cpp simple_client.cpp)
+ament_target_dependencies(client_main rclcpp my_interfaces)
 
-add_executable(asynchronous_main asynchronous_main.cpp)
-ament_target_dependencies(asynchronous_main rclcpp my_interfaces sensor_msgs)
+add_executable(timer_main timer_main.cpp timer_client.cpp)
+ament_target_dependencies(timer_main rclcpp my_interfaces)
 
-install(TARGETS client_main asynchronous_main
+install(TARGETS client_main timer_main
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

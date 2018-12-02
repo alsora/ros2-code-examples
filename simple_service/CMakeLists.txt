@@ -11,10 +11,10 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake REQUIRED)
-find_package(my_interfaces REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(my_interfaces REQUIRED)
 
-add_executable(service_main main.cpp)
+add_executable(service_main service_main.cpp simple_service.cpp)
 
 ament_target_dependencies(service_main rclcpp my_interfaces)
 
