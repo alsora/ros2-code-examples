@@ -8,7 +8,7 @@ You can find them [here](docker).
 ## Requirements
 
  - [ROS2 Bouncy](https://index.ros.org/doc/ros2/Installation/)
- 
+
 
 ## Building the examples
 
@@ -28,7 +28,7 @@ For more detailed build instructions look [here](build_ros2_packages.md)
 
 For each of the following tests, run the each command in a separate terminal window (remember that ROS2 SDK has to be sourced in every terminal!)
 
-#### Publisher/Subscriber test
+#### Publisher/Subscriber
 ```
     $ ros2 run simple_publisher publisher_main
 ```
@@ -38,7 +38,7 @@ For each of the following tests, run the each command in a separate terminal win
 One process publishes messages and the other subscribes to that topic.
 
 
-#### Service/Client test
+#### Service/Client
 ```
     $ ros2 run simple_service service_main
 ```
@@ -47,9 +47,18 @@ One process publishes messages and the other subscribes to that topic.
 ```
 
 One process provides a service and the other requests it.
-The executable `asynchronous_main` contains an alternative implementation for the ROS2 client.
 
-#### Time Synchronization message filters test
+Running  `simple_client/timer_main` contains an alternative implementation for the ROS2 client node.
+
+#### Logger utils
+```
+    $ ros2 run simple_logger logger_main
+```
+
+Log some data. Change the logger verbosity level at run time. Log some other data.
+
+
+#### Time Synchronization message filters
 ```
     $ ros2 run simple_time_sync publisher
 ```
@@ -59,12 +68,6 @@ The executable `asynchronous_main` contains an alternative implementation for th
 One process publishes messages on multiple topics. Sometimes it publishes only on one topic, sometimes on all with the same timestamp and sometimes on all but with slightly different timestamps.
 The other process create an approximate and an exact time subscribers.
 
-#### Logger utils
-```
-    $ ros2 run simple_logger logger_main
-```
-
-Log some data. Change the logger verbosity level at run time. Log some other data.
 
 #### Parameter servers
 ```
@@ -77,25 +80,31 @@ Log some data. Change the logger verbosity level at run time. Log some other dat
 One process sets its own parameters. The other reads them.
 
 
-#### Multiple nodes pub/sub
-```
-    $ ros2 run simple_multithread simple_pub_sub_std 10 2 5
-```
-Several nodes are created within the same process.
-This command will create 10 nodes with subscribers, 2 nodes with publishers and will let them spin for 5 seconds before printing some statistics.
-
 ## ROS2 CLI (command line interface)
 
 Note that these commands comes from a Python package. So if you have disabled them (i.e. when cross-compiling) they will not be available.
 
-To see a list of available commands
+ - See a list of available commands
 
-    $ ros2 --help
+        $ ros2 --help
 
-Print a list of <package_name> <executable_name>
+ - Print a list of <package_name> <executable_name>
 
-    $ ros2 pkg executabels
+        $ ros2 pkg executabels
 
-Run a ROS2 node
+ - Run a ROS2 node
 
-    $ ros2 run <package_name> <executable_name>
+        $ ros2 run <package_name> <executable_name>
+
+ - List visible topic names (a topic is visible if at least 1 node is publishing or subscribing to it)
+
+        $ ros2 topic list
+
+ - Echo what's published on a topic
+
+        $ ros2 topic echo <topic_name>
+
+ - Publish a message to a topic (message content written as valid YAML)
+
+        $ ros2 topic pub <topic_name> <message_type> <message_content>
+

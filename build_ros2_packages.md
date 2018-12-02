@@ -53,7 +53,7 @@ To use the executables and libraries with the command line interface you need to
 ## Tips
 
  - If you do not want to build a specific package place an empty file named `COLCON_IGNORE` in the directory and it will not be indexed.
- 
+
         $ touch src/ros2/rviz/COLCON_IGNORE
 
  - Colcon by default builds packages in parallel. This could cause unpredictable errors. To build sequentially add `--executor sequential` as parameter to `colcon build`.
