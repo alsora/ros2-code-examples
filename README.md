@@ -55,8 +55,14 @@ Running  `simple_client/timer_main` contains an alternative implementation for t
     $ ros2 run simple_logger logger_main
 ```
 
-Log some data. Change the logger verbosity level at run time. Log some other data.
+Log some messages. Change the logger verbosity level at run time. Log some other messages.
 
+#### ROS2 Multithread
+```
+    $ ros2 run simple_multithread multithread_main
+```
+
+Run multiple nodes in separate threads from the same process.
 
 #### Time Synchronization message filters
 ```

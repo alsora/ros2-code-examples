@@ -12,9 +12,11 @@
 
   <build_depend>rclcpp</build_depend>
   <build_depend>simple_publisher</build_depend>
+  <build_depend>simple_subscriber</build_depend>
 
   <exec_depend>rclcpp</exec_depend>
   <exec_depend>simple_publisher</exec_depend>
+  <exec_depend>simple_subscriber</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

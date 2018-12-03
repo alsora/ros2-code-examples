@@ -31,9 +31,9 @@ Then we can populate the directory with authentication keys for our nodes.
 
 Now that we have defined some keys, it's necessary to enable the ROS2 security in all the terminals that we are using.
 
-    $ source security_scripts/enable_security.sh
+    $ source enable_security.sh
 
-**NOTE**: you can reset these environment variables by sourcing the `security_scripts/disable_security.sh` script.
+**NOTE**: you can reset these environment variables with `source disable_security.sh`.
 
 Now security is enabled.
 
@@ -69,7 +69,7 @@ As we have seen, as long as security options are enabled, only nodes with autent
 
 If we have our secured pub/sub system running, we can still however start a new node without security options.
 
-You can do that by opening a new terminal or with `source security_scripts/disable_security.sh`.
+You can do that by opening a new terminal or with `source disable_security.sh`.
 
     $ ros2 run simple_subscriber subscriber_main __node:=additional_subscriber
 
