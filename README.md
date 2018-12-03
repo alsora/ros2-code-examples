@@ -57,7 +57,7 @@ Running  `simple_client/timer_main` contains an alternative implementation for t
 
 Log some messages. Change the logger verbosity level at run time. Log some other messages.
 
-#### ROS2 Multithread
+#### Multithread systems
 ```
     $ ros2 run simple_multithread multithread_main
 ```
@@ -90,6 +90,8 @@ One process sets its own parameters. The other reads them.
 #### Secure ROS2
 
 [**README.md**](simple_security)
+
+Enable security options for your ROS2 system: nodes authentication, messages encryption and access control.
 
 ## ROS2 CLI (command line interface)
 
