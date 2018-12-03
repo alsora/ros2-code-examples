@@ -62,6 +62,7 @@ If one of these nodes, for which we have set the access permissions, tries to re
 
     $ ros2 run simple_publisher publisher_main __node:=additional_publisher __topic:=another_topic
 
+**NOTE**: as of ROS2 Bouncy Bolson, it's possible to set access permissions only for topics. Support for services and actions will be implemented in the future.
 
 #### Non-authenticated nodes
 

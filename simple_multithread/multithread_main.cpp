@@ -20,6 +20,13 @@ int main(int argc, char ** argv)
     std::thread pub_thread(static_cast<void (*)(rclcpp::Node::SharedPtr)>(rclcpp::spin), pub_node);
     std::thread sub_thread(static_cast<void (*)(rclcpp::Node::SharedPtr)>(rclcpp::spin), sub_node);
 
+    // setting threads priority is not mandatory
+    sched_param sch;
+    int policy;
+
+    pthread_getschedparam(pub_thread.native_handle(), &policy, &sch);
+    sch.sched_priority = 10;
+    pthread_setschedparam(pub_thread.native_handle(), SCHED_FIFO, &sch);
 
     std::this_thread::sleep_for(10s);
 
