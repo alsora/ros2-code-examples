@@ -13,7 +13,11 @@ using std::placeholders::_3;
 SimpleServiceNode::SimpleServiceNode(std::string name) : Node(name)
 {
 
-    _service = this->create_service<GetImageSrv>("get_image", std::bind(&SimpleServiceNode::handle_service, this, _1, _2, _3));
+    rmw_qos_profile_t qos_profile = rmw_qos_profile_default;
+
+    _service = this->create_service<GetImageSrv>("get_image",
+        std::bind(&SimpleServiceNode::handle_service, this, _1, _2, _3),
+        qos_profile);
 
 
     RCLCPP_INFO(this->get_logger(), "Service created!!");
@@ -25,10 +29,9 @@ void SimpleServiceNode::handle_service(const std::shared_ptr<rmw_request_id_t> r
         const std::shared_ptr<GetImageSrv::Response> response)
 {
 
-
     (void)request_header;
 
-    RCLCPP_INFO(this->get_logger(),"request received");
+    RCLCPP_INFO(this->get_logger(),"Request received");
 
     auto img = ImageMsg();
 

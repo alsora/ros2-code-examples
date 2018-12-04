@@ -25,7 +25,7 @@ RUN apt-get install -y \
 RUN locale-gen en_US.UTF-8
 RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 ENV LANG en_US.UTF-8
-    
+
 # ROS setup requirements
 RUN apt-get install -y \
   build-essential \
@@ -33,7 +33,7 @@ RUN apt-get install -y \
   python3-colcon-common-extensions \
   python-rosdep \
   python3-vcstool
-  
+
 RUN python3 -m pip install -U \
   argcomplete \
   flake8 \
@@ -51,7 +51,7 @@ RUN python3 -m pip install -U \
 # install Fast-RTPS dependencies
 RUN apt-get install --no-install-recommends -y \
   libasio-dev \
-  libtinyxml2-dev \  
+  libtinyxml2-dev \
   libopensplice67
 
 # dependencies for RViz

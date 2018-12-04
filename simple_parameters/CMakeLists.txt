@@ -13,16 +13,13 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 
-add_executable(parameters_main main.cpp)
-ament_target_dependencies(parameters_main rclcpp)
+add_executable(parameters_server_main parameters_server_main.cpp simple_parameters_server_node.cpp)
+ament_target_dependencies(parameters_server_main rclcpp)
 
-add_executable(reader_main reader.cpp)
-ament_target_dependencies(reader_main rclcpp)
+add_executable(parameters_client_main parameters_client_main.cpp simple_parameters_client_node.cpp)
+ament_target_dependencies(parameters_client_main rclcpp)
 
-add_executable(callbacks callbacks.cpp)
-ament_target_dependencies(callbacks rclcpp)
-
-install(TARGETS parameters_main reader_main callbacks
+install(TARGETS parameters_server_main parameters_client_main
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

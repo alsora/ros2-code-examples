@@ -12,7 +12,7 @@ You can find them [here](docker).
 
 ## Building the examples
 
-Source your ROS2 SDK, then create a workspace and build these packages
+Source your ROS2 SDK, then create a workspace, add this repository to its sources and build the packages.
 
     $ mkdir -p ws/src
     $ cd ws/src
@@ -95,7 +95,7 @@ Enable security options for your ROS2 system: nodes authentication, messages enc
 
 ## ROS2 CLI (command line interface)
 
-Note that these commands comes from a Python package. So if you have disabled them (i.e. when cross-compiling) they will not be available.
+Note that these commands comes from a Python package. So if you have disabled Python support (i.e. when cross-compiling) they will not be available.
 
  - See a list of available commands
 
@@ -117,7 +117,11 @@ Note that these commands comes from a Python package. So if you have disabled th
 
         $ ros2 topic echo <topic_name>
 
- - Publish a message to a topic (message content written as valid YAML)
+ - Publish a message to a topic (message_content written as valid YAML)
 
         $ ros2 topic pub <topic_name> <message_type> <message_content>
+
+ - Make a service request (request_content written as valid YAML)
+
+        $ ros2 service call <service_name> <request_message_type> <request_content>
 

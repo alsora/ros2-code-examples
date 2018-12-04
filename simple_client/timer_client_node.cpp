@@ -6,14 +6,16 @@ using namespace std::chrono_literals;
 TimerClientNode::TimerClientNode(std::string name) : Node(name)
 {
 
-    _client = this->create_client<GetImageSrv>("get_image");
+    rmw_qos_profile_t qos_profile = rmw_qos_profile_default;
+
+    _client = this->create_client<GetImageSrv>("get_image", qos_profile);
 
     while (!_client->wait_for_service(100ms)){
         if (!rclcpp::ok()){
-            RCLCPP_ERROR(this->get_logger(), "client interrupted while waiting for service to appear.");
+            RCLCPP_ERROR(this->get_logger(), "Client interrupted while waiting for service to appear.");
             assert(0);
         }
-        RCLCPP_INFO(this->get_logger(), "waiting for service to appear...");
+        RCLCPP_INFO(this->get_logger(), "Waiting for service to appear...");
     }
 
 
@@ -46,6 +48,6 @@ void TimerClientNode::response_received_callback(rclcpp::Client<GetImageSrv>::Sh
     std::chrono::high_resolution_clock::time_point t = std::chrono::high_resolution_clock::now();
     auto request_duration = std::chrono::duration_cast<std::chrono::microseconds>( t - _request_sent_time ).count();
 
-    RCLCPP_INFO(this->get_logger(), "got response in %ld microseconds", request_duration);
+    RCLCPP_INFO(this->get_logger(), "Got response in %ld microseconds", request_duration);
 
 }
