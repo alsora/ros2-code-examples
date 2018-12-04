@@ -1,12 +1,6 @@
-
-
-#include <chrono>
-#include <inttypes.h>
-#include <memory>
-#include <iostream>
 #include "rclcpp/rclcpp.hpp"
 
-#include "simple_publisher.hpp"
+#include "simple_publisher_node.hpp"
 
 int main(int argc, char ** argv)
 {

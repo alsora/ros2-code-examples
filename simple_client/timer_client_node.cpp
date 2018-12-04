@@ -1,6 +1,4 @@
-
-
-#include "timer_client.hpp"
+#include "timer_client_node.hpp"
 
 using GetImageSrv = simple_interfaces::srv::GetImage;
 using namespace std::chrono_literals;

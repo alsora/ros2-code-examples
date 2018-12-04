@@ -16,7 +16,7 @@ find_package(rclcpp REQUIRED)
 
 include_directories(include)
 
-add_library(${PROJECT_NAME} simple_subscriber.cpp)
+add_library(${PROJECT_NAME} simple_subscriber_node.cpp)
 ament_target_dependencies(${PROJECT_NAME} rclcpp sensor_msgs)
 
 install(
@@ -31,7 +31,7 @@ install(
   DESTINATION include
 )
 
-add_executable(subscriber_main subscriber_main.cpp simple_subscriber.cpp)
+add_executable(subscriber_main subscriber_main.cpp simple_subscriber_node.cpp)
 ament_target_dependencies(subscriber_main rclcpp std_msgs)
 
 install(TARGETS subscriber_main

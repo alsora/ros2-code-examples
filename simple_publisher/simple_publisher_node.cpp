@@ -1,7 +1,4 @@
-
-
-
-#include "simple_publisher.hpp"
+#include "simple_publisher_node.hpp"
 
 
 using namespace std::chrono_literals;

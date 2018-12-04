@@ -14,7 +14,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(simple_interfaces REQUIRED)
 
-add_executable(service_main service_main.cpp simple_service.cpp)
+add_executable(service_main service_main.cpp simple_service_node.cpp)
 
 ament_target_dependencies(service_main rclcpp simple_interfaces)
 

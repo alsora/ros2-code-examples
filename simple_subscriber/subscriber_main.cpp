@@ -1,11 +1,6 @@
-
-
-#include <chrono>
-#include <memory>
-#include <iostream>
 #include "rclcpp/rclcpp.hpp"
 
-#include "simple_subscriber.hpp"
+#include "simple_subscriber_node.hpp"
 
 
 int main(int argc, char ** argv)

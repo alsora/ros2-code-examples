@@ -1,6 +1,6 @@
 
 
-#include "simple_service.hpp"
+#include "simple_service_node.hpp"
 
 
 using GetImageSrv = simple_interfaces::srv::GetImage;

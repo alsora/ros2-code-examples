@@ -1,12 +1,6 @@
-
-
-#include <chrono>
-#include <memory>
-#include <iostream>
-
 #include "rclcpp/rclcpp.hpp"
 
-#include "simple_service.hpp"
+#include "simple_service_node.hpp"
 
 
 int main(int argc, char ** argv)

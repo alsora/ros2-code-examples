@@ -16,7 +16,7 @@ find_package(std_msgs REQUIRED)
 
 include_directories(include)
 
-add_library(${PROJECT_NAME} simple_publisher.cpp)
+add_library(${PROJECT_NAME} simple_publisher_node.cpp)
 ament_target_dependencies(${PROJECT_NAME} rclcpp sensor_msgs)
 
 install(
@@ -31,7 +31,7 @@ install(
   DESTINATION include
 )
 
-add_executable(publisher_main publisher_main.cpp simple_publisher.cpp)
+add_executable(publisher_main publisher_main.cpp simple_publisher_node.cpp)
 ament_target_dependencies(publisher_main rclcpp std_msgs)
 
 install(TARGETS publisher_main

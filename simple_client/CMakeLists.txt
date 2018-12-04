@@ -14,10 +14,10 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(simple_interfaces REQUIRED)
 
-add_executable(client_main client_main.cpp simple_client.cpp)
+add_executable(client_main client_main.cpp simple_client_node.cpp)
 ament_target_dependencies(client_main rclcpp simple_interfaces)
 
-add_executable(timer_main timer_main.cpp timer_client.cpp)
+add_executable(timer_main timer_main.cpp timer_client_node.cpp)
 ament_target_dependencies(timer_main rclcpp simple_interfaces)
 
 install(TARGETS client_main timer_main

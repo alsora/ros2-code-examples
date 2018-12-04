@@ -5,8 +5,8 @@
 
 #include "rclcpp/rclcpp.hpp"
 
-#include "simple_publisher.hpp"
-#include "simple_subscriber.hpp"
+#include "simple_publisher_node.hpp"
+#include "simple_subscriber_node.hpp"
 
 
 int main(int argc, char ** argv)

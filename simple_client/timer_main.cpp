@@ -1,12 +1,6 @@
-
-#include <chrono>
-#include <iostream>
-#include <cinttypes>
-#include <memory>
-
 #include "rclcpp/rclcpp.hpp"
 
-#include "timer_client.hpp"
+#include "timer_client_node.hpp"
 
 int main(int argc, char *argv[])
 {
