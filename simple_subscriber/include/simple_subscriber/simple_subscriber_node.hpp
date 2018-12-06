@@ -1,3 +1,5 @@
+#ifndef __SIMPLE_SUBSCRIBER_NODE_HPP__
+#define __SIMPLE_SUBSCRIBER_NODE_HPP__
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
@@ -15,3 +17,5 @@ private:
 
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr _subscriber;
 };
+
+#endif //__SIMPLE_SUBSCRIBER_NODE_HPP__

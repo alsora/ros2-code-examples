@@ -5,8 +5,8 @@
 
 #include "rclcpp/rclcpp.hpp"
 
-#include "simple_publisher_node.hpp"
-#include "simple_subscriber_node.hpp"
+#include "simple_publisher/simple_publisher_node.hpp"
+#include "simple_subscriber/simple_subscriber_node.hpp"
 
 using namespace std::chrono_literals;
 
@@ -23,16 +23,16 @@ int main(int argc, char ** argv)
     // setting threads priority is not mandatory
     sched_param sch;
     int policy;
-
     pthread_getschedparam(pub_thread.native_handle(), &policy, &sch);
     sch.sched_priority = 10;
     pthread_setschedparam(pub_thread.native_handle(), SCHED_FIFO, &sch);
 
-    std::this_thread::sleep_for(10s);
+    pub_thread.detach();
+    sub_thread.detach();
 
+    std::this_thread::sleep_for(10s);
 
     rclcpp::shutdown();
 
     return 0;
-
 }

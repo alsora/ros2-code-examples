@@ -1,3 +1,5 @@
+#ifndef __SIMPLE_PUBLISHER_NODE_HPP__
+#define __SIMPLE_PUBLISHER_NODE_HPP__
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
@@ -17,3 +19,5 @@ private:
     rclcpp::TimerBase::SharedPtr _timer;
     int _count;
 };
+
+#endif // __SIMPLE_PUBLISHER_NODE_HPP__

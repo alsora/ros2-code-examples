@@ -1,4 +1,4 @@
-#include "simple_subscriber_node.hpp"
+#include "simple_subscriber/simple_subscriber_node.hpp"
 
 
 using namespace std::chrono_literals;

@@ -14,34 +14,47 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
+set(dependencies
+  rclcpp
+  std_msgs
+)
+
 include_directories(include)
 
-add_library(${PROJECT_NAME} simple_publisher_node.cpp)
-ament_target_dependencies(${PROJECT_NAME} rclcpp sensor_msgs)
+set(library_name ${PROJECT_NAME})
 
-install(
-  TARGETS ${PROJECT_NAME}
+add_library(${library_name} SHARED
+  src/simple_publisher_node.cpp
+)
+
+ament_target_dependencies(${library_name}
+  ${dependencies}
+)
+
+add_executable(publisher_main
+  src/publisher_main.cpp
+)
+
+target_link_libraries(publisher_main
+  ${library_name}
+)
+
+ament_target_dependencies(publisher_main
+  ${dependencies}
+)
+
+install(TARGETS publisher_main ${library_name}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 
-install(
-  DIRECTORY include/
-  DESTINATION include
+install(DIRECTORY include/
+  DESTINATION include/
 )
-
-add_executable(publisher_main publisher_main.cpp simple_publisher_node.cpp)
-ament_target_dependencies(publisher_main rclcpp std_msgs)
-
-install(TARGETS publisher_main
-  DESTINATION lib/${PROJECT_NAME})
-
 
 ament_export_include_directories(include)
-ament_export_libraries(${PROJECT_NAME})
-
-ament_export_dependencies(rclcpp)
-ament_export_dependencies(std_msgs)
+ament_export_libraries(${library_name})
+ament_export_dependencies(${dependencies})
 
 ament_package()

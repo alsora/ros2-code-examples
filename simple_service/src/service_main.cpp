@@ -1,6 +1,6 @@
 #include "rclcpp/rclcpp.hpp"
 
-#include "simple_service_node.hpp"
+#include "simple_service/simple_service_node.hpp"
 
 
 int main(int argc, char ** argv)

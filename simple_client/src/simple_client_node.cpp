@@ -1,4 +1,4 @@
-#include "simple_client_node.hpp"
+#include "simple_client/simple_client_node.hpp"
 
 using GetImageSrv = simple_interfaces::srv::GetImage;
 using namespace std::chrono_literals;

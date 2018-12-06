@@ -13,6 +13,8 @@ private:
 
     void parameter_events_callback(const rcl_interfaces::msg::ParameterEvent::SharedPtr event);
 
+    double wheel_radius;
+
     rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent>::SharedPtr _param_events_subscriber;
     rclcpp::AsyncParametersClient::SharedPtr _param_client;
 

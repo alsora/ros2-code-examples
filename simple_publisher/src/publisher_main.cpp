@@ -1,6 +1,6 @@
 #include "rclcpp/rclcpp.hpp"
 
-#include "simple_publisher_node.hpp"
+#include "simple_publisher/simple_publisher_node.hpp"
 
 int main(int argc, char ** argv)
 {

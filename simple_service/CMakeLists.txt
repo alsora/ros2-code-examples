@@ -14,11 +14,47 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(simple_interfaces REQUIRED)
 
-add_executable(service_main service_main.cpp simple_service_node.cpp)
+set(dependencies
+  rclcpp
+  simple_interfaces
+)
 
-ament_target_dependencies(service_main rclcpp simple_interfaces)
+include_directories(include)
 
-install(TARGETS service_main
-  DESTINATION lib/${PROJECT_NAME})
+set(library_name ${PROJECT_NAME})
+
+add_library(${library_name} SHARED
+  src/simple_service_node.cpp
+)
+
+ament_target_dependencies(${library_name}
+  ${dependencies}
+)
+
+add_executable(service_main
+  src/service_main.cpp
+)
+
+target_link_libraries(service_main
+  ${library_name}
+)
+
+ament_target_dependencies(service_main
+  ${dependencies}
+)
+
+install(TARGETS service_main ${library_name}
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
+
+install(DIRECTORY include/
+  DESTINATION include/
+)
+
+ament_export_include_directories(include)
+ament_export_libraries(${library_name})
+ament_export_dependencies(${dependencies})
 
 ament_package()

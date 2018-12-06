@@ -1,3 +1,6 @@
+#ifndef __SIMPLE_SERVICE_NODE_HPP__
+#define __SIMPLE_SERVICE_NODE_HPP__
+
 #include "rclcpp/rclcpp.hpp"
 #include "simple_interfaces/srv/get_image.hpp"
 
@@ -19,3 +22,6 @@ private:
     rclcpp::Service<simple_interfaces::srv::GetImage>::SharedPtr _service;
 
 };
+
+
+#endif //__SIMPLE_SERVICE_NODE_HPP__

@@ -14,13 +14,60 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(simple_interfaces REQUIRED)
 
-add_executable(client_main client_main.cpp simple_client_node.cpp)
-ament_target_dependencies(client_main rclcpp simple_interfaces)
+set(dependencies
+  rclcpp
+  simple_interfaces
+)
 
-add_executable(timer_main timer_main.cpp timer_client_node.cpp)
-ament_target_dependencies(timer_main rclcpp simple_interfaces)
+include_directories(include)
 
-install(TARGETS client_main timer_main
-  DESTINATION lib/${PROJECT_NAME})
+set(library_name ${PROJECT_NAME})
+
+add_library(${library_name} SHARED
+  src/simple_client_node.cpp
+  src/timer_client_node.cpp
+)
+
+ament_target_dependencies(${library_name}
+  ${dependencies}
+)
+
+add_executable(client_main
+  src/client_main.cpp
+)
+
+target_link_libraries(client_main
+  ${library_name}
+)
+
+ament_target_dependencies(client_main
+  ${dependencies}
+)
+
+add_executable(timer_main
+  src/timer_main.cpp
+)
+
+target_link_libraries(timer_main
+  ${library_name}
+)
+
+ament_target_dependencies(timer_main
+  ${dependencies}
+)
+
+install(TARGETS client_main timer_main ${library_name}
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
+
+install(DIRECTORY include/
+  DESTINATION include/
+)
+
+ament_export_include_directories(include)
+ament_export_libraries(${library_name})
+ament_export_dependencies(${dependencies})
 
 ament_package()

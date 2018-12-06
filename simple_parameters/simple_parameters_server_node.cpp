@@ -10,7 +10,7 @@ SimpleParametersServerNode::SimpleParametersServerNode() : Node("simple_paramete
         rclcpp::Parameter("wheels.weight", 0.5)
     });
 
-    for ( const rcl_interfaces::msg::SetParametersResult& result : set_parameters_results) {
+    for (const rcl_interfaces::msg::SetParametersResult& result : set_parameters_results) {
         if (!result.successful) {
             RCLCPP_ERROR(this->get_logger(), "Failed to set parameter: %s", result.reason.c_str());
             assert(0);

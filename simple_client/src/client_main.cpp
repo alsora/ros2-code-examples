@@ -1,6 +1,6 @@
 #include "rclcpp/rclcpp.hpp"
 
-#include "simple_client_node.hpp"
+#include "simple_client/simple_client_node.hpp"
 
 int main(int argc, char *argv[])
 {
