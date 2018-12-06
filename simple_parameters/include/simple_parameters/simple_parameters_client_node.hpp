@@ -1,3 +1,5 @@
+#ifndef __SIMPLE_PARAMETERS_CLIENT_NODE_HPP__
+#define __SIMPLE_PARAMETERS_CLIENT_NODE_HPP__
 
 #include "rclcpp/rclcpp.hpp"
 
@@ -19,3 +21,5 @@ private:
     rclcpp::AsyncParametersClient::SharedPtr _param_client;
 
 };
+
+#endif // __SIMPLE_PARAMETERS_CLIENT_NODE_HPP__

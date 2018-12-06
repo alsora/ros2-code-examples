@@ -1,4 +1,4 @@
-#include "simple_parameters_client_node.hpp"
+#include "simple_parameters/simple_parameters_client_node.hpp"
 
 
 SimpleParametersClientNode::SimpleParametersClientNode() : Node("simple_parameters_client")

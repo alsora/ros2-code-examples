@@ -13,13 +13,34 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 
-add_executable(parameters_server_main parameters_server_main.cpp simple_parameters_server_node.cpp)
-ament_target_dependencies(parameters_server_main rclcpp)
+set(dependencies
+  rclcpp
+)
 
-add_executable(parameters_client_main parameters_client_main.cpp simple_parameters_client_node.cpp)
-ament_target_dependencies(parameters_client_main rclcpp)
+include_directories(include)
+
+add_executable(parameters_server_main
+  src/parameters_server_main.cpp
+  src/simple_parameters_server_node.cpp
+)
+
+ament_target_dependencies(parameters_server_main
+  ${dependencies}
+)
+
+add_executable(parameters_client_main
+  src/parameters_client_main.cpp
+  src/simple_parameters_client_node.cpp
+)
+
+ament_target_dependencies(parameters_client_main
+  ${dependencies}
+)
 
 install(TARGETS parameters_server_main parameters_client_main
   DESTINATION lib/${PROJECT_NAME})
+
+ament_export_include_directories(include)
+ament_export_dependencies(${dependencies})
 
 ament_package()
