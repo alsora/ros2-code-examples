@@ -19,9 +19,10 @@ find_package(sensor_msgs REQUIRED)
 
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "srv/GetImage.srv"
+  "msg/StampedArray4m.msg"
   "msg/StampedBoolean.msg"
   "msg/StampedString.msg"
+  "srv/GetImage.srv"
   DEPENDENCIES std_msgs sensor_msgs
 )
 

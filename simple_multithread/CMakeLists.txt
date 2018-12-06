@@ -12,6 +12,7 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(simple_interfaces REQUIRED)
 find_package(simple_publisher REQUIRED)
 find_package(simple_subscriber REQUIRED)
 
@@ -21,9 +22,10 @@ ament_target_dependencies(multithread_main rclcpp simple_publisher simple_subscr
 add_executable(executor_main executor_main.cpp)
 ament_target_dependencies(executor_main rclcpp simple_publisher simple_subscriber)
 
-install(TARGETS
-  multithread_main
-  executor_main
+add_executable(zero_copy_main zero_copy_main.cpp)
+ament_target_dependencies(zero_copy_main rclcpp simple_interfaces)
+
+install(TARGETS multithread_main executor_main zero_copy_main
   DESTINATION lib/${PROJECT_NAME}
 )
 
