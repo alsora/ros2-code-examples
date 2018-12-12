@@ -78,5 +78,3 @@ RUN echo ' \n\
 echo "Sourcing ROS2 packages..." \n\
 source /opt/ros/bouncy/setup.sh ' >> $HOME/.bashrc
 
-
-WORKDIR $HOME
