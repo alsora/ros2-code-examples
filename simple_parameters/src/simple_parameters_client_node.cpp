@@ -84,6 +84,6 @@ void SimpleParametersClientNode::parameter_events_callback(const rcl_interfaces:
         }
     }
 
-    RCLCPP_INFO(this->get_logger(), "%s", ss.str().c_str())
+    RCLCPP_INFO(this->get_logger(), "%s", ss.str().c_str());
 
 }

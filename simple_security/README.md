@@ -14,7 +14,10 @@ You can try them first, without security enabled.
 
     $ ros2 run simple_subscriber subscriber_main __node:=simple_subscriber
 
-They are communicating on a topic called `my_topic`
+They are communicating on a topic called `my_topic`.
+We are using the ROS2 CLI to overwrite the name of the nodes `__node:=<new_name>`.
+
+If you want to check the source code of these nodes: [simple_publisher](../simple_publisher) and [simple_subscriber](../simple_subscriber).
 
 #### Creating authentication keys
 

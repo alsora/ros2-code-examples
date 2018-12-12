@@ -49,6 +49,7 @@ private:
 
     void simple_callback(const std_msgs::msg::Header::SharedPtr msg)
     {
+        (void)msg;
         msg_count ++;
     }
 
@@ -62,8 +63,8 @@ int main(int argc, char ** argv)
     rclcpp::init(argc, argv);
 
     int n_subscribers = 20;
-    int wait_time_before_start = 20
-    int experiment_duration = 20
+    int wait_time_before_start = 20;
+    int experiment_duration = 20;
 
     rclcpp::executors::SingleThreadedExecutor::SharedPtr executor =
         std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
