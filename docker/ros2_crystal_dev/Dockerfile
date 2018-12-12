@@ -88,5 +88,5 @@ RUN colcon build --symlink-install
 # source everything
 RUN echo ' \n\
 echo "Sourcing ROS2 packages..." \n\
-source /opt/ros/bouncy/setup.sh ' >> $HOME/.bashrc
+source /root/ros2_ws/install/setup.sh ' >> $HOME/.bashrc
 
