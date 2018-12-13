@@ -1,6 +1,5 @@
 # simple_rqt
 
-
 **NOTE**: using `rqt2` requires at least the ROS2 Crystal Clemmys release.
 
 rqt2 is the ported version of [rqt](http://wiki.ros.org/rqt) to ROS2.
@@ -8,6 +7,9 @@ It's a GUI tool extremely customizable through the creation of plugins which all
 
 
 ## Build
+
+**NOTE**: on December 13th 2018 the rqt2 packages have been added to the [ros2.repos](https://github.com/ros2/ros2/blob/master/ros2.repos) list.
+Thus, if you installed ROS2 after this date, you can skip the build section.
 
 Install some Python3 dependencies
 
@@ -26,13 +28,9 @@ Install rqt dependencies specifying the path to the ROS2 SDK workspace (in the d
 
     $ rosdep install --from-paths src <PATH_TO_ROS2_SDK_WS>/src --ignore-src --rosdistro bouncy -y --skip-keys "console_bridge fastcdr fastrtps libopensplice67 rti-connext-dds-5.3.1 urdfdom_headers"
 
-**NOTE** you may also want to build rqt within the same workspace of the ROS2 SDK and not as an overlay. In order to do so simply remove `<PATH_TO_ROS2_SDK_WS>/src` from the previous command.
-
-    $ rosdep install --from-paths src --ignore-src --rosdistro bouncy -y --skip-keys "console_bridge fastcdr fastrtps libopensplice67 rti-connext-dds-5.3.1 urdfdom_headers"
-
-
 Build the workspace
 
+    $ source <PATH_TO_ROS2_SDK_WS>/install/setup.sh
     $ colcon build
 
 Source the workspace

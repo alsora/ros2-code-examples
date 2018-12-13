@@ -98,7 +98,14 @@ One process sets its own parameters. The other reads them.
 Enable security options for your ROS2 system: nodes authentication, messages encryption and access control.
 
 
-#### RQT2
+#### rosbag2
+
+[**README**](simple_bag)
+
+Record messages from topic to a file and playback them whenever you want.
+
+
+#### rqt2
 
 [**README**](simple_rqt)
 

@@ -73,18 +73,11 @@ RUN apt-get install --no-install-recommends -y \
   libasio-dev \
   libtinyxml2-dev
 
-# install rqt2 dependencies
-RUN python3 -m pip install -U \
-  pyside2 \
-  pydot
-
 # get ROS2 code
 RUN mkdir -p ros2_ws/src
 WORKDIR $HOME/ros2_ws
 RUN wget https://raw.githubusercontent.com/ros2/ros2/master/ros2.repos
 RUN vcs-import src < ros2.repos
-RUN wget https://raw.githubusercontent.com/alsora/ros2-code-examples/master/simple_rqt/rqt2.repos
-RUN vcs import src < rqt2.repos
 
 
 # install dependencies using rosdep
