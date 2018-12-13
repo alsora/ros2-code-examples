@@ -22,39 +22,16 @@ set(dependencies
 include_directories(include)
 
 set(library_name ${PROJECT_NAME})
+add_library(${library_name} SHARED src/simple_client_node.cpp src/timer_client_node.cpp)
+ament_target_dependencies(${library_name} ${dependencies})
 
-add_library(${library_name} SHARED
-  src/simple_client_node.cpp
-  src/timer_client_node.cpp
-)
+add_executable(client_main src/client_main.cpp)
+target_link_libraries(client_main ${library_name})
+ament_target_dependencies(client_main ${dependencies})
 
-ament_target_dependencies(${library_name}
-  ${dependencies}
-)
-
-add_executable(client_main
-  src/client_main.cpp
-)
-
-target_link_libraries(client_main
-  ${library_name}
-)
-
-ament_target_dependencies(client_main
-  ${dependencies}
-)
-
-add_executable(timer_main
-  src/timer_main.cpp
-)
-
-target_link_libraries(timer_main
-  ${library_name}
-)
-
-ament_target_dependencies(timer_main
-  ${dependencies}
-)
+add_executable(timer_main src/timer_main.cpp)
+target_link_libraries(timer_main ${library_name})
+ament_target_dependencies(timer_main ${dependencies})
 
 install(TARGETS client_main timer_main ${library_name}
   ARCHIVE DESTINATION lib

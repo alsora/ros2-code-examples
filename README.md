@@ -14,6 +14,7 @@ You can find them [here](docker).
 
 Source your ROS2 SDK, then create a workspace, add this repository to its sources and build the packages.
 
+    $ source <PATH_TO_ROS2_SDK_WS>/install/setup.sh
     $ mkdir -p ws/src
     $ cd ws/src
     $ git clone https://github.com/alsora/ros2-code-examples --recurse-submodules
@@ -26,7 +27,7 @@ For more detailed build instructions look [here](build_ros2_packages.md)
 
 ## Running the examples
 
-For each of the following tests, run the each command in a separate terminal window (remember that ROS2 SDK has to be sourced in every terminal!)
+For each of the following tests, run the each command in a separate terminal window (remember that the ROS2 SDK has to be sourced in every terminal window!)
 
 #### Publisher/Subscriber
 ```

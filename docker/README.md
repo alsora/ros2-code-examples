@@ -3,7 +3,7 @@
 Docker images for running different ROS2 developer environment.
 
 
-#### ROS2 Bouncy Bolson
+#### ROS2 Crystal Clemmys
 
  - [**ros2_crystal_dev**](ros2_crystal_dev): Ubuntu 18.04 and ROS2 Crystal Clemmys.
 

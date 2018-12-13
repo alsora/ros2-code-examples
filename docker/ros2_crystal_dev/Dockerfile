@@ -34,7 +34,7 @@ RUN curl http://repo.ros2.org/repos.key | apt-key add -
 RUN sh -c 'echo "deb [arch=amd64,arm64] http://repo.ros2.org/ubuntu/main `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
 RUN apt-get update
 
-# ROS setup requirements
+# install development tools and ROS tools
 RUN apt-get install -y \
   build-essential \
   cmake \
@@ -45,6 +45,7 @@ RUN apt-get install -y \
   python3-vcstool \
   wget
 
+# install python packages for testing
 RUN python3 -m pip install -U \
   argcomplete \
   flake8 \
@@ -60,6 +61,7 @@ RUN python3 -m pip install -U \
   pytest-repeat \
   pytest-rerunfailures
 
+# install additional python packages
 RUN python3 -m pip install -U \
   pytest \
   pytest-cov \
@@ -71,11 +73,19 @@ RUN apt-get install --no-install-recommends -y \
   libasio-dev \
   libtinyxml2-dev
 
+# install rqt2 dependencies
+RUN python3 -m pip install -U \
+  pyside2 \
+  pydot
+
 # get ROS2 code
 RUN mkdir -p ros2_ws/src
 WORKDIR $HOME/ros2_ws
 RUN wget https://raw.githubusercontent.com/ros2/ros2/master/ros2.repos
 RUN vcs-import src < ros2.repos
+RUN wget https://raw.githubusercontent.com/alsora/ros2-code-examples/master/simple_rqt/rqt2.repos
+RUN vcs import src < rqt2.repos
+
 
 # install dependencies using rosdep
 RUN rosdep init
@@ -86,6 +96,8 @@ RUN rosdep install --from-paths src --ignore-src --rosdistro crystal -y --skip-k
 RUN colcon build --symlink-install
 
 # source everything
+WORKDIR $HOME
+
 RUN echo ' \n\
 echo "Sourcing ROS2 packages..." \n\
 source /root/ros2_ws/install/setup.sh ' >> $HOME/.bashrc

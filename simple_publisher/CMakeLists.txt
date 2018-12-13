@@ -22,26 +22,12 @@ set(dependencies
 include_directories(include)
 
 set(library_name ${PROJECT_NAME})
+add_library(${library_name} SHARED src/simple_publisher_node.cpp)
+ament_target_dependencies(${library_name} ${dependencies})
 
-add_library(${library_name} SHARED
-  src/simple_publisher_node.cpp
-)
-
-ament_target_dependencies(${library_name}
-  ${dependencies}
-)
-
-add_executable(publisher_main
-  src/publisher_main.cpp
-)
-
-target_link_libraries(publisher_main
-  ${library_name}
-)
-
-ament_target_dependencies(publisher_main
-  ${dependencies}
-)
+add_executable(publisher_main src/publisher_main.cpp)
+target_link_libraries(publisher_main ${library_name})
+ament_target_dependencies(publisher_main ${dependencies})
 
 install(TARGETS publisher_main ${library_name}
   ARCHIVE DESTINATION lib
