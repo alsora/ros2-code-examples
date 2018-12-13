@@ -1,8 +1,5 @@
-# @author Alberto Soragna (alberto dot soragna at gmail dot com)
-# @2018 
-
 FROM osrf/ros2:bouncy-desktop
-MAINTAINER Alberto Soragna alberto dot soragna at gmail dot com
+LABEL maintainer="alberto dot soragna at gmail dot com"
 
 # working directory
 ENV HOME /root
@@ -40,7 +37,7 @@ RUN apt-get install -y \
   python3-colcon-common-extensions \
   python-rosdep \
   python3-vcstool
-  
+
 RUN python3 -m pip install -U \
   argcomplete \
   flake8 \
@@ -58,7 +55,7 @@ RUN python3 -m pip install -U \
 # install Fast-RTPS dependencies
 RUN apt-get install --no-install-recommends -y \
   libasio-dev \
-  libtinyxml2-dev \  
+  libtinyxml2-dev \
   libopensplice67
 
 # dependencies for RViz

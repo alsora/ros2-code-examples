@@ -1,8 +1,5 @@
-# @author Alberto Soragna (alberto dot soragna at gmail dot com)
-# @2018 
-
 FROM ubuntu:16.04
-MAINTAINER Alberto Soragna alberto dot soragna at gmail dot com
+LABEL maintainer="alberto dot soragna at gmail dot com"
 
 # working directory
 ENV HOME /root
@@ -53,7 +50,7 @@ RUN apt-get update && apt-get install -y \
   python-rosdep \
   python3-vcstool \
   wget
-  
+
 RUN python3 -m pip install -U \
   argcomplete \
   flake8 \
@@ -78,7 +75,7 @@ RUN python3 -m pip install -U \
 # install Fast-RTPS dependencies
 RUN apt-get install --no-install-recommends -y \
   libasio-dev \
-  libtinyxml2-dev \  
+  libtinyxml2-dev \
   libopensplice67
 
 # create ros2 sdk workspace

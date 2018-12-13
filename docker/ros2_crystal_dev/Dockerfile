@@ -1,6 +1,6 @@
 
 FROM ubuntu:18.04
-MAINTAINER Alberto Soragna alberto dot soragna at gmail dot com
+LABEL maintainer="alberto dot soragna at gmail dot com"
 
 # working directory
 ENV HOME /root
@@ -78,7 +78,6 @@ RUN mkdir -p ros2_ws/src
 WORKDIR $HOME/ros2_ws
 RUN wget https://raw.githubusercontent.com/ros2/ros2/master/ros2.repos
 RUN vcs-import src < ros2.repos
-
 
 # install dependencies using rosdep
 RUN rosdep init

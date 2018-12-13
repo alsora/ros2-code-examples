@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-MAINTAINER Alberto Soragna alberto dot soragna at gmail dot com
+LABEL maintainer="alberto dot soragna at gmail dot com"
 
 # working directory
 ENV HOME /root

@@ -1,6 +1,6 @@
 
 FROM osrf/ros2:bouncy-desktop
-MAINTAINER Alberto Soragna alberto dot soragna at gmail dot com
+LABEL maintainer="alberto dot soragna at gmail dot com"
 
 # working directory
 ENV HOME /root
