@@ -52,6 +52,17 @@ One process provides a service and the other requests it.
 
 Running  `simple_client/timer_main` contains an alternative implementation for the ROS2 client node.
 
+#### Actions Service/Client
+```
+    $ ros2 run simple_action service_main
+```
+```
+    $ ros2 run simple_action client_main
+```
+
+One process provides an action service and the other requests it.
+The server node can reject the goal according to the request parameters.
+The client node can cancel the action if it's taking too much time.
 
 #### Logger utils
 ```
