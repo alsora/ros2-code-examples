@@ -29,6 +29,7 @@ For more detailed build instructions look [here](build_ros2_packages.md)
 
 For each of the following tests, run the each command in a separate terminal window (remember that the ROS2 SDK has to be sourced in every terminal window!)
 
+
 #### Publisher/Subscriber
 ```
     $ ros2 run simple_publisher publisher_main
@@ -51,6 +52,7 @@ One process provides a service and the other requests it.
 
 Running  `simple_client/timer_main` contains an alternative implementation for the ROS2 client node.
 
+
 #### Logger utils
 ```
     $ ros2 run simple_logger logger_main
@@ -58,12 +60,14 @@ Running  `simple_client/timer_main` contains an alternative implementation for t
 
 Log some messages. Change the logger verbosity level at run time. Log some other messages.
 
+
 #### Multithread systems
 ```
     $ ros2 run simple_multithread multithread_main
 ```
 
 Run multiple nodes in separate threads from the same process.
+
 
 #### Time Synchronization message filters
 ```
@@ -87,12 +91,19 @@ The other process create an approximate and an exact time subscribers.
 One process sets its own parameters. The other reads them.
 
 
-
 #### Secure ROS2
 
-[**README.md**](simple_security)
+[**README**](simple_security)
 
 Enable security options for your ROS2 system: nodes authentication, messages encryption and access control.
+
+
+#### RQT2
+
+[**README**](simple_rqt)
+
+GUI for inspection and interaction of a ROS2 graph.
+
 
 ## ROS2 CLI (command line interface)
 
