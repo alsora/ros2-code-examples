@@ -1,7 +1,5 @@
 # simple_bag
 
-**NOTE**: using `rosbag2` requires at least the ROS2 Crystal Clemmys release.
-
 The rosbag2 package provides a command line tool for working with bagfile as well as code APIs for reading/writing bags.
 A bagfile is a recorded stream of messages on specified topics.
 

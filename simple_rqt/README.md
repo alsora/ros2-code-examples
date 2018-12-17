@@ -1,10 +1,7 @@
 # simple_rqt
 
-**NOTE**: using `rqt2` requires at least the ROS2 Crystal Clemmys release.
-
 rqt2 is the ported version of [rqt](http://wiki.ros.org/rqt) to ROS2.
 It's a GUI tool extremely customizable through the creation of plugins which allows to visualize the content of a ROS2 graph or to create simple nodes to interact with it.
-
 
 ## Build
 
@@ -124,3 +121,5 @@ Alternatively run `ros2 run rqt_console rqt_console`.
 
 This plugin subscribes to `rosout` or any other specified logging topic and allows to display all the logged messages.
 It contains tools for filtering out or highlighting specific messages.
+
+Note that by default (as of December 2018), ROS2 loggers do not publish on any topic, but you have to enable the proper output handler for doing it.

@@ -95,6 +95,8 @@ int main(int argc, char ** argv)
         break;
       default:
         RCLCPP_ERROR(g_node->get_logger(), "Unknown result code");
+        rclcpp::shutdown();
+        assert(0);
     }
   }
   else {
