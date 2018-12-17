@@ -59,10 +59,7 @@ RUN python3 -m pip install -U \
   flake8-quotes \
   git+https://github.com/lark-parser/lark.git@0.7b \
   pytest-repeat \
-  pytest-rerunfailures
-
-# install additional python packages
-RUN python3 -m pip install -U \
+  pytest-rerunfailures \
   pytest \
   pytest-cov \
   pytest-runner \
@@ -76,14 +73,13 @@ RUN apt-get install --no-install-recommends -y \
 # get ROS2 code
 RUN mkdir -p ros2_ws/src
 WORKDIR $HOME/ros2_ws
-RUN wget https://raw.githubusercontent.com/ros2/ros2/master/ros2.repos
+RUN wget https://raw.githubusercontent.com/ros2/ros2/release-latest/ros2.repos
 RUN vcs-import src < ros2.repos
 
 # install dependencies using rosdep
 RUN rosdep init
 RUN rosdep update
-RUN rosdep install --from-paths src --ignore-src --rosdistro crystal -y --skip-keys "console_bridge fastcdr fastrtps libopensplice67 rti-connext-dds-5.3.1 urdfdom_headers"
-
+RUN rosdep install --from-paths src --ignore-src --rosdistro crystal -y --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69 rti-connext-dds-5.3.1 urdfdom_headers"
 # build ros2 sdk workspace
 RUN colcon build --symlink-install
 
@@ -93,4 +89,3 @@ WORKDIR $HOME
 RUN echo ' \n\
 echo "Sourcing ROS2 packages..." \n\
 source /root/ros2_ws/install/setup.sh ' >> $HOME/.bashrc
-
