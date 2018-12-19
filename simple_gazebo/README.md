@@ -2,6 +2,8 @@
 
 ROS2 Crystal Clemmys introduces support for the 3D Simulation and Visualization tool Gazebo 9.
 
+Differences with the ROS1 version [here](http://gazebosim.org/tutorials?tut=ros2_overview&branch=ros2)
+
 ## Install
 
 Install Gazebo

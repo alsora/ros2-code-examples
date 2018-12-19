@@ -1,17 +1,18 @@
-#ifndef __SIMPLE_PARAMETERS_CLIENT_NODE_HPP__
-#define __SIMPLE_PARAMETERS_CLIENT_NODE_HPP__
+#ifndef __SIMPLE_PARAMETER_CLIENT_NODE_HPP__
+#define __SIMPLE_PARAMETER_CLIENT_NODE_HPP__
 
 #include "rclcpp/rclcpp.hpp"
 
 
-class SimpleParametersClientNode : public rclcpp::Node {
+class SimpleParameterClientNode : public rclcpp::Node {
 
 public:
 
-    SimpleParametersClientNode();
-    void parameters_init();
+    SimpleParameterClientNode();
 
 private:
+
+    void parameters_init();
 
     void parameter_events_callback(const rcl_interfaces::msg::ParameterEvent::SharedPtr event);
 
@@ -22,4 +23,4 @@ private:
 
 };
 
-#endif // __SIMPLE_PARAMETERS_CLIENT_NODE_HPP__
+#endif // __SIMPLE_PARAMETER_CLIENT_NODE_HPP__

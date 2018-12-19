@@ -93,10 +93,10 @@ The other process create an approximate and an exact time subscribers.
 
 #### Parameter servers
 ```
-    $ ros2 run simple_parameters parameters_main
+    $ ros2 run simple_parameter parameter_server_main
 ```
 ```
-    $ ros2 run simple_parameters reader_main
+    $ ros2 run simple_parameter parameter_client_main
 ```
 
 One process sets its own parameters. The other reads them.

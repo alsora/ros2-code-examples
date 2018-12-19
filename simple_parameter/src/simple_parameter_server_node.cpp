@@ -1,7 +1,16 @@
-#include "simple_parameters/simple_parameters_server_node.hpp"
+#include "simple_parameter/simple_parameter_server_node.hpp"
 
 
-SimpleParametersServerNode::SimpleParametersServerNode() : Node("simple_parameters_server")
+SimpleParameterServerNode::SimpleParameterServerNode() : Node("simple_parameters_server")
+{
+
+    RCLCPP_INFO(this->get_logger(), "Parameters Server created!!");
+
+    this->parameters_init();
+}
+
+
+void SimpleParameterServerNode::parameters_init()
 {
 
     std::vector< rcl_interfaces::msg::SetParametersResult> set_parameters_results = this->set_parameters({
@@ -17,6 +26,5 @@ SimpleParametersServerNode::SimpleParametersServerNode() : Node("simple_paramete
         }
     }
 
-    RCLCPP_INFO(this->get_logger(), "Parameters Server created!!");
-
+    RCLCPP_INFO(this->get_logger(), "Parameters correctly set on the server");
 }

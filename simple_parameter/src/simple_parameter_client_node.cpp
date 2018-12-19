@@ -1,7 +1,7 @@
-#include "simple_parameters/simple_parameters_client_node.hpp"
+#include "simple_parameter/simple_parameter_client_node.hpp"
 
 
-SimpleParametersClientNode::SimpleParametersClientNode() : Node("simple_parameters_client")
+SimpleParameterClientNode::SimpleParameterClientNode() : Node("simple_parameters_client")
 {
 
     rmw_qos_profile_t parameter_events_qos_profile = rmw_qos_profile_default;
@@ -9,7 +9,7 @@ SimpleParametersClientNode::SimpleParametersClientNode() : Node("simple_paramete
     parameter_events_qos_profile.history = rmw_qos_history_policy_t::RMW_QOS_POLICY_HISTORY_KEEP_ALL;
 
     _param_events_subscriber = this->create_subscription<rcl_interfaces::msg::ParameterEvent>("parameter_events",
-        std::bind(&SimpleParametersClientNode::parameter_events_callback, this, std::placeholders::_1),
+        std::bind(&SimpleParameterClientNode::parameter_events_callback, this, std::placeholders::_1),
         parameter_events_qos_profile);
 
 
@@ -27,10 +27,13 @@ SimpleParametersClientNode::SimpleParametersClientNode() : Node("simple_paramete
 
     RCLCPP_INFO(this->get_logger(), "Parameters Client created!!");
 
+
+    this->parameters_init();
+
 }
 
 
-void SimpleParametersClientNode::parameters_init()
+void SimpleParameterClientNode::parameters_init()
 {
 
     std::shared_future<std::vector<rclcpp::Parameter> > get_parameters_result = _param_client->get_parameters({
@@ -58,7 +61,7 @@ void SimpleParametersClientNode::parameters_init()
 }
 
 
-void SimpleParametersClientNode::parameter_events_callback(const rcl_interfaces::msg::ParameterEvent::SharedPtr event)
+void SimpleParameterClientNode::parameter_events_callback(const rcl_interfaces::msg::ParameterEvent::SharedPtr event)
 {
 
     std::stringstream ss;
