@@ -38,6 +38,9 @@ Build the workspace and source it
     $ colcon build
     $ source install/local_setup.sh
 
+
+## Usage
+
 Now everything should be ready.
 You can run a Gazebo world file, as the example provided in the gazebo plugins package
 
