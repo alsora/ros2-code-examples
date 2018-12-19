@@ -69,7 +69,7 @@ The client node can cancel the action if it's taking too much time.
     $ ros2 run simple_logger logger_main
 ```
 
-Log some messages. Change the logger verbosity level at run time. Log some other messages.
+Log some messages and change the verbosity level at runtime.
 
 
 #### Multithread systems
@@ -121,6 +121,13 @@ Record messages from topic to a file and playback them whenever you want.
 [**README**](simple_rqt)
 
 GUI for inspection and interaction of a ROS2 graph.
+
+
+#### gazebo
+
+[**README**](simple_gazebo)
+
+ROS2 integration of the 3D simulation and visualization tool Gazebo.
 
 
 ## ROS2 CLI (command line interface)
