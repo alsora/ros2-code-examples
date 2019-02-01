@@ -10,6 +10,9 @@ You can find them [here](docker).
  - [ROS2 Crystal](https://index.ros.org/doc/ros2/Installation/)
 
 
+**Note**: you can still use `ROS2 Bouncy Bolson`, but you will not be able to compile the `simple_actions` package or to reproduce the examples of `simple_bag`, `simple_gazebo` and `simple_rqt`.
+
+
 ## Building the examples
 
 Source your ROS2 SDK, then create a workspace, add this repository to its sources and build the packages.

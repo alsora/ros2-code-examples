@@ -16,18 +16,33 @@ find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
-find_package(action_msgs REQUIRED)
+find_package(action_msgs)
 
-
-
-rosidl_generate_interfaces(${PROJECT_NAME}
-  "action/Fibonacci.action"
+set (INTERFACES_LIST
   "msg/StampedArray4m.msg"
   "msg/StampedBoolean.msg"
   "msg/StampedString.msg"
   "srv/GetImage.srv"
-  DEPENDENCIES std_msgs sensor_msgs action_msgs
 )
 
+set (DEPENDENCIES_LIST
+  "std_msgs"
+  "sensor_msgs"
+)
+
+
+## build actions only if using ROS2 crystal and action_msgs_FOUND
+if (action_msgs_FOUND)
+  set (INTERFACES_LIST ${INTERFACES_LIST} "action/Fibonacci.action")
+  set (DEPENDENCIES_LIST ${DEPENDENCIES_LIST} "action_msgs")
+endif()
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  ${INTERFACES_LIST}
+  DEPENDENCIES ${DEPENDENCIES_LIST}
+)
+
+
 ament_export_dependencies(rosidl_default_runtime)
+
 ament_package()
