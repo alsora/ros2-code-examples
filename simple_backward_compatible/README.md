@@ -21,7 +21,7 @@ cd ..
 colcon build
 ```
 
-The nodes created in this workspace will communicate using [this message interface](interfaces_v1/msg/Optional_fields.msg) which we will call v1.
+The nodes created in this workspace will communicate using [this message interface](interfaces_v1/msg/OptionalFields.msg) which we will call v1.
 
 You can immediately run the subscriber node.
 
@@ -47,7 +47,7 @@ Then build.
 colcon build
 ```
 
-You have just told the compiler to use a different version of the message interface, which you can find [here](interfaces_v2/msg/Optional_fields.msg) and we will call it v2.
+You have just told the compiler to use a different version of the message interface, which you can find [here](interfaces_v2/msg/OptionalFields.msg) and we will call it v2.
 
 As you can see, the new messages have some additional fields characterized by variable length arrays.
 You can note from the [publisher code](src/publisher_main.cpp) that the fields of the updated message are being properly filled with values.
