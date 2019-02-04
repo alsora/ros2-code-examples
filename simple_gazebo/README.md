@@ -13,14 +13,20 @@ Install Gazebo
     $ chmod +x gazebo.sh
     $ ./gazebo.sh
 
-Source Gazebo setup file (NOT MANDATORY)
-
-    $ source /usr/share/gazebo/setup.sh
 
 Test if Gazebo is working
 
     $ gazebo
 
+### Install from debian packages
+
+If you are installing ROS2 from debian packages, you can easily do the same for gazebo.
+
+    $ sudo apt install -y  ros-crystal-vision-opencv ros-crystal-gazebo-ros-pkgs
+
+### Build from sources
+
+On the other hand, if you are building from sources
 
 Create a workspace for gazebo_ros_pkgs
 
@@ -33,7 +39,7 @@ Create a workspace for gazebo_ros_pkgs
 Install other dependencies
 
     $ cd ..
-    $ rosdep install --from-paths src ~/ros2_ws/src --ignore-src --rosdistro crystal -y --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69 rti-connext-dds-5.3.1 urdfdom_headers"
+    $ rosdep install --from-paths src --ignore-src -r -y
 
 Build the workspace and source it
 
@@ -46,8 +52,8 @@ Build the workspace and source it
 Now everything should be ready.
 You can run a Gazebo world file, as the example provided in the gazebo plugins package
 
-    $ gazebo --verbose install/gazebo_plugins/share/gazebo_plugins/worlds/gazebo_ros_diff_drive_demo.world
-
+    $ gazebo --verbose /opt/ros/crystal/share/gazebo_plugins/worlds/gazebo_ros_diff_drive_demo.world
+    
 Now you should be able to see the ROS2 topics used by this example
 
     $ ros2 topic list
@@ -55,3 +61,7 @@ Now you should be able to see the ROS2 topics used by this example
 For example, to send a velocity command to the robot
 
     $ ros2 topic pub /demo/cmd_demo geometry_msgs/Twist '{linear: {x: 1.0}}' -1
+    
+If you want to change the settings for this simulation example, just edit its related world file
+
+    $ gedit /opt/ros/crystal/share/gazebo_plugins/worlds/gazebo_ros_diff_drive_demo.world
