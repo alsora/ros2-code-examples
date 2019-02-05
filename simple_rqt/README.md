@@ -6,7 +6,9 @@ It's a GUI tool extremely customizable through the creation of plugins which all
 ## Build
 
 **NOTE**: on December 13th 2018 the rqt2 packages have been added to the [ros2.repos](https://github.com/ros2/ros2/blob/master/ros2.repos) list.
-Thus, if you installed ROS2 after this date, you can skip the build section.
+Thus, if you built ROS2 after this date, you should already have these packages installed.
+
+### Build from sources
 
 Install some Python3 dependencies
 
@@ -35,6 +37,35 @@ Source the workspace
     $ source install/local_setup.sh
 
 
+### Install from debian packages
+
+If you are on Ubuntu 18.04, you can choose to install rqt packages from debian instead of building them from sources.
+
+```
+$ sudo apt-get install -y \
+    ros-crystal-python-qt-binding \
+    ros-crystal-qt-gui-core \
+    ros-crystal-rqt*
+
+```
+
+## Build rqt-graph
+
+One of the most popular `rqt` plugins is `rqt-graph`.
+This plugin has not been added yet to the ROS2 stable repositories, so you have to build it from sources.
+
+Add the sources to the existing workspace or create a new one
+
+    $ mkdir -p ~/rqt2_ws/src
+    $ cd ~/rqt2_ws/src
+    $ git clone -b crystal-devel https://github.com/ros-visualization/rqt_graph
+    $ cd ..
+
+Build the package
+
+    $ source <PATH_TO_ROS2_SDK_WS>/install/setup.sh
+    $ colcon build
+
 ## Run rqt2
 
 Now you are ready to run rqt2.
@@ -49,6 +80,27 @@ Note that all the plugins will be attached to the same gui window.
 You can find a list of avilable plugin under the `Plugins` tab of the rqt gui window.
 
 **NOTE**: If you already know that you will only need a specific plugin, you can also directly run in from the terminal instead of selecting it from the gui.
+
+#### rqt node graph
+
+From the rqt gui window, select `Plugins/Introspection/Node Graph`.
+
+Alternatively run `rqt_graph`.
+
+This plugin allows you to introspect a running ROS2 system, visualizing all its nodes and how they are connected through topics.
+
+The simplest way to test it is to run a simple pub/sub system in a new terminal window
+
+    $ ros2 run examples_rclcpp_minimal_publisher publisher_lambda & ros2 run examples_rclcpp_minimal_subscriber subscriber_lambda
+
+You may need to update the `rqt_graph` window in order to see something. You can do that hitting the refresh button (the cycling blue arrows on the top-left).
+
+By default `rqt_graph` is set to show `Nodes only`. You can change this setting through the scroll-down menu.
+For example you may want to see also all the topics present in the system.
+
+Note that `rqt_graph` is not able to display services, as these are 1 to 1 calls.
+
+
 
 #### Topics publisher plugin
 
