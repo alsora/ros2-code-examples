@@ -10,7 +10,7 @@ You can find them [here](docker).
  - [ROS2 Crystal](https://index.ros.org/doc/ros2/Installation/)
 
 
-**Note**: you can still use `ROS2 Bouncy Bolson`, but you will not be able to compile the `simple_actions` package or to reproduce the examples of `simple_bag`, `simple_gazebo` and `simple_rqt`.
+**Note**: you can still use `ROS2 Bouncy Bolson`, but you will not be able to compile the `simple_actions` package or to reproduce the examples of `simple_navigation`, `simple_bag`, `simple_gazebo` and `simple_rqt`.
 
 
 ## Building the examples
@@ -110,19 +110,6 @@ One process sets its own parameters. The other reads them.
 
 Autonomously move a mobile robot in the environment, using a real system or a simulation.
 
-#### Backward compatibility
-
-[**README**](simple_backward_compatible)
-
-Allow nodes compiled against different versions of a message interface to communicate.
-
-
-#### Secure ROS2
-
-[**README**](simple_security)
-
-Enable security options for your ROS2 system: nodes authentication, messages encryption and access control.
-
 
 #### rosbag2
 
@@ -145,6 +132,20 @@ GUI for inspection and interaction of a ROS2 graph.
 ROS2 integration of the 3D simulation and visualization tool Gazebo.
 
 
+#### Backward compatibility
+
+[**README**](simple_backward_compatible)
+
+Allow nodes compiled against different versions of a message interface to communicate.
+
+
+#### Secure ROS2
+
+[**README**](simple_security)
+
+Enable security options for your ROS2 system: nodes authentication, messages encryption and access control.
+
+
 ## ROS2 CLI (command line interface)
 
 Note that these commands comes from a Python package. So if you have disabled Python support (i.e. when cross-compiling) they will not be available.
@@ -160,6 +161,10 @@ Note that these commands comes from a Python package. So if you have disabled Py
  - Run a ROS2 node
 
         $ ros2 run <package_name> <executable_name>
+     
+ - List running ROS2 nodes
+ 
+        $ ros2 node list
 
  - List visible topic names (a topic is visible if at least 1 node is publishing or subscribing to it)
 
@@ -176,4 +181,5 @@ Note that these commands comes from a Python package. So if you have disabled Py
  - Make a service request (request_content written as valid YAML)
 
         $ ros2 service call <service_name> <request_message_type> <request_content>
+        
 
