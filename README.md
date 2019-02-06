@@ -104,6 +104,12 @@ The other process create an approximate and an exact time subscribers.
 
 One process sets its own parameters. The other reads them.
 
+#### ROS2 Navigation stack
+
+[**README**](simple_navigation)
+
+Autonomously move a mobile robot in the environment, using a real system or a simulation.
+
 #### Backward compatibility
 
 [**README**](simple_backward_compatible)

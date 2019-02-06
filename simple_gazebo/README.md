@@ -53,7 +53,7 @@ Now everything should be ready.
 You can run a Gazebo world file, as the example provided in the gazebo plugins package
 
     $ gazebo --verbose /opt/ros/crystal/share/gazebo_plugins/worlds/gazebo_ros_diff_drive_demo.world
-    
+
 Now you should be able to see the ROS2 topics used by this example
 
     $ ros2 topic list
@@ -61,7 +61,23 @@ Now you should be able to see the ROS2 topics used by this example
 For example, to send a velocity command to the robot
 
     $ ros2 topic pub /demo/cmd_demo geometry_msgs/Twist '{linear: {x: 1.0}}' -1
-    
+
 If you want to change the settings for this simulation example, just edit its related world file
 
     $ gedit /opt/ros/crystal/share/gazebo_plugins/worlds/gazebo_ros_diff_drive_demo.world
+
+
+
+## Troubleshooting
+
+```
+[Err] [Master.cc:96] EXCEPTION: Unable to start server[bind: Address already in use]. There is probably another Gazebo process running.
+```
+
+Kill all the gazebo-related processes:
+
+```
+$ pkill -9 gazebo
+$ pkill -9 gzserver
+$ pkill -9 gzclient
+```
