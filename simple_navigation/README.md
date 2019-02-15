@@ -88,6 +88,7 @@ Nodes which require access to the robot pose, the odometry reading or have to pu
 In order to run all the aforementioned nodes:
 
     $ ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true
+    
 
 Then, through rviz2, first set a initial guess for the robot pose using the `2D Pose Estimate` button.
 Once the initial pose has been refined, you can start navigating sending a goal with the `2D Nav Goal` button.
