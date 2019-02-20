@@ -63,10 +63,7 @@ int main(int argc, char ** argv)
 
     int n_subscribers = 20;
 
-    std::cout<<argc <<std::endl;
-
     if (argc > 1){
-            std::cout<<argv[1] <<std::endl;
         if (argc > 2){
             assert(0 && "Too many arguments");
         }
