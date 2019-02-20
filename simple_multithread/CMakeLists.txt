@@ -28,7 +28,11 @@ ament_target_dependencies(zero_copy_main rclcpp simple_interfaces)
 add_executable(stress_test stress_test.cpp)
 ament_target_dependencies(stress_test rclcpp simple_interfaces)
 
-install(TARGETS multithread_main executor_main zero_copy_main stress_test
+add_executable(discovery_test discovery_test.cpp)
+ament_target_dependencies(discovery_test rclcpp simple_interfaces)
+
+
+install(TARGETS multithread_main executor_main zero_copy_main stress_test discovery_test
   DESTINATION lib/${PROJECT_NAME}
 )
 
