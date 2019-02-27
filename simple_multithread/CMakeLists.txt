@@ -15,6 +15,7 @@ find_package(rclcpp REQUIRED)
 find_package(simple_interfaces REQUIRED)
 find_package(simple_publisher REQUIRED)
 find_package(simple_subscriber REQUIRED)
+find_package(std_srvs REQUIRED)
 
 add_executable(multithread_main multithread_main.cpp)
 ament_target_dependencies(multithread_main rclcpp simple_publisher simple_subscriber)
@@ -31,8 +32,10 @@ ament_target_dependencies(stress_test rclcpp simple_interfaces)
 add_executable(discovery_test discovery_test.cpp)
 ament_target_dependencies(discovery_test rclcpp simple_interfaces)
 
+add_executable(client_service_lock client_service_lock.cpp)
+ament_target_dependencies(client_service_lock rclcpp std_srvs)
 
-install(TARGETS multithread_main executor_main zero_copy_main stress_test discovery_test
+install(TARGETS multithread_main executor_main zero_copy_main stress_test discovery_test client_service_lock
   DESTINATION lib/${PROJECT_NAME}
 )
 

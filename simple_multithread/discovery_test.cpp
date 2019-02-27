@@ -49,6 +49,7 @@ private:
 
     void simple_callback(const std_msgs::msg::Header::SharedPtr msg)
     {
+        (void)msg;
         msg_count ++;
     }
 
