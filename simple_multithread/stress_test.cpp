@@ -62,9 +62,19 @@ int main(int argc, char ** argv)
 {
     rclcpp::init(argc, argv);
 
-    int n_subscribers = 20;
-    int wait_time_before_start = 20;
-    int experiment_duration = 20;
+    int n_subscribers = 10;
+    int experiment_duration = 10;
+    int wait_time_before_start = 1;
+
+    if (argc > 1){
+        n_subscribers = std::strtol(argv[1], NULL, 0);
+        if (argc > 2){
+            experiment_duration = std::strtol(argv[2], NULL, 0);
+            if (argc > 3){
+                wait_time_before_start = std::strtol(argv[3], NULL, 0);
+            }
+        }
+    }
 
     rclcpp::executors::SingleThreadedExecutor::SharedPtr executor =
         std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
