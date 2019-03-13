@@ -27,6 +27,10 @@ You can try it by buildin the master branch of ROS2 or any distribution successi
 
 The interface for `Log` messages is defined [here](https://github.com/ros2/rcl_interfaces/blob/master/rcl_interfaces/msg/Log.msg).
 
+In order to see all the published log messages, you can open a new terminal and run
+
+    ros2 topic echo /rosout
+
 
 This feature is automatically enabled.
 You can disable it through a command line argument
