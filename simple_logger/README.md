@@ -38,7 +38,5 @@ You can disable it through a command line argument
 
 **NOTE:** This feature will only work for loggers associated with a node. According to the ROS documentation:
 
-```
-Because of the way ROS 2 associates DDS concepts with ROS Nodes, there didn’t seem to be a clean way to setup a general topic on a process that wasn’t associated with an existing Node.
-Since a process can also contain multiple ROS Nodes, we didn’t think it would be good design to just pick one to have everything published to.
-```
+>Because of the way ROS 2 associates DDS concepts with ROS Nodes, there didn’t seem to be a clean way to setup a general topic on a process that wasn’t associated with an existing Node.
+>Since a process can also contain multiple ROS Nodes, we didn’t think it would be good design to just pick one to have everything published to.
