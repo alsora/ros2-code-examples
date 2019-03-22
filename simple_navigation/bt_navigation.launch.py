@@ -51,11 +51,20 @@ def generate_launch_description():
             'use_sim_time',
             default_value='true',
             description='Use simulation (Gazebo) clock if true'),
+        
+        Node(
+            package='nav2_map_server',
+            node_executable='map_server',
+            node_name='map_server', 
+            output='screen',
+            parameters=[{ 'use_sim_time': use_sim_time}, { 'yaml_filename': map_dir}]),
 
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([nav2_launch_file_dir, '/nav2_bringup_1st_launch.py']),
-            launch_arguments={'map': map_dir, 'use_sim_time': use_sim_time}.items(),
-        ),
+        Node(
+            package='nav2_amcl',
+            node_executable='amcl',
+            node_name='amcl',
+            output='screen',
+            parameters=[{ 'use_sim_time': use_sim_time}]),
 
         Node(
             package='nav2_world_model',
