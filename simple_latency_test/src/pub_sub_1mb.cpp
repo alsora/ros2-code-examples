@@ -59,6 +59,8 @@ public:
         msg_count = 0;
     }
 
+    int mean;
+
 private:
 
     void simple_callback(const MsgType::SharedPtr msg)
@@ -71,6 +73,9 @@ private:
         int lat_us = lat.count() / 1000;
 
         RCLCPP_INFO(this->get_logger(), "Received msg %d with latency %d", msg_count, lat_us);
+
+        int delta = lat_us - mean;
+        mean += (delta/msg_count + 1);
 
         msg_count ++;
     }
@@ -100,6 +105,8 @@ int main(int argc, char ** argv)
     std::this_thread::sleep_for(std::chrono::seconds(5));
 
     rclcpp::shutdown();
+
+    std::cout<<"Mean latency: "<< sub_node->mean<<std::endl;
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
