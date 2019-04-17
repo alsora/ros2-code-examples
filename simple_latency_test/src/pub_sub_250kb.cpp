@@ -75,7 +75,7 @@ private:
         RCLCPP_INFO(this->get_logger(), "Received msg %d with latency %d", msg_count, lat_us);
 
         int delta = lat_us - mean;
-        mean += (delta/msg_count + 1);
+        mean += delta/(msg_count + 1);
 
         msg_count ++;
     }
