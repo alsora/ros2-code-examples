@@ -23,19 +23,7 @@ ament_target_dependencies(multithread_main rclcpp simple_publisher simple_subscr
 add_executable(executor_main executor_main.cpp)
 ament_target_dependencies(executor_main rclcpp simple_publisher simple_subscriber)
 
-add_executable(zero_copy_main zero_copy_main.cpp)
-ament_target_dependencies(zero_copy_main rclcpp simple_interfaces)
-
-add_executable(stress_test stress_test.cpp)
-ament_target_dependencies(stress_test rclcpp simple_interfaces)
-
-add_executable(discovery_test discovery_test.cpp)
-ament_target_dependencies(discovery_test rclcpp simple_interfaces)
-
-add_executable(client_service_lock client_service_lock.cpp)
-ament_target_dependencies(client_service_lock rclcpp std_srvs)
-
-install(TARGETS multithread_main executor_main zero_copy_main stress_test discovery_test client_service_lock
+install(TARGETS multithread_main executor_main
   DESTINATION lib/${PROJECT_NAME}
 )
 

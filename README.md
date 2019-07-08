@@ -1,13 +1,13 @@
 # ros2-code-examples
 
-The following tutorials and examples are updated for **ROS 2 Crystal Clemmys** (Released in December 2018).
+The following tutorials and examples are updated for **ROS 2 Dashing Diademata** (Released in May 2019).
 
 This repository also contains some `Dockerfile` for running different ROS2-based environments.
 You can find them [here](docker).
 
 ## Requirements
 
- - [ROS2 Crystal](https://index.ros.org/doc/ros2/Installation/)
+ - [ROS2 Dashing](https://index.ros.org/doc/ros2/Installation/)
 
 
 **Note**: you can still use `ROS2 Bouncy Bolson`, but you will not be able to compile the `simple_actions` package or to reproduce the examples of `simple_navigation`, `simple_bag`, `simple_gazebo` and `simple_rqt`.
@@ -84,6 +84,9 @@ Run multiple nodes in separate threads from the same process.
 
 
 #### Time Synchronization message filters
+
+**NOTE** This example requires
+
 ```
     $ ros2 run simple_time_sync publisher
 ```
@@ -161,9 +164,9 @@ Note that these commands comes from a Python package. So if you have disabled Py
  - Run a ROS2 node
 
         $ ros2 run <package_name> <executable_name>
-     
+
  - List running ROS2 nodes
- 
+
         $ ros2 node list
 
  - List visible topic names (a topic is visible if at least 1 node is publishing or subscribing to it)
@@ -181,5 +184,5 @@ Note that these commands comes from a Python package. So if you have disabled Py
  - Make a service request (request_content written as valid YAML)
 
         $ ros2 service call <service_name> <request_message_type> <request_content>
-        
+
 

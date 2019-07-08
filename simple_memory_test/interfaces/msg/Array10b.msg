@@ -1,1 +1,0 @@
-byte[10] data

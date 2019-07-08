@@ -1,112 +1,143 @@
+// Copyright 2019 Open Source Robotics Foundation, Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 #include <inttypes.h>
 #include <memory>
+#include <string>
+#include <iostream>
 #include "simple_interfaces/action/fibonacci.hpp"
 #include "rclcpp/rclcpp.hpp"
 // TODO(jacobperron): Remove this once it is included as part of 'rclcpp.hpp'
 #include "rclcpp_action/rclcpp_action.hpp"
 
-using Fibonacci = simple_interfaces::action::Fibonacci;
-
-rclcpp::Node::SharedPtr g_node = nullptr;
-
-void feedback_callback(
-  rclcpp_action::ClientGoalHandle<Fibonacci>::SharedPtr,
-  const std::shared_ptr<const Fibonacci::Feedback> feedback)
+class MinimalActionClient : public rclcpp::Node
 {
-  RCLCPP_INFO(
-    g_node->get_logger(),
-    "Next number in sequence received: %" PRId64,
-    feedback->sequence.back());
-}
+public:
+  using Fibonacci = simple_interfaces::action::Fibonacci;
+  using GoalHandleFibonacci = rclcpp_action::ClientGoalHandle<Fibonacci>;
+
+  explicit MinimalActionClient(const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions())
+  : Node("minimal_action_client", node_options), goal_done_(false)
+  {
+    this->client_ptr_ = rclcpp_action::create_client<Fibonacci>(
+      this->get_node_base_interface(),
+      this->get_node_graph_interface(),
+      this->get_node_logging_interface(),
+      this->get_node_waitables_interface(),
+      "fibonacci");
+
+    this->timer_ = this->create_wall_timer(
+      std::chrono::milliseconds(500),
+      std::bind(&MinimalActionClient::send_goal, this));
+  }
+
+  bool is_goal_done() const
+  {
+    return this->goal_done_;
+  }
+
+  void send_goal()
+  {
+    using namespace std::placeholders;
+
+    this->timer_->cancel();
+
+    this->goal_done_ = false;
+
+    if (!this->client_ptr_) {
+      RCLCPP_ERROR(this->get_logger(), "Action client not initialized");
+    }
+
+    if (!this->client_ptr_->wait_for_action_server(std::chrono::seconds(10))) {
+      RCLCPP_ERROR(this->get_logger(), "Action server not available after waiting");
+      this->goal_done_ = true;
+      return;
+    }
+
+    auto goal_msg = Fibonacci::Goal();
+    goal_msg.order = 10;
+
+    RCLCPP_INFO(this->get_logger(), "Sending goal");
+
+    auto send_goal_options = rclcpp_action::Client<Fibonacci>::SendGoalOptions();
+    send_goal_options.goal_response_callback =
+      std::bind(&MinimalActionClient::goal_response_callback, this, _1);
+    send_goal_options.feedback_callback =
+      std::bind(&MinimalActionClient::feedback_callback, this, _1, _2);
+    send_goal_options.result_callback =
+      std::bind(&MinimalActionClient::result_callback, this, _1);
+    auto goal_handle_future = this->client_ptr_->async_send_goal(goal_msg, send_goal_options);
+  }
+
+private:
+  rclcpp_action::Client<Fibonacci>::SharedPtr client_ptr_;
+  rclcpp::TimerBase::SharedPtr timer_;
+  bool goal_done_;
+
+  void goal_response_callback(std::shared_future<GoalHandleFibonacci::SharedPtr> future)
+  {
+    auto goal_handle = future.get();
+    if (!goal_handle) {
+      RCLCPP_ERROR(this->get_logger(), "Goal was rejected by server");
+    } else {
+      RCLCPP_INFO(this->get_logger(), "Goal accepted by server, waiting for result");
+    }
+  }
+
+  void feedback_callback(
+    GoalHandleFibonacci::SharedPtr,
+    const std::shared_ptr<const Fibonacci::Feedback> feedback)
+  {
+    RCLCPP_INFO(
+      this->get_logger(),
+      "Next number in sequence received: %" PRId64,
+      feedback->sequence.back());
+  }
+
+  void result_callback(const GoalHandleFibonacci::WrappedResult & result)
+  {
+    this->goal_done_ = true;
+    switch (result.code) {
+      case rclcpp_action::ResultCode::SUCCEEDED:
+        break;
+      case rclcpp_action::ResultCode::ABORTED:
+        RCLCPP_ERROR(this->get_logger(), "Goal was aborted");
+        return;
+      case rclcpp_action::ResultCode::CANCELED:
+        RCLCPP_ERROR(this->get_logger(), "Goal was canceled");
+        return;
+      default:
+        RCLCPP_ERROR(this->get_logger(), "Unknown result code");
+        return;
+    }
+
+    RCLCPP_INFO(this->get_logger(), "Result received");
+    for (auto number : result.result->sequence) {
+      RCLCPP_INFO(this->get_logger(), "%" PRId64, number);
+    }
+  }
+};  // class MinimalActionClient
 
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
-  g_node = rclcpp::Node::make_shared("simple_action_client");
-  auto action_client = rclcpp_action::create_client<Fibonacci>(g_node, "fibonacci");
+  auto action_client = std::make_shared<MinimalActionClient>();
 
-  if (!action_client->wait_for_action_server(std::chrono::seconds(20))) {
-    RCLCPP_ERROR(g_node->get_logger(), "Action server not available after waiting");
-    assert(0);
+  while (!action_client->is_goal_done()) {
+    rclcpp::spin_some(action_client);
   }
 
-  RCLCPP_INFO(g_node->get_logger(), "Client created!");
-
-  // Populate a goal
-  auto goal_msg = Fibonacci::Goal();
-  goal_msg.order = 3;
-
-  RCLCPP_INFO(g_node->get_logger(), "Sending goal");
-  // Ask server to achieve some goal and wait until it's accepted
-  auto goal_handle_future = action_client->async_send_goal(goal_msg, feedback_callback);
-
-  if (rclcpp::spin_until_future_complete(g_node, goal_handle_future) !=
-    rclcpp::executor::FutureReturnCode::SUCCESS)
-  {
-    RCLCPP_ERROR(g_node->get_logger(), "Send goal call failed :(");
-    assert(0);
-  }
-
-  rclcpp_action::ClientGoalHandle<Fibonacci>::SharedPtr goal_handle = goal_handle_future.get();
-  if (!goal_handle) {
-    RCLCPP_ERROR(g_node->get_logger(), "Goal was rejected by server");
-    assert(0);
-  }
-
-  // Wait for the server to be done with the goal
-  auto result_future = goal_handle->async_result();
-
-  std::chrono::seconds request_timeout(5);
-
-  RCLCPP_INFO(g_node->get_logger(), "Waiting for result");
-  auto wait_result = rclcpp::spin_until_future_complete(
-    g_node,
-    result_future,
-    request_timeout);
-
-  if (wait_result == rclcpp::executor::FutureReturnCode::TIMEOUT){
-    RCLCPP_INFO(g_node->get_logger(), "canceling goal");
-    // Cancel the goal since it is taking too long
-    auto cancel_result_future = action_client->async_cancel_goal(goal_handle);
-    if (rclcpp::spin_until_future_complete(g_node, cancel_result_future) !=
-      rclcpp::executor::FutureReturnCode::SUCCESS)
-    {
-      RCLCPP_ERROR(g_node->get_logger(), "failed to cancel goal");
-      rclcpp::shutdown();
-      assert(0);
-    }
-    RCLCPP_INFO(g_node->get_logger(), "goal is being canceled");
-  }
-  else if (wait_result == rclcpp::executor::FutureReturnCode::SUCCESS){
-
-    rclcpp_action::ClientGoalHandle<Fibonacci>::Result result = result_future.get();
-    switch(result.code) {
-      case rclcpp_action::ResultCode::SUCCEEDED:
-        RCLCPP_INFO(g_node->get_logger(), "result received");
-        for (auto number : result.response->sequence){
-          RCLCPP_INFO(g_node->get_logger(), "%" PRId64, number);
-        }
-        break;
-      case rclcpp_action::ResultCode::ABORTED:
-        RCLCPP_ERROR(g_node->get_logger(), "Goal was aborted");
-        break;
-      case rclcpp_action::ResultCode::CANCELED:
-        RCLCPP_ERROR(g_node->get_logger(), "Goal was canceled");
-        break;
-      default:
-        RCLCPP_ERROR(g_node->get_logger(), "Unknown result code");
-        rclcpp::shutdown();
-        assert(0);
-    }
-  }
-  else {
-    RCLCPP_ERROR(g_node->get_logger(), "failed to get result");
-    rclcpp::shutdown();
-    assert(0);
-  }
-
-  action_client.reset();
-  g_node.reset();
   rclcpp::shutdown();
   return 0;
 }
