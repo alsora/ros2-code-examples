@@ -15,7 +15,7 @@ int main(int argc, char ** argv)
   std::this_thread::sleep_for(std::chrono::seconds(1));
   node->set_correct_parameters();
 
-  std::this_thread::sleep_for(std::chrono::seconds(3));
+  rclcpp::spin(node);
 
   rclcpp::shutdown();
   return 0;
