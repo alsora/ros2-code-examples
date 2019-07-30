@@ -35,8 +35,14 @@ SimpleParameterServerNode::SimpleParameterServerNode() : Node("simple_parameters
             // Here I handle special parameters with special conditions
             if (parameter.get_name().compare("wheels.magic") == 0) {
               if (parameter.as_int() != 2 && parameter.as_int() % 42 !=0) {
+                RCLCPP_WARN(this->get_logger(),
+                  "Trying to set parameter '%s' to a not allowed value",
+                  parameter.get_name().c_str()
+                );
                 result.successful = false;
                 result.reason = "parameter \'"+parameter.get_name()+"\' accepts only 2 or multiple of 42 values";
+              } else {
+                result.successful &= true;
               }
             }
           }

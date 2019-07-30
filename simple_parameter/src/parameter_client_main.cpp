@@ -10,10 +10,12 @@ int main(int argc, char ** argv)
   std::shared_ptr<SimpleParameterClientNode> node = std::make_shared<SimpleParameterClientNode>();
 
   node->get_parameters();
+  std::this_thread::sleep_for(std::chrono::seconds(1));
   node->set_wrong_parameters();
+  std::this_thread::sleep_for(std::chrono::seconds(1));
   node->set_correct_parameters();
 
-  std::this_thread::sleep_for(std::chrono::seconds(1));
+  std::this_thread::sleep_for(std::chrono::seconds(3));
 
   rclcpp::shutdown();
   return 0;

@@ -74,7 +74,7 @@ void SimpleParameterClientNode::set_correct_parameters()
   std::shared_future<std::vector<rcl_interfaces::msg::SetParametersResult>> set_parameters_result = _param_client->set_parameters({
     rclcpp::Parameter("speed", 8),
     rclcpp::Parameter("wheels.radius", 1.6),
-    rclcpp::Parameter("wheels.magic", 42)
+    rclcpp::Parameter("wheels.magic", 84)
   });
 
   if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), set_parameters_result) != rclcpp::executor::FutureReturnCode::SUCCESS){
@@ -93,24 +93,29 @@ void SimpleParameterClientNode::set_correct_parameters()
 
 void SimpleParameterClientNode::parameter_events_callback(const rcl_interfaces::msg::ParameterEvent::SharedPtr event)
 {
-  RCLCPP_INFO(this->get_logger(), "parameter_events_callback");
-
   std::stringstream ss;
-  ss << "\nParameter event:\n new parameters:";
+  ss << "\nParameter event callback:";
+  if (event->new_parameters.size() > 0) {
+    ss << "\n new parameters:";
+  }
   for (rcl_interfaces::msg::Parameter & new_parameter : event->new_parameters) {
-    ss << "\n  " << new_parameter.name << ": "<< new_parameter.value.double_value;
+    ss << "\n  " << new_parameter.name;
     if (new_parameter.name == "wheels.radius"){
       _wheel_radius = new_parameter.value.double_value;
     }
   }
-  ss << "\n changed parameters:";
+  if (event->changed_parameters.size() > 0) {
+    ss << "\n changed parameters:";
+  }
   for (rcl_interfaces::msg::Parameter & changed_parameter : event->changed_parameters) {
-    ss << "\n  " << changed_parameter.name << ": "<< changed_parameter.value.double_value;
+    ss << "\n  " << changed_parameter.name;
     if (changed_parameter.name == "wheels.radius"){
       _wheel_radius = changed_parameter.value.double_value;
     }
   }
-  ss << "\n deleted parameters:";
+  if (event->deleted_parameters.size() > 0) {
+    ss << "\n deleted parameters:";
+  }
   for (rcl_interfaces::msg::Parameter & deleted_parameter : event->deleted_parameters) {
     ss << "\n  " << deleted_parameter.name;
     if (deleted_parameter.name == "wheels.radius"){
