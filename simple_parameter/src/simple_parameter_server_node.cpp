@@ -7,24 +7,91 @@ SimpleParameterServerNode::SimpleParameterServerNode() : Node("simple_parameters
     RCLCPP_INFO(this->get_logger(), "Parameters Server created!!");
 
     this->parameters_init();
+
+    auto existing_callback = this->set_on_parameters_set_callback(nullptr);
+    auto param_change_callback =
+      [this, existing_callback](std::vector<rclcpp::Parameter> parameters)
+      {
+        auto result = rcl_interfaces::msg::SetParametersResult();
+        // first call the existing callback, if there was one
+        if (nullptr != existing_callback) {
+          result = existing_callback(parameters);
+          // if the existing callback failed, go ahead and return the result
+          if (!result.successful) {
+            return result;
+          }
+        }
+        result.successful = true;
+        for (auto parameter : parameters) {
+          rclcpp::ParameterType parameter_type = parameter.get_type();
+          if (rclcpp::ParameterType::PARAMETER_NOT_SET == parameter_type) {
+            RCLCPP_WARN(this->get_logger(),
+              "Trying to delete parameter '%s'. Deleting parameters is not allowed",
+              parameter.get_name().c_str()
+            );
+            result.successful = false;
+            result.reason = "parameter \'"+parameter.get_name()+"\' cannot be deleted";
+          } else {
+            // Here I handle special parameters with special conditions
+            if (parameter.get_name().compare("wheels.magic") == 0) {
+              if (parameter.as_int() != 2 && parameter.as_int() % 42 !=0) {
+                result.successful = false;
+                result.reason = "parameter \'"+parameter.get_name()+"\' accepts only 2 or multiple of 42 values";
+              }
+            }
+          }
+        }
+        return result;
+      };
+    this->set_on_parameters_set_callback(param_change_callback);
 }
 
 
 void SimpleParameterServerNode::parameters_init()
 {
+    // Declare an integer parameter that can only range from 1 to 10
+    std::string speed_param_name = "speed";
+    rcl_interfaces::msg::ParameterDescriptor speed_param_descriptor;
+    speed_param_descriptor.name = speed_param_name;
+    speed_param_descriptor.type = rcl_interfaces::msg::ParameterType::PARAMETER_INTEGER;
+    speed_param_descriptor.description = "The speed coefficient: ranges from 0 to 10";
+    rcl_interfaces::msg::IntegerRange speed_param_range;
+    speed_param_range.from_value = 0;
+    speed_param_range.to_value = 10;
+    speed_param_range.step = 1;
+    speed_param_descriptor.integer_range.push_back(speed_param_range);
+    int speed_default = 5;
+    this->declare_parameter(speed_param_name, speed_default, speed_param_descriptor);
 
-    std::vector< rcl_interfaces::msg::SetParametersResult> set_parameters_results = this->set_parameters({
-        rclcpp::Parameter("wheels.radius", 1.1),
-        rclcpp::Parameter("wheels.radius.dummy", 2.77),
-        rclcpp::Parameter("wheels.weight", 0.5)
-    });
+    // Declare a double parameter
+    std::string wheels_radius_param_name = "wheels.radius";
+    rcl_interfaces::msg::ParameterDescriptor wheels_radius_param_descriptor;
+    wheels_radius_param_descriptor.name = wheels_radius_param_name;
+    wheels_radius_param_descriptor.type = rcl_interfaces::msg::ParameterType::PARAMETER_DOUBLE;
+    wheels_radius_param_descriptor.description = "The radius of the wheels";
+    double wheels_radius_default = 1.1;
+    this->declare_parameter(wheels_radius_param_name, wheels_radius_default, wheels_radius_param_descriptor);
 
-    for (const rcl_interfaces::msg::SetParametersResult& result : set_parameters_results) {
-        if (!result.successful) {
-            RCLCPP_ERROR(this->get_logger(), "Failed to set parameter: %s", result.reason.c_str());
-            assert(0);
-        }
-    }
+    // Declare a string parameter that is read only
+    std::string wheels_radius_dummy_param_name = "wheels.radius.dummy";
+    rcl_interfaces::msg::ParameterDescriptor wheels_radius_dummy_param_descriptor;
+    wheels_radius_dummy_param_descriptor.name = wheels_radius_dummy_param_name;
+    wheels_radius_dummy_param_descriptor.type = rcl_interfaces::msg::ParameterType::PARAMETER_STRING;
+    wheels_radius_dummy_param_descriptor.description = "This is a dummy read-only parameter";
+    wheels_radius_dummy_param_descriptor.read_only = true;
+    std::string wheels_radius_dummy_default = "Hello world";
+    this->declare_parameter(wheels_radius_dummy_param_name, wheels_radius_dummy_default, wheels_radius_dummy_param_descriptor);
+
+    // Declare an integer parameter with a complex constraint (this has to be manually handled in the callback)
+    std::string wheels_magic_param_name = "wheels.magic";
+    rcl_interfaces::msg::ParameterDescriptor wheels_magic_param_descriptor;
+    wheels_magic_param_descriptor.name = wheels_magic_param_name;
+    wheels_magic_param_descriptor.type = rcl_interfaces::msg::ParameterType::PARAMETER_INTEGER;
+    wheels_magic_param_descriptor.description = "This is the wheel magic number";
+    wheels_magic_param_descriptor.additional_constraints =
+      "This parameter has complex constraints that must be explained in English. It must be 2 or a multiple of 42";
+    int wheels_magic_default = 2;
+    this->declare_parameter(wheels_magic_param_name, wheels_magic_default, wheels_magic_param_descriptor);
 
     RCLCPP_INFO(this->get_logger(), "Parameters correctly set on the server");
 }
