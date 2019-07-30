@@ -34,13 +34,45 @@ SimpleParameterServerNode::SimpleParameterServerNode() : Node("simple_parameters
           } else {
             // Here I handle special parameters with special conditions
             if (parameter.get_name().compare("wheels.magic") == 0) {
-              if (parameter.as_int() != 2 && parameter.as_int() % 42 !=0) {
+              if (rclcpp::ParameterType::PARAMETER_INTEGER != parameter_type) {
+                RCLCPP_WARN(this->get_logger(),
+                  "Trying to set parameter '%s' with wrong type",
+                  parameter.get_name().c_str()
+                );
+                result.successful = false;
+                result.reason = "parameter \'"+parameter.get_name()+"\' must be an integer";
+              } else if (parameter.as_int() != 2 && parameter.as_int() % 42 !=0) {
                 RCLCPP_WARN(this->get_logger(),
                   "Trying to set parameter '%s' to a not allowed value",
                   parameter.get_name().c_str()
                 );
                 result.successful = false;
                 result.reason = "parameter \'"+parameter.get_name()+"\' accepts only 2 or multiple of 42 values";
+              } else {
+                result.successful &= true;
+              }
+            } else if (parameter.get_name().compare("two_integers") == 0) {
+              if (rclcpp::ParameterType::PARAMETER_INTEGER_ARRAY != parameter_type) {
+                RCLCPP_WARN(this->get_logger(),
+                  "Trying to set parameter '%s' with wrong type",
+                  parameter.get_name().c_str()
+                );
+                result.successful = false;
+                result.reason = "parameter \'"+parameter.get_name()+"\' must be an integer array";
+              } else if (parameter.as_integer_array().size() != 2) {
+                RCLCPP_WARN(this->get_logger(),
+                  "Trying to set parameter '%s' not with 2 values",
+                  parameter.get_name().c_str()
+                );
+                result.successful = false;
+                result.reason = "parameter \'"+parameter.get_name()+"\' requires 2 integer values to be specified";
+              } else if (parameter.as_integer_array()[0] != 42 && parameter.as_integer_array()[1] != 42) {
+                RCLCPP_WARN(this->get_logger(),
+                  "Trying to set parameter '%s' with none of the values being 42",
+                  parameter.get_name().c_str()
+                );
+                result.successful = false;
+                result.reason = "parameter \'"+parameter.get_name()+"\' one of the two values must be 42";
               } else {
                 result.successful &= true;
               }
@@ -98,6 +130,16 @@ void SimpleParameterServerNode::parameters_init()
       "This parameter has complex constraints that must be explained in English. It must be 2 or a multiple of 42";
     int wheels_magic_default = 2;
     this->declare_parameter(wheels_magic_param_name, wheels_magic_default, wheels_magic_param_descriptor);
+
+    // Declare an integer array parameter (it's actually implemented through a vector)
+    std::string two_integers_param_name = "two_integers";
+    rcl_interfaces::msg::ParameterDescriptor two_integers_param_descriptor;
+    two_integers_param_descriptor.name = two_integers_param_name;
+    two_integers_param_descriptor.type = rcl_interfaces::msg::ParameterType::PARAMETER_INTEGER_ARRAY;
+    two_integers_param_descriptor.description = "This is a parameter made of two values";
+    two_integers_param_descriptor.additional_constraints = "Both two values must be specified. One of the two must be 42";
+    std::vector<int64_t> two_integers_value = {24, 42};
+    this->declare_parameter(two_integers_param_name, two_integers_value, two_integers_param_descriptor);
 
     RCLCPP_INFO(this->get_logger(), "Parameters correctly set on the server");
 }

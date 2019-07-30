@@ -52,7 +52,7 @@ void SimpleParameterClientNode::set_wrong_parameters()
     rclcpp::Parameter("not_declared_param", 42),
     rclcpp::Parameter("speed", 42),
     rclcpp::Parameter("wheels.radius.dummy", "Hello new World"),
-    rclcpp::Parameter("wheels.magic", 18)
+    rclcpp::Parameter("wheels.magic", 18.2)
   });
 
   if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), set_parameters_result) != rclcpp::executor::FutureReturnCode::SUCCESS){
@@ -71,10 +71,13 @@ void SimpleParameterClientNode::set_wrong_parameters()
 
 void SimpleParameterClientNode::set_correct_parameters()
 {
+  std::vector<int64_t> two_integers = {42, 42};
+
   std::shared_future<std::vector<rcl_interfaces::msg::SetParametersResult>> set_parameters_result = _param_client->set_parameters({
     rclcpp::Parameter("speed", 8),
     rclcpp::Parameter("wheels.radius", 1.6),
-    rclcpp::Parameter("wheels.magic", 84)
+    rclcpp::Parameter("wheels.magic", 84),
+    rclcpp::Parameter("two_integers", two_integers),
   });
 
   if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), set_parameters_result) != rclcpp::executor::FutureReturnCode::SUCCESS){
