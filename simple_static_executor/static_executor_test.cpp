@@ -53,6 +53,8 @@ void default_usage_test()
     assert(count > 0 && "No messages received!!");
 
     std::cout<<"DEFAULT USAGE TEST: success!"<<std::endl;
+    
+    std::this_thread::sleep_for(250ms);
 }
 
 void node_added_test()
@@ -102,6 +104,8 @@ void node_added_test()
     assert(count > 0 && "No messages received!!");
 
     std::cout<<"NODE ADDED TEST: success!"<<std::endl;
+    
+    std::this_thread::sleep_for(250ms);
 }
 
 void sub_added_test()
@@ -150,6 +154,8 @@ void sub_added_test()
     assert(count > 0 && "No messages received!!");
 
     std::cout<<"SUBSCRIPTION ADDED TEST: success!"<<std::endl;
+    
+    std::this_thread::sleep_for(250ms);
 }
 
 void node_removed_test()
@@ -202,6 +208,8 @@ void node_removed_test()
     assert(count == 0 && "Messages received even if node was removed");
 
     std::cout<<"NODE REMOVED TEST: success!"<<std::endl;
+    
+    std::this_thread::sleep_for(250ms);
 }
 
 int main(int argc, char ** argv)
@@ -235,6 +243,8 @@ int main(int argc, char ** argv)
     }
 
     rclcpp::shutdown();
+    
+    std::this_thread::sleep_for(250ms);
 
     return 0;
 }
