@@ -188,14 +188,18 @@ void node_removed_test()
     executor_thread.detach();
 
     std::this_thread::sleep_for(2s);
-
+    assert(count > 0 && "No messages received!!");
     executor->remove_node(sub_node);
+    
+    // Wait a little bit to make sure everything that was pending is processed
+    std::this_thread::sleep_for(100ms);
+    count = 0;
 
     std::this_thread::sleep_for(2s);
 
     executor->remove_node(pub_node);
 
-    assert(count > 0 && "No messages received!!");
+    assert(count == 0 && "Messages received even if node was removed");
 
     std::cout<<"NODE REMOVED TEST: success!"<<std::endl;
 }
