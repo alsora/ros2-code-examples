@@ -1,6 +1,5 @@
 #include "simple_subscriber/simple_subscriber_node.hpp"
 
-
 using namespace std::chrono_literals;
 
 SimpleSubscriberNode::SimpleSubscriberNode(std::string name) : Node(name)
@@ -20,10 +19,7 @@ SimpleSubscriberNode::SimpleSubscriberNode(std::string name) : Node(name)
     RCLCPP_INFO(this->get_logger(), "Subscriber created!!");
 }
 
-
 void SimpleSubscriberNode::simple_callback(const std_msgs::msg::String::SharedPtr msg)
 {
-
     RCLCPP_INFO(this->get_logger(), "Received msg: '%s'", msg->data.c_str());
-
 }

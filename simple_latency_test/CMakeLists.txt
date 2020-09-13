@@ -28,6 +28,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   DEPENDENCIES std_msgs
 )
 
+include_directories(include)
+
 add_executable(pub_sub_dynamic src/pub_sub_dynamic.cpp)
 ament_target_dependencies(pub_sub_dynamic ${dependencies})
 rosidl_target_interfaces(pub_sub_dynamic ${PROJECT_NAME} "rosidl_typesupport_cpp")

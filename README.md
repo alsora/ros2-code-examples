@@ -7,7 +7,7 @@ You can find them [here](docker).
 
 ## Requirements
 
- - [ROS2 Dashing](https://index.ros.org/doc/ros2/Installation/)
+ - [ROS2 Foxy](https://index.ros.org/doc/ros2/Installation/)
 
 
 **Note**: you can still use `ROS2 Bouncy Bolson`, but you will not be able to compile the `simple_actions` package or to reproduce the examples of `simple_navigation`, `simple_bag`, `simple_gazebo` and `simple_rqt`.

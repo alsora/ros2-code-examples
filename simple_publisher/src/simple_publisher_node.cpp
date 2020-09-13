@@ -24,7 +24,6 @@ SimplePublisherNode::SimplePublisherNode(std::string name) : Node(name)
     RCLCPP_INFO(this->get_logger(), "Publisher created!!");
 }
 
-
 void SimplePublisherNode::publish()
 {
     _count++;

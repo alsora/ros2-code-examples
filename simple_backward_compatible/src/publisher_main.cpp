@@ -9,13 +9,13 @@
 using namespace std::chrono_literals;
 using OptionalFieldsMsg = simple_backward_compatible::msg::OptionalFields;
 
-class SimplePublisherNode : public rclcpp::Node {
+class SimplePublisherNode : public rclcpp::Node
+{
 
 public:
-
     SimplePublisherNode() : Node("publisher_node")
     {
-        _publisher = this->create_publisher<OptionalFieldsMsg>("my_topic");
+        _publisher = this->create_publisher<OptionalFieldsMsg>("my_topic", 10);
 
         auto period = 500ms;
         _timer = this->create_wall_timer(period, std::bind(&SimplePublisherNode::publish, this));
@@ -24,7 +24,7 @@ public:
 
     void publish()
     {
-        OptionalFieldsMsg::SharedPtr message(new OptionalFieldsMsg());
+        auto message = std::make_unique<OptionalFieldsMsg>();
 
         _count ++;
         message->data = "Hello, world! " + std::to_string(_count);
@@ -33,7 +33,7 @@ public:
             message->optional_vector = { 10, 20, 30 };
         #endif
 
-        _publisher->publish(message);
+        _publisher->publish(std::move(message));
 
         #ifdef BUILD_V2
             RCLCPP_INFO(this->get_logger(), "Publishing VERSION2: '%s'", message->data.c_str());
